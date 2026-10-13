@@ -1,0 +1,63 @@
+TEMPLO ITAROBÁ — APP DE PALESTRAS E PONTOS CANTADOS
+====================================================
+
+Esta pasta é o app inteiro. Guarde uma cópia dela num lugar seguro
+(Google Drive, pen drive, computador). Com ela dá pra colocar o app
+no ar de novo a qualquer momento, mesmo sem a conversa com o Claude.
+
+
+O QUE TEM EM CADA PASTA
+-----------------------
+index.html ............ a página do app
+config.js ............. nome da casa e frase do topo (pode editar)
+assets/ ............... visual (styles.css), funcionamento (app.js e pontos.js) e ícones
+data/palestras.json ... lista das palestras, com resumos e pontos principais
+data/textos.json ...... texto completo de cada palestra
+data/pontos.json ...... lista dos pontos cantados
+pdfs/ ................. os PDFs originais das palestras, separados por ano
+audio/ ................ os áudios dos pontos, uma pasta por linha (ogum, oxum, xango…)
+sw.js ................. faz o app abrir sem internet depois da primeira visita
+manifest.webmanifest .. permite instalar o app na tela do celular
+robots.txt ............ pede pro Google não mostrar o site nas buscas
+
+
+COMO ADICIONAR UM PONTO NOVO
+----------------------------
+1. Coloque o áudio (.mp3) na pasta da linha. Exemplo: audio/ogum/meu-ponto.mp3
+   Use nome sem acento e sem espaço (troque espaço por hífen).
+
+2. Abra data/pontos.json num editor de texto e copie uma linha de ponto
+   que já existe. Exemplo:
+
+   { "id": "ogum-espada", "linha": "ogum", "titulo": "A sua espada brilha no raiar do dia", "audio": "audio/ogum/a-sua-espada-brilha.mp3", "duracao": 38, "letra": "" },
+
+3. Troque:
+   - id ........ um apelido único, sem acento e sem espaço (ex.: ogum-meu-ponto)
+   - linha ..... o id da linha (ogum, oxum, xango…)
+   - titulo .... o nome do ponto, do jeito que quer ver no app
+   - audio ..... o caminho do arquivo que você colocou no passo 1
+   - duracao ... a duração em segundos (aproximada já serve)
+   - letra ..... a letra do ponto. Para pular linha, escreva \n
+
+4. Atenção às vírgulas: todo ponto termina com vírgula, menos o último da lista.
+
+5. Para uma linha nova (ex.: Iemanjá), acrescente em "linhas":
+   { "id": "iemanja", "nome": "Iemanjá", "saudacao": "Odoyá" }
+   A cor da linha se define no fim de assets/styles.css.
+   (Se preferir, mande os áudios pro Claude que ele faz tudo isso.)
+
+6. Sempre que mudar algo, abra sw.js e aumente o número da VERSAO
+   (ex.: "acervo-v20" vira "acervo-v21"). Assim o celular baixa a versão nova.
+
+
+COMO COLOCAR NO AR DE NOVO
+--------------------------
+Siga o passo a passo do GitHub. Os arquivos a enviar são exatamente
+os desta pasta.
+
+
+IMPORTANTE
+----------
+Não abra o index.html clicando duas vezes no computador: o navegador
+bloqueia a leitura dos dados quando o arquivo é aberto direto do disco.
+O app só funciona publicado (GitHub Pages) ou num servidor local.

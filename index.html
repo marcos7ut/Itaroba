@@ -1,0 +1,281 @@
+  <title>Acervo de Palestras</title>
+  <meta name="description" content="Acervo de palestras do Templo Itarobá, com resumos, pontos principais e texto completo.">
+  <meta name="theme-color" content="#EAE7DD">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icone.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icone-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <a class="pular" href="#conteudo">Ir para o conteúdo</a>
+
+  <!-- Navegação flutuante (cápsula de vidro) -->
+  <header class="nav" id="nav">
+    <div class="nav__capsula">
+      <a class="marca" href="#/" aria-label="Início">
+        <span class="marca__pontos" aria-hidden="true"><i></i><i></i></span>
+        <span class="marca__nome" data-config="nomeCasa"></span>
+      </a>
+      <nav class="nav__links" aria-label="Seções">
+        <a href="#/" class="nav__link" data-nav="inicio">Acervo</a>
+        <a href="#/pontos" class="nav__link" data-nav="pontos">Pontos</a>
+        <a href="#/favoritas" class="nav__link" data-nav="favoritas">Salvas</a>
+      </nav>
+      <a class="botao botao--pinho botao--compacto" id="nav-recente" href="#/">
+        <span>Mais recente</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <div class="casca">
+  <main id="conteudo" tabindex="-1">
+
+    <!-- ====================== LISTA ====================== -->
+    <section id="vista-lista" class="vista">
+
+      <div class="heroi">
+        <div class="heroi__fundo" aria-hidden="true">
+          <div class="heroi__nevoa"></div>
+          <div class="heroi__brilho" id="brilho"></div>
+          <div class="heroi__chao"></div>
+          <canvas class="heroi__chuva" id="chuva"></canvas>
+        </div>
+
+        <!-- Ladrilhos flutuantes (só em telas largas) -->
+        <a class="ladrilho ladrilho--menta l1" href="#acervo">
+          <span class="ladrilho__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h10a4 4 0 0 1 4 4v12H9a4 4 0 0 1-4-4z"/><path d="M9 8h6M9 12h6"/></svg></span>
+          <span><b id="t-palestras">—</b><small>palestras no acervo</small></span>
+        </a>
+        <a class="ladrilho ladrilho--azul l2" href="#temas-titulo">
+          <span class="ladrilho__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg></span>
+          <span><b id="t-temas">—</b><small>temas de estudo</small></span>
+        </a>
+        <span class="ladrilho l3">
+          <span class="ladrilho__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span>
+          <span><b id="t-anos">—</b><small>anos de palestras</small></span>
+        </span>
+        <a class="ladrilho ladrilho--recente l4" id="t-recente" href="#/">
+          <span class="ladrilho__vela" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c2 2.8 2.9 4.8 2.9 6.3a2.9 2.9 0 0 1-5.8 0C9.1 7.8 10 5.8 12 3Z"/><rect x="10" y="13" width="4" height="8" rx="1"/></svg></span>
+          <span><b>Mais recente</b><small id="t-recente-titulo">—</small></span>
+        </a>
+
+        <div class="heroi__conteudo">
+          <p class="selo sobe" style="--i:0">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2 2.8 2.9 4.8 2.9 6.3a2.9 2.9 0 0 1-5.8 0C9.1 7.8 10 5.8 12 3Z"/><rect x="10" y="13" width="4" height="8" rx="1"/></svg>
+            <span data-config="nomeCasa"></span>
+          </p>
+          <h1 class="heroi__titulo sobe" style="--i:1">Acervo de<br>Palestras.</h1>
+          <p class="heroi__texto sobe" style="--i:2" data-config="descricao"></p>
+
+          <form class="busca sobe" style="--i:3" role="search" id="form-busca">
+            <div class="busca__campo">
+              <label for="campo-busca" class="sr">Buscar palestras</label>
+              <svg class="busca__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <input id="campo-busca" type="search" autocomplete="off" placeholder="Busque por tema, palavra ou nº">
+              <button type="button" class="busca__limpar" id="limpar-busca" aria-label="Limpar busca" hidden>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+              </button>
+            </div>
+            <button type="submit" class="botao botao--pinho">
+              <span>Buscar</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 9v8H9"/></svg>
+            </button>
+          </form>
+
+          <label class="alternar sobe" style="--i:4" for="busca-completa">
+            <input type="checkbox" id="busca-completa">
+            <span class="alternar__trilho" aria-hidden="true"><span></span></span>
+            <span>Procurar também dentro do texto completo</span>
+          </label>
+
+          <p class="heroi__numeros" id="numeros"></p>
+        </div>
+      </div>
+
+      <div class="corpo" id="acervo">
+        <header class="secao-cabeca">
+          <p class="olho"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4M4 17l8 4 8-4"/></svg><span id="olho-texto">Acervo</span></p>
+          <h2 class="secao-titulo" id="temas-titulo">Estude por <em>tema</em>.</h2>
+        </header>
+
+        <div class="temas" id="temas" role="group" aria-label="Filtrar por tema"></div>
+
+        <div class="barra">
+          <div class="anos" id="anos" role="group" aria-label="Filtrar por ano"></div>
+          <div class="barra__filtros">
+            <label class="seletor">
+              <span class="sr">Ordenar</span>
+              <select id="ordem">
+                <option value="recentes">Mais recentes</option>
+                <option value="antigas">Mais antigas</option>
+                <option value="titulo">Título (A–Z)</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <p class="resultado" id="resultado" aria-live="polite"></p>
+
+        <ol class="lista" id="lista"></ol>
+        <div class="vazio" id="vazio" hidden>
+          <h2>Nenhuma palestra encontrada</h2>
+          <p>Tente outra palavra, tire algum filtro ou ligue “Procurar também dentro do texto completo”.</p>
+          <button type="button" class="botao botao--branco" id="limpar-tudo">Limpar filtros</button>
+        </div>
+        <div class="mais">
+          <button type="button" class="botao botao--branco" id="carregar-mais" hidden>Mostrar mais palestras</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== LEITURA ====================== -->
+    <article id="vista-palestra" class="vista leitura" hidden>
+      <div class="leitura__fundo" aria-hidden="true"><div></div></div>
+      <div class="leitura__inner">
+        <a href="#/" class="voltar" id="voltar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+          Voltar ao acervo
+        </a>
+
+        <header class="leitura__cabeca">
+          <p class="olho" id="p-data"></p>
+          <h1 class="leitura__titulo" id="p-titulo"></h1>
+          <p class="leitura__autor" id="p-autor"></p>
+          <ul class="leitura__temas" id="p-temas"></ul>
+          <div class="leitura__acoes">
+            <a class="botao botao--pinho" id="p-pdf" target="_blank" rel="noopener">
+              <span>Abrir PDF original</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+            <button type="button" class="botao botao--branco" id="p-salvar" aria-pressed="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+              <span>Salvar</span>
+            </button>
+            <button type="button" class="botao botao--branco" id="p-compartilhar">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.4M8.2 13.2l7.6 4.4"/></svg>
+              <span>Compartilhar</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="relacionadas" id="p-relacionadas" hidden></div>
+
+        <div class="leitura__controles">
+          <div class="abas" role="tablist" aria-label="Formas de leitura">
+            <button role="tab" id="aba-resumo" aria-controls="painel-resumo" aria-selected="true">Resumo</button>
+            <button role="tab" id="aba-topicos" aria-controls="painel-topicos" aria-selected="false" tabindex="-1">Pontos principais</button>
+            <button role="tab" id="aba-texto" aria-controls="painel-texto" aria-selected="false" tabindex="-1">Texto completo</button>
+            <button role="tab" id="aba-pdf" aria-controls="painel-pdf" aria-selected="false" tabindex="-1">PDF original</button>
+          </div>
+          <div class="tamanho" role="group" aria-label="Tamanho da letra">
+            <button type="button" id="letra-menor" aria-label="Diminuir letra">A−</button>
+            <button type="button" id="letra-maior" aria-label="Aumentar letra">A+</button>
+          </div>
+        </div>
+
+        <div class="papel">
+          <section id="painel-resumo" role="tabpanel" aria-labelledby="aba-resumo" class="painel texto-leitura"></section>
+          <section id="painel-topicos" role="tabpanel" aria-labelledby="aba-topicos" class="painel texto-leitura" hidden></section>
+          <section id="painel-texto" role="tabpanel" aria-labelledby="aba-texto" class="painel texto-leitura" hidden></section>
+          <section id="painel-pdf" role="tabpanel" aria-labelledby="aba-pdf" class="painel painel--pdf" hidden></section>
+        </div>
+
+        <nav class="vizinhas" id="vizinhas" aria-label="Outras palestras"></nav>
+      </div>
+    </article>
+
+    <!-- ====================== PONTOS CANTADOS ====================== -->
+    <section id="vista-pontos" class="vista pontos" hidden>
+      <div class="leitura__fundo" aria-hidden="true"><div class="pontos__brilho"></div></div>
+      <div class="pontos__inner">
+        <header class="pontos__cabeca">
+          <p class="olho"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l11-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></svg><span>Para ouvir e cantar</span></p>
+          <h1 class="pontos__titulo">Pontos cantados.</h1>
+          <p class="pontos__resumo" id="pt-resumo"></p>
+        </header>
+
+        <div class="busca pt-busca">
+          <div class="busca__campo">
+            <label for="pt-campo-busca" class="sr">Buscar ponto</label>
+            <svg class="busca__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="pt-campo-busca" type="search" autocomplete="off" placeholder="Busque pelo nome ou pela letra">
+          </div>
+        </div>
+
+        <div class="temas pt-linhas" id="pt-linhas" role="group" aria-label="Filtrar por linha"></div>
+        <p class="pt-offline" id="pt-offline"></p>
+
+        <div id="pt-conteudo"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape__painel">
+      <div class="rodape__marca">
+        <span class="marca__pontos" aria-hidden="true"><i></i><i></i></span>
+        <span data-config="nomeCasa"></span>
+      </div>
+      <p class="rodape__frase">Palestras para ler, estudar e reencontrar.<span id="rodape-desde"></span></p>
+      <nav class="rodape__links" aria-label="Rodapé">
+        <a href="#/">Acervo</a>
+        <a href="#/pontos">Pontos</a>
+        <a href="#/favoritas">Salvas</a>
+        <a href="https://instagram.com/temploitaroba" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+    </div>
+  </footer>
+  </div>
+
+  <!-- Player dos pontos: continua tocando enquanto você navega pelo app -->
+  <div class="pt-player" id="pt-player" hidden>
+    <div class="pt-player__capsula">
+      <div class="pt-player__linha">
+        <button type="button" class="pt-pp" id="pt-pp" aria-label="Tocar"></button>
+        <div class="pt-player__info">
+          <strong id="pt-p-nome"></strong>
+          <span><span id="pt-p-linha"></span> · <span class="pt-tempo"><span id="pt-p-atual">0:00</span> / <span id="pt-p-total">0:00</span></span><span id="pt-p-vezes"></span></span>
+        </div>
+        <button type="button" class="pt-icone" id="pt-repetir" aria-pressed="false" aria-label="Repetir este ponto">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>
+        </button>
+        <button type="button" class="pt-icone" id="pt-btn-letra" aria-label="Ver a letra">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 10h14M5 14h9M5 18h6"/></svg>
+        </button>
+      </div>
+      <div class="pt-player__linha pt-player__linha--barra">
+        <button type="button" class="pt-icone pt-icone--leve" id="pt-ant" aria-label="Ponto anterior">
+          <svg class="pt-cheio" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9.5 12z"/></svg>
+        </button>
+        <input id="pt-barra" type="range" min="0" max="100" step="0.1" value="0" aria-label="Posição no ponto">
+        <button type="button" class="pt-icone pt-icone--leve" id="pt-prox" aria-label="Próximo ponto">
+          <svg class="pt-cheio" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l10.5-7z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pt-fundo" id="pt-fundo" hidden></div>
+  <section class="pt-folha" id="pt-folha" hidden role="dialog" aria-modal="true" aria-labelledby="pt-f-titulo">
+    <div class="pt-folha__inner">
+      <div class="pt-folha__cabeca">
+        <div>
+          <p class="pt-folha__linha" id="pt-f-linha"></p>
+          <h2 class="pt-folha__titulo" id="pt-f-titulo"></h2>
+        </div>
+        <button type="button" class="pt-icone" id="pt-f-fechar" aria-label="Fechar a letra">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="pt-folha__letra" id="pt-f-letra"></div>
+    </div>
+  </section>
+
+  <div class="aviso" id="aviso" role="status" hidden></div>
+
+  <script src="config.js"></script>
+  <script src="assets/pontos.js"></script>
+  <script src="assets/app.js"></script>

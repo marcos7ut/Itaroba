@@ -1,0 +1,16 @@
+{
+  "name": "Templo Itarobá — Palestras e Pontos",
+  "short_name": "Itarobá",
+  "description": "Palestras e pontos cantados do Templo Itarobá.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#EAE7DD",
+  "theme_color": "#EAE7DD",
+  "icons": [
+    { "src": "assets/icone-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/icone.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
