@@ -1,0 +1,23 @@
+{
+  "linhas": [
+    { "id": "ogum", "nome": "Ogum", "saudacao": "Ogunhê" },
+    { "id": "oxum", "nome": "Oxum", "saudacao": "Ora yê yê ô" },
+    { "id": "xango", "nome": "Xangô", "saudacao": "Kaô Kabecilê" }
+  ],
+  "pontos": [
+    { "id": "ogum-espada", "linha": "ogum", "titulo": "A sua espada brilha no raiar do dia", "audio": "audio/ogum/a-sua-espada-brilha.mp3", "duracao": 38, "letra": "" },
+    { "id": "ogum-humaita", "linha": "ogum", "titulo": "No Humaitá ele é Ogum", "audio": "audio/ogum/no-humaita-ele-e-ogum.mp3", "duracao": 36, "letra": "" },
+    { "id": "ogum-cachoeira", "linha": "ogum", "titulo": "Cachoeira da mata virgem", "audio": "audio/ogum/cachoeira-da-mata-virgem.mp3", "duracao": 46, "letra": "" },
+    { "id": "ogum-e-ogum", "linha": "ogum", "titulo": "É Ogum ah, é Ogum oh", "audio": "audio/ogum/e-ogum-ah-e-ogum-oh.mp3", "duracao": 37, "letra": "" },
+
+    { "id": "oxum-aieieu", "linha": "oxum", "titulo": "Aieieu Mamãe Oxum, aieieu Oxum Apará", "audio": "audio/oxum/aieieu-mamae-oxum.mp3", "duracao": 88, "letra": "" },
+    { "id": "oxum-oxala-renda", "linha": "oxum", "titulo": "Oxalá mandou uma renda para Oxum", "audio": "audio/oxum/oxala-mandou-uma-renda.mp3", "duracao": 44, "letra": "" },
+    { "id": "oxum-guerreira", "linha": "oxum", "titulo": "Oxum guerreira, grande Iyabá", "audio": "audio/oxum/oxum-guerreira.mp3", "duracao": 47, "letra": "" },
+    { "id": "oxum-aguas-itaromim", "linha": "oxum", "titulo": "As suas águas são de Itaromim", "audio": "audio/oxum/as-suas-aguas.mp3", "duracao": 31, "letra": "" },
+
+    { "id": "xango-pedra", "linha": "xango", "titulo": "Eu vi pedra rolar", "audio": "audio/xango/eu-vi-pedra-rolar.mp3", "duracao": 45, "letra": "" },
+    { "id": "xango-serra", "linha": "xango", "titulo": "Por detrás daquela serra", "audio": "audio/xango/por-detras-daquela-serra.mp3", "duracao": 47, "letra": "" },
+    { "id": "xango-kao", "linha": "xango", "titulo": "Kaô Kabecilê, vem de Oió, Alafim Eché", "audio": "audio/xango/kao-kabecile.mp3", "duracao": 39, "letra": "" },
+    { "id": "xango-machada", "linha": "xango", "titulo": "A sua machada é de ouro", "audio": "audio/xango/a-sua-machada-e-de-ouro.mp3", "duracao": 49, "letra": "" }
+  ]
+}
