@@ -1,86 +1,228 @@
 {
+  "abas": [
+    {
+      "id": "xire",
+      "nome": "Xirê",
+      "rota": "xire"
+    },
+    {
+      "id": "segunda",
+      "nome": "Outras linhas",
+      "rota": "outras-linhas"
+    }
+  ],
   "quadrantes": [
     {
       "id": "fogo",
-      "nome": "Fogo"
+      "nome": "Fogo",
+      "aba": "xire"
     },
     {
       "id": "terra",
-      "nome": "Terra"
+      "nome": "Terra",
+      "aba": "xire"
     },
     {
       "id": "agua",
-      "nome": "Água"
+      "nome": "Água",
+      "aba": "xire"
     },
     {
       "id": "ar",
-      "nome": "Ar"
-    },
-    {
-      "id": "outras",
-      "nome": "Outras linhas"
+      "nome": "Ar",
+      "aba": "xire"
     }
   ],
   "linhas": [
     {
+      "id": "elegbara",
+      "nome": "Elegbara",
+      "saudacao": "Laroyê",
+      "quadrante": "fogo",
+      "aba": "xire"
+    },
+    {
       "id": "ogum",
       "nome": "Ogum",
       "saudacao": "Ogunhê meu Pai",
-      "quadrante": "fogo"
+      "quadrante": "fogo",
+      "aba": "xire"
+    },
+    {
+      "id": "oxumare",
+      "nome": "Oxumaré",
+      "saudacao": "Arrobobo Oxumaré",
+      "quadrante": "fogo",
+      "aba": "xire"
     },
     {
       "id": "xango",
       "nome": "Xangô",
       "saudacao": "Kaô Kabecile",
-      "quadrante": "fogo"
+      "quadrante": "fogo",
+      "aba": "xire"
+    },
+    {
+      "id": "obaluaie",
+      "nome": "Obaluaiê/Omolú",
+      "saudacao": "Atotô Obaluaiê / Atotô Omolú",
+      "quadrante": "terra",
+      "aba": "xire"
+    },
+    {
+      "id": "oxossi",
+      "nome": "Oxossi",
+      "saudacao": "Oke Arô",
+      "quadrante": "terra",
+      "aba": "xire"
+    },
+    {
+      "id": "ossae",
+      "nome": "Ossãe",
+      "saudacao": "Ewassa",
+      "quadrante": "terra",
+      "aba": "xire"
     },
     {
       "id": "oba",
       "nome": "Obá",
       "saudacao": "Obá Xirê",
-      "quadrante": "terra"
+      "quadrante": "terra",
+      "aba": "xire"
+    },
+    {
+      "id": "nana",
+      "nome": "Nanã",
+      "saudacao": "Sulaba Nanã",
+      "quadrante": "agua",
+      "aba": "xire"
     },
     {
       "id": "oxum",
       "nome": "Oxum",
       "saudacao": "Aieieu Mamãe Oxum",
-      "quadrante": "agua"
+      "quadrante": "agua",
+      "aba": "xire"
     },
     {
       "id": "iemanja",
       "nome": "Iemanjá",
       "saudacao": "Odofiyaba",
-      "quadrante": "agua"
+      "quadrante": "agua",
+      "aba": "xire"
     },
     {
       "id": "ewa",
       "nome": "Ewá",
       "saudacao": "Rirô",
-      "quadrante": "agua"
+      "quadrante": "agua",
+      "aba": "xire"
+    },
+    {
+      "id": "iansa",
+      "nome": "Iansã",
+      "saudacao": "Epahei Iansã",
+      "quadrante": "ar",
+      "aba": "xire"
     },
     {
       "id": "tempo",
       "nome": "Tempo",
       "saudacao": "Tempo oiô",
-      "quadrante": "ar"
+      "quadrante": "ar",
+      "aba": "xire"
     },
     {
       "id": "ifa",
       "nome": "Ifá",
       "saudacao": "Ifá",
-      "quadrante": "ar"
+      "quadrante": "ar",
+      "aba": "xire"
     },
     {
       "id": "oxala",
       "nome": "Oxalá",
       "saudacao": "Oxalá Babá",
-      "quadrante": "ar"
+      "quadrante": "ar",
+      "aba": "xire"
+    },
+    {
+      "id": "babalorixa",
+      "nome": "Babalorixá",
+      "saudacao": "",
+      "aba": "segunda"
+    },
+    {
+      "id": "pai-itaroba",
+      "nome": "Pai Itarobá",
+      "saudacao": "Kaô Kabecilê",
+      "aba": "segunda"
+    },
+    {
+      "id": "caboclos",
+      "nome": "Caboclos",
+      "saudacao": "Okê Caboclo",
+      "aba": "segunda"
+    },
+    {
+      "id": "caboclas",
+      "nome": "Caboclas",
+      "saudacao": "Okê Cabocla",
+      "aba": "segunda"
+    },
+    {
+      "id": "yorima",
+      "nome": "Yorimá",
+      "saudacao": "Adorê as almas",
+      "aba": "segunda"
+    },
+    {
+      "id": "marinheiros",
+      "nome": "Marinheiros",
+      "saudacao": "Eh Marujada",
+      "aba": "segunda"
+    },
+    {
+      "id": "boiadeiros",
+      "nome": "Boiadeiros",
+      "saudacao": "Ajetruá",
+      "aba": "segunda"
+    },
+    {
+      "id": "baianos",
+      "nome": "Baianos",
+      "saudacao": "Salve o grande cruzeiro da Bahia meu Pai",
+      "aba": "segunda"
+    },
+    {
+      "id": "ibeji",
+      "nome": "Ibeji",
+      "saudacao": "A mim, e as crianças",
+      "aba": "segunda"
+    },
+    {
+      "id": "oriente",
+      "nome": "Oriente",
+      "saudacao": "Ori Bàbá",
+      "aba": "segunda"
+    },
+    {
+      "id": "exu",
+      "nome": "Exú",
+      "saudacao": "Ê loroyê Exú",
+      "aba": "segunda"
+    },
+    {
+      "id": "pombogira",
+      "nome": "Pombo Gira",
+      "saudacao": "Pombo Gira Exú",
+      "aba": "segunda"
     },
     {
       "id": "logun",
       "nome": "Logun Edé",
-      "saudacao": "Lossi Lossi",
-      "quadrante": "outras"
+      "saudacao": "Logun",
+      "aba": "segunda"
     }
   ],
   "pontos": [
@@ -146,6 +288,134 @@
       "titulo": "A sua machada é de ouro",
       "audio": "audio/xango/a-sua-machada-e-de-ouro.mp3",
       "duracao": 49,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-opanije-opanije-opanije",
+      "linha": "obaluaie",
+      "titulo": "Opanijé, opanijé, opanijé",
+      "audio": "audio/obaluaie/opanije-opanije-opanije.mp3",
+      "duracao": 58,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-atoto-ahoye",
+      "linha": "obaluaie",
+      "titulo": "Atotô Ahoye",
+      "audio": "audio/obaluaie/atoto-ahoye.mp3",
+      "duracao": 49,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-e-zambore",
+      "linha": "obaluaie",
+      "titulo": "Ê Zamborê",
+      "audio": "audio/obaluaie/e-zambore.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-por-debaixo-da-palha",
+      "linha": "obaluaie",
+      "titulo": "Por debaixo da palha",
+      "audio": "audio/obaluaie/por-debaixo-da-palha.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-quando-ingoma-fala",
+      "linha": "obaluaie",
+      "titulo": "Quando Ingoma fala",
+      "audio": "audio/obaluaie/quando-ingoma-fala.mp3",
+      "duracao": 32,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-rei-jagun-rei-jagun",
+      "linha": "obaluaie",
+      "titulo": "Rei Jagun, rei Jagun",
+      "audio": "audio/obaluaie/rei-jagun-rei-jagun.mp3",
+      "duracao": 37,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-oh-eguile-pipocam",
+      "linha": "obaluaie",
+      "titulo": "Oh Eguilê, pipocam",
+      "audio": "audio/obaluaie/oh-eguile-pipocam.mp3",
+      "duracao": 27,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-seu-omolu",
+      "linha": "obaluaie",
+      "titulo": "Seu Omolu",
+      "audio": "audio/obaluaie/seu-omolu.mp3",
+      "duracao": 34,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-mucuiu-omolu",
+      "linha": "obaluaie",
+      "titulo": "Mucuiu Omolu",
+      "audio": "audio/obaluaie/mucuiu-omolu.mp3",
+      "duracao": 51,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-cajanja-velha",
+      "linha": "obaluaie",
+      "titulo": "Cajanja velha",
+      "audio": "audio/obaluaie/cajanja-velha.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-tem-flor",
+      "linha": "obaluaie",
+      "titulo": "Tem flor",
+      "audio": "audio/obaluaie/tem-flor.mp3",
+      "duracao": 45,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-omolu-coberto-de-palha",
+      "linha": "obaluaie",
+      "titulo": "Omolu coberto de palha",
+      "audio": "audio/obaluaie/omolu-coberto-de-palha.mp3",
+      "duracao": 31,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-omolu-qui-belu-belu",
+      "linha": "obaluaie",
+      "titulo": "Omolu Qui Belu Belu",
+      "audio": "audio/obaluaie/omolu-qui-belu-belu.mp3",
+      "duracao": 27,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-zamboe",
+      "linha": "obaluaie",
+      "titulo": "Zamboê",
+      "audio": "audio/obaluaie/zamboe.mp3",
+      "duracao": 37,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-ako-que-baiole",
+      "linha": "obaluaie",
+      "titulo": "Akô que Baiolê",
+      "audio": "audio/obaluaie/ako-que-baiole.mp3",
+      "duracao": 37,
+      "letra": ""
+    },
+    {
+      "id": "obaluaie-era-um-velho-muito-velho",
+      "linha": "obaluaie",
+      "titulo": "Era um velho muito velho",
+      "audio": "audio/obaluaie/era-um-velho-muito-velho.mp3",
+      "duracao": 45,
       "letra": ""
     },
     {
@@ -437,6 +707,174 @@
       "letra": ""
     },
     {
+      "id": "iansa-oya-de-are-ogaraju-onija-kola",
+      "linha": "iansa",
+      "titulo": "Oyá dê Arê, Ogaraju Onijá Kolá",
+      "audio": "audio/iansa/oya-de-are-ogaraju-onija-kola.mp3",
+      "duracao": 53,
+      "letra": ""
+    },
+    {
+      "id": "iansa-ossin-oya-avanja",
+      "linha": "iansa",
+      "titulo": "Ossin Oyá Avanjá",
+      "audio": "audio/iansa/ossin-oya-avanja.mp3",
+      "duracao": 21,
+      "letra": ""
+    },
+    {
+      "id": "iansa-ossinha-avanja",
+      "linha": "iansa",
+      "titulo": "Ossinha Avanjá",
+      "audio": "audio/iansa/ossinha-avanja.mp3",
+      "duracao": 37,
+      "letra": ""
+    },
+    {
+      "id": "iansa-oh-iansa-menina-e-do-cabelo-loiro",
+      "linha": "iansa",
+      "titulo": "Oh Iansã, menina é do cabelo loiro",
+      "audio": "audio/iansa/oh-iansa-menina-e-do-cabelo-loiro.mp3",
+      "duracao": 22,
+      "letra": ""
+    },
+    {
+      "id": "iansa-olha-que-o-ceu-clareou",
+      "linha": "iansa",
+      "titulo": "Olha que o céu clareou",
+      "audio": "audio/iansa/olha-que-o-ceu-clareou.mp3",
+      "duracao": 67,
+      "letra": ""
+    },
+    {
+      "id": "iansa-orum-chorou-orum-chorou",
+      "linha": "iansa",
+      "titulo": "Orum chorou, Orum chorou",
+      "audio": "audio/iansa/orum-chorou-orum-chorou.mp3",
+      "duracao": 21,
+      "letra": ""
+    },
+    {
+      "id": "iansa-oba-kosso-ja-clareou",
+      "linha": "iansa",
+      "titulo": "Obá Kossô já clareou",
+      "audio": "audio/iansa/oba-kosso-ja-clareou.mp3",
+      "duracao": 34,
+      "letra": ""
+    },
+    {
+      "id": "iansa-indebore-indebore-mavaju",
+      "linha": "iansa",
+      "titulo": "Indeborê, Indeborê Mavaju",
+      "audio": "audio/iansa/indebore-indebore-mavaju.mp3",
+      "duracao": 22,
+      "letra": ""
+    },
+    {
+      "id": "iansa-iansa-quando-vem-do-mar",
+      "linha": "iansa",
+      "titulo": "Iansã quando vem do mar",
+      "audio": "audio/iansa/iansa-quando-vem-do-mar.mp3",
+      "duracao": 22,
+      "letra": ""
+    },
+    {
+      "id": "iansa-os-ventos-de-iansa-ja-revelou",
+      "linha": "iansa",
+      "titulo": "Os ventos de Iansã já revelou",
+      "audio": "audio/iansa/os-ventos-de-iansa-ja-revelou.mp3",
+      "duracao": 39,
+      "letra": ""
+    },
+    {
+      "id": "iansa-oruana-oruana-oruana-lade",
+      "linha": "iansa",
+      "titulo": "Oruana, Oruana, Oruana ladê",
+      "audio": "audio/iansa/oruana-oruana-oruana-lade.mp3",
+      "duracao": 29,
+      "letra": ""
+    },
+    {
+      "id": "iansa-iansa-cortando-os-ventos",
+      "linha": "iansa",
+      "titulo": "Iansã cortando os ventos",
+      "audio": "audio/iansa/iansa-cortando-os-ventos.mp3",
+      "duracao": 21,
+      "letra": ""
+    },
+    {
+      "id": "iansa-iansa-comanda-os-ventos",
+      "linha": "iansa",
+      "titulo": "Iansã comanda os ventos",
+      "audio": "audio/iansa/iansa-comanda-os-ventos.mp3",
+      "duracao": 31,
+      "letra": ""
+    },
+    {
+      "id": "iansa-iansa-e-uma-moca-bonita",
+      "linha": "iansa",
+      "titulo": "Iansã é uma moça bonita",
+      "audio": "audio/iansa/iansa-e-uma-moca-bonita.mp3",
+      "duracao": 35,
+      "letra": ""
+    },
+    {
+      "id": "iansa-clareou-no-ceu-clareou",
+      "linha": "iansa",
+      "titulo": "Clareou no céu, clareou",
+      "audio": "audio/iansa/clareou-no-ceu-clareou.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "iansa-iansa-clareia-minha-senhora",
+      "linha": "iansa",
+      "titulo": "Iansã, clareia minha senhora",
+      "audio": "audio/iansa/iansa-clareia-minha-senhora.mp3",
+      "duracao": 35,
+      "letra": ""
+    },
+    {
+      "id": "iansa-epahey-bamburucema-epahey",
+      "linha": "iansa",
+      "titulo": "Epahey Bamburucema, Epahey",
+      "audio": "audio/iansa/epahey-bamburucema-epahey.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "iansa-e-le-oya",
+      "linha": "iansa",
+      "titulo": "Ê lê Oyá",
+      "audio": "audio/iansa/e-le-oya.mp3",
+      "duracao": 19,
+      "letra": ""
+    },
+    {
+      "id": "iansa-caminhando-pela-mata-ouvi-tambor-soar",
+      "linha": "iansa",
+      "titulo": "Caminhando pela mata ouvi tambor soar",
+      "audio": "audio/iansa/caminhando-pela-mata-ouvi-tambor-soar.mp3",
+      "duracao": 66,
+      "letra": ""
+    },
+    {
+      "id": "iansa-ajemite-de-iao",
+      "linha": "iansa",
+      "titulo": "Ajemitê de Iaô",
+      "audio": "audio/iansa/ajemite-de-iao.mp3",
+      "duracao": 37,
+      "letra": ""
+    },
+    {
+      "id": "iansa-ae-zinzin-ae-zinza",
+      "linha": "iansa",
+      "titulo": "Ae Zinzin, Ae Zinza",
+      "audio": "audio/iansa/ae-zinzin-ae-zinza.mp3",
+      "duracao": 21,
+      "letra": ""
+    },
+    {
       "id": "tempo-e-tempo-e-e-tempo-a",
       "linha": "tempo",
       "titulo": "Ê Tempo ê, ê Tempo á",
@@ -682,6 +1120,470 @@
       "titulo": "Ô Zambi Apongue",
       "audio": "audio/oxala/o-zambi-apongue.mp3",
       "duracao": 48,
+      "letra": ""
+    },
+    {
+      "id": "babalorixa-epa-baba",
+      "linha": "babalorixa",
+      "titulo": "Epa Babá",
+      "audio": "audio/babalorixa/epa-baba.mp3",
+      "duracao": 18,
+      "letra": ""
+    },
+    {
+      "id": "babalorixa-maleime-ao-pai",
+      "linha": "babalorixa",
+      "titulo": "Maleime ao Pai",
+      "audio": "audio/babalorixa/maleime-ao-pai.mp3",
+      "duracao": 39,
+      "letra": ""
+    },
+    {
+      "id": "babalorixa-aue-baba-baba-e-de-orixa",
+      "linha": "babalorixa",
+      "titulo": "Auê Babá, Babá é de Orixá",
+      "audio": "audio/babalorixa/aue-baba-baba-e-de-orixa.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "babalorixa-nesse-terreiro-agua-corrente-eu-dou",
+      "linha": "babalorixa",
+      "titulo": "Nesse terreiro água corrente eu dou",
+      "audio": "audio/babalorixa/nesse-terreiro-agua-corrente-eu-dou.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "babalorixa-vamos-colher-pemba-meu-pai",
+      "linha": "babalorixa",
+      "titulo": "Vamos colher pemba, meu Pai",
+      "audio": "audio/babalorixa/vamos-colher-pemba-meu-pai.mp3",
+      "duracao": 43,
+      "letra": ""
+    },
+    {
+      "id": "babalorixa-ajeum-ajeum-ajeum",
+      "linha": "babalorixa",
+      "titulo": "Ajeum, Ajeum, Ajeum",
+      "audio": "audio/babalorixa/ajeum-ajeum-ajeum.mp3",
+      "duracao": 21,
+      "letra": ""
+    },
+    {
+      "id": "babalorixa-gracas-a-deus-meu-deus",
+      "linha": "babalorixa",
+      "titulo": "Graças a Deus, meu Deus",
+      "audio": "audio/babalorixa/gracas-a-deus-meu-deus.mp3",
+      "duracao": 61,
+      "letra": ""
+    },
+    {
+      "id": "babalorixa-baba-o-terreiro-e-seu",
+      "linha": "babalorixa",
+      "titulo": "Babá, o terreiro é seu",
+      "audio": "audio/babalorixa/baba-o-terreiro-e-seu.mp3",
+      "duracao": 45,
+      "letra": ""
+    },
+    {
+      "id": "babalorixa-pai-pai-pai-meu",
+      "linha": "babalorixa",
+      "titulo": "Pai, Pai, Pai meu",
+      "audio": "audio/babalorixa/pai-pai-pai-meu.mp3",
+      "duracao": 16,
+      "letra": ""
+    },
+    {
+      "id": "babalorixa-onisaure",
+      "linha": "babalorixa",
+      "titulo": "Onisaurê",
+      "audio": "audio/babalorixa/onisaure.mp3",
+      "duracao": 54,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-vem-ca-vem-ouvir-os-tambores",
+      "linha": "pai-itaroba",
+      "titulo": "Vem cá, vem ouvir os tambores",
+      "audio": "audio/pai-itaroba/vem-ca-vem-ouvir-os-tambores.mp3",
+      "duracao": 79,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-la-vem-sete-montanhas",
+      "linha": "pai-itaroba",
+      "titulo": "Lá vem Sete Montanhas",
+      "audio": "audio/pai-itaroba/la-vem-sete-montanhas.mp3",
+      "duracao": 48,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-tote-tote-de-maionga",
+      "linha": "pai-itaroba",
+      "titulo": "Totê, totê de maionga",
+      "audio": "audio/pai-itaroba/tote-tote-de-maionga.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-mas-se-a-umbanda-tem-mironga",
+      "linha": "pai-itaroba",
+      "titulo": "Mas se a umbanda tem mironga",
+      "audio": "audio/pai-itaroba/mas-se-a-umbanda-tem-mironga.mp3",
+      "duracao": 45,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-pedra-da-pedreira",
+      "linha": "pai-itaroba",
+      "titulo": "Pedra da pedreira",
+      "audio": "audio/pai-itaroba/pedra-da-pedreira.mp3",
+      "duracao": 45,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-na-pedreira-eu-vi-eu-vi-pedra-rolar",
+      "linha": "pai-itaroba",
+      "titulo": "Na pedreira eu vi, eu vi pedra rolar",
+      "audio": "audio/pai-itaroba/na-pedreira-eu-vi-eu-vi-pedra-rolar.mp3",
+      "duracao": 44,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-pai-itaroba-e-minha-luz-e-o-meu-guia",
+      "linha": "pai-itaroba",
+      "titulo": "Pai Itarobá é minha luz, é o meu guia",
+      "audio": "audio/pai-itaroba/pai-itaroba-e-minha-luz-e-o-meu-guia.mp3",
+      "duracao": 31,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-ilumina-o-mundo",
+      "linha": "pai-itaroba",
+      "titulo": "Ilumina o mundo",
+      "audio": "audio/pai-itaroba/ilumina-o-mundo.mp3",
+      "duracao": 42,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-hoje-tem-alegria-no-terreiro-do-meu-pai",
+      "linha": "pai-itaroba",
+      "titulo": "Hoje tem alegria no terreiro do meu Pai",
+      "audio": "audio/pai-itaroba/hoje-tem-alegria-no-terreiro-do-meu-pai.mp3",
+      "duracao": 63,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-eu-vi-sete-montanhas-na-umbanda",
+      "linha": "pai-itaroba",
+      "titulo": "Eu vi Sete Montanhas na umbanda",
+      "audio": "audio/pai-itaroba/eu-vi-sete-montanhas-na-umbanda.mp3",
+      "duracao": 46,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-ori-oro-ile-lewa",
+      "linha": "pai-itaroba",
+      "titulo": "Ori oro ilê lewa",
+      "audio": "audio/pai-itaroba/ori-oro-ile-lewa.mp3",
+      "duracao": 75,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-obatala-ta-no-bade",
+      "linha": "pai-itaroba",
+      "titulo": "Obatalá tá no badé",
+      "audio": "audio/pai-itaroba/obatala-ta-no-bade.mp3",
+      "duracao": 88,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-estava-perdido-no-mundo",
+      "linha": "pai-itaroba",
+      "titulo": "Estava perdido no mundo",
+      "audio": "audio/pai-itaroba/estava-perdido-no-mundo.mp3",
+      "duracao": 29,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-no-gonga-de-itaroba",
+      "linha": "pai-itaroba",
+      "titulo": "No gongá de Itarobá",
+      "audio": "audio/pai-itaroba/no-gonga-de-itaroba.mp3",
+      "duracao": 71,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-embala-eu-meu-pai-e-meu-pai-xango",
+      "linha": "pai-itaroba",
+      "titulo": "Embala eu, meu Pai, e meu Pai Xangô",
+      "audio": "audio/pai-itaroba/embala-eu-meu-pai-e-meu-pai-xango.mp3",
+      "duracao": 32,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-do-ceu-vem-vindo",
+      "linha": "pai-itaroba",
+      "titulo": "Do céu vem vindo",
+      "audio": "audio/pai-itaroba/do-ceu-vem-vindo.mp3",
+      "duracao": 18,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-atravessou-sete-montanhas",
+      "linha": "pai-itaroba",
+      "titulo": "Atravessou Sete Montanhas",
+      "audio": "audio/pai-itaroba/atravessou-sete-montanhas.mp3",
+      "duracao": 58,
+      "letra": ""
+    },
+    {
+      "id": "pai-itaroba-e-um-balaio-de-pemba-da-pedreira",
+      "linha": "pai-itaroba",
+      "titulo": "É um balaio de pemba da pedreira",
+      "audio": "audio/pai-itaroba/e-um-balaio-de-pemba-da-pedreira.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "ibeji-quanta-saudade-quanta",
+      "linha": "ibeji",
+      "titulo": "Quanta saudade, quanta",
+      "audio": "audio/ibeji/quanta-saudade-quanta.mp3",
+      "duracao": 40,
+      "letra": ""
+    },
+    {
+      "id": "ibeji-eu-vi-doum-na-beira-da-agua",
+      "linha": "ibeji",
+      "titulo": "Eu vi Doum na beira da água",
+      "audio": "audio/ibeji/eu-vi-doum-na-beira-da-agua.mp3",
+      "duracao": 27,
+      "letra": ""
+    },
+    {
+      "id": "ibeji-fui-no-jardim-colher-as-rosas",
+      "linha": "ibeji",
+      "titulo": "Fui no jardim colher as rosas",
+      "audio": "audio/ibeji/fui-no-jardim-colher-as-rosas.mp3",
+      "duracao": 34,
+      "letra": ""
+    },
+    {
+      "id": "ibeji-tem-paciencia-dois-dois",
+      "linha": "ibeji",
+      "titulo": "Tem paciência, dois-dois",
+      "audio": "audio/ibeji/tem-paciencia-dois-dois.mp3",
+      "duracao": 18,
+      "letra": ""
+    },
+    {
+      "id": "ibeji-iemanja-cade-ogum",
+      "linha": "ibeji",
+      "titulo": "Iemanjá, cadê Ogum",
+      "audio": "audio/ibeji/iemanja-cade-ogum.mp3",
+      "duracao": 33,
+      "letra": ""
+    },
+    {
+      "id": "ibeji-era-uma-vez-um-menino-canoeiro",
+      "linha": "ibeji",
+      "titulo": "Era uma vez um menino canoeiro",
+      "audio": "audio/ibeji/era-uma-vez-um-menino-canoeiro.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "ibeji-dois-meninos-no-mar",
+      "linha": "ibeji",
+      "titulo": "Dois meninos no mar",
+      "audio": "audio/ibeji/dois-meninos-no-mar.mp3",
+      "duracao": 35,
+      "letra": ""
+    },
+    {
+      "id": "ibeji-sao-pedrinhas-de-ouro",
+      "linha": "ibeji",
+      "titulo": "São pedrinhas de ouro",
+      "audio": "audio/ibeji/sao-pedrinhas-de-ouro.mp3",
+      "duracao": 59,
+      "letra": ""
+    },
+    {
+      "id": "ibeji-cosme-damiao-a-sua-casa-cheira",
+      "linha": "ibeji",
+      "titulo": "Cosme Damião, a sua casa cheira",
+      "audio": "audio/ibeji/cosme-damiao-a-sua-casa-cheira.mp3",
+      "duracao": 24,
+      "letra": ""
+    },
+    {
+      "id": "ibeji-papai-mandai-me-um-balao",
+      "linha": "ibeji",
+      "titulo": "Papai, mandai-me um balão",
+      "audio": "audio/ibeji/papai-mandai-me-um-balao.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "ibeji-cosme-damiao-damiao-cade-doum",
+      "linha": "ibeji",
+      "titulo": "Cosme Damião, Damião, cadê Doum",
+      "audio": "audio/ibeji/cosme-damiao-damiao-cade-doum.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "ibeji-na-bahia-escutei",
+      "linha": "ibeji",
+      "titulo": "Na Bahia escutei",
+      "audio": "audio/ibeji/na-bahia-escutei.mp3",
+      "duracao": 43,
+      "letra": ""
+    },
+    {
+      "id": "ibeji-bahia-e-terra-de-dois",
+      "linha": "ibeji",
+      "titulo": "Bahia é terra de dois",
+      "audio": "audio/ibeji/bahia-e-terra-de-dois.mp3",
+      "duracao": 23,
+      "letra": ""
+    },
+    {
+      "id": "ibeji-caboclinho-da-jurema-onde-e-que-voce-vai",
+      "linha": "ibeji",
+      "titulo": "Caboclinho da Jurema, onde é que você vai",
+      "audio": "audio/ibeji/caboclinho-da-jurema-onde-e-que-voce-vai.mp3",
+      "duracao": 73,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-vinha-caminhando-a-pe",
+      "linha": "pombogira",
+      "titulo": "Vinha caminhando a pé",
+      "audio": "audio/pombogira/vinha-caminhando-a-pe.mp3",
+      "duracao": 43,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-o-relogio-da-igreja-quebrou",
+      "linha": "pombogira",
+      "titulo": "O relógio da igreja quebrou",
+      "audio": "audio/pombogira/o-relogio-da-igreja-quebrou.mp3",
+      "duracao": 44,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-para-ser-rainha-nao-e-so-sentar-no-trono",
+      "linha": "pombogira",
+      "titulo": "Para ser rainha não é só sentar no trono",
+      "audio": "audio/pombogira/para-ser-rainha-nao-e-so-sentar-no-trono.mp3",
+      "duracao": 37,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-olha-ela-na-beira-da-estrada",
+      "linha": "pombogira",
+      "titulo": "Olha ela na beira da estrada",
+      "audio": "audio/pombogira/olha-ela-na-beira-da-estrada.mp3",
+      "duracao": 53,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-vamos-defumar-a-mesa",
+      "linha": "pombogira",
+      "titulo": "Vamos defumar a mesa",
+      "audio": "audio/pombogira/vamos-defumar-a-mesa.mp3",
+      "duracao": 110,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-maria-sete-saias",
+      "linha": "pombogira",
+      "titulo": "Maria Sete Saias",
+      "audio": "audio/pombogira/maria-sete-saias.mp3",
+      "duracao": 38,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-pombo-gira-jamujange",
+      "linha": "pombogira",
+      "titulo": "Pombo Gira Jamujange",
+      "audio": "audio/pombogira/pombo-gira-jamujange.mp3",
+      "duracao": 37,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-de-vermelho-e-negro",
+      "linha": "pombogira",
+      "titulo": "De vermelho e negro",
+      "audio": "audio/pombogira/de-vermelho-e-negro.mp3",
+      "duracao": 49,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-la-vem-ela",
+      "linha": "pombogira",
+      "titulo": "Lá vem ela",
+      "audio": "audio/pombogira/la-vem-ela.mp3",
+      "duracao": 73,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-ganhei-uma-barraca-velha",
+      "linha": "pombogira",
+      "titulo": "Ganhei uma barraca velha",
+      "audio": "audio/pombogira/ganhei-uma-barraca-velha.mp3",
+      "duracao": 54,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-cigana-tem-sete-saias",
+      "linha": "pombogira",
+      "titulo": "Cigana tem sete saias",
+      "audio": "audio/pombogira/cigana-tem-sete-saias.mp3",
+      "duracao": 37,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-a-noite-e-clara-e-a-lua-esta-cheia",
+      "linha": "pombogira",
+      "titulo": "A noite é clara e a lua está cheia",
+      "audio": "audio/pombogira/a-noite-e-clara-e-a-lua-esta-cheia.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-a-bem-vinda-chegou-da-bahia",
+      "linha": "pombogira",
+      "titulo": "A Bem-Vinda chegou da Bahia",
+      "audio": "audio/pombogira/a-bem-vinda-chegou-da-bahia.mp3",
+      "duracao": 46,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-eu-vi-la-na-beira-da-praia",
+      "linha": "pombogira",
+      "titulo": "Eu vi lá na beira da praia",
+      "audio": "audio/pombogira/eu-vi-la-na-beira-da-praia.mp3",
+      "duracao": 40,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-olha-a-pomba-gira",
+      "linha": "pombogira",
+      "titulo": "Olha a Pomba Gira",
+      "audio": "audio/pombogira/olha-a-pomba-gira.mp3",
+      "duracao": 77,
+      "letra": ""
+    },
+    {
+      "id": "pombogira-deu-meia-noite-a-lua-se-escondeu",
+      "linha": "pombogira",
+      "titulo": "Deu meia-noite, a lua se escondeu",
+      "audio": "audio/pombogira/deu-meia-noite-a-lua-se-escondeu.mp3",
+      "duracao": 63,
       "letra": ""
     },
     {
