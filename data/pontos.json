@@ -1,23 +1,728 @@
 {
+  "quadrantes": [
+    {
+      "id": "fogo",
+      "nome": "Fogo"
+    },
+    {
+      "id": "terra",
+      "nome": "Terra"
+    },
+    {
+      "id": "agua",
+      "nome": "Água"
+    },
+    {
+      "id": "ar",
+      "nome": "Ar"
+    },
+    {
+      "id": "outras",
+      "nome": "Outras linhas"
+    }
+  ],
   "linhas": [
-    { "id": "ogum", "nome": "Ogum", "saudacao": "Ogunhê" },
-    { "id": "oxum", "nome": "Oxum", "saudacao": "Ora yê yê ô" },
-    { "id": "xango", "nome": "Xangô", "saudacao": "Kaô Kabecilê" }
+    {
+      "id": "ogum",
+      "nome": "Ogum",
+      "saudacao": "Ogunhê meu Pai",
+      "quadrante": "fogo"
+    },
+    {
+      "id": "xango",
+      "nome": "Xangô",
+      "saudacao": "Kaô Kabecile",
+      "quadrante": "fogo"
+    },
+    {
+      "id": "oba",
+      "nome": "Obá",
+      "saudacao": "Obá Xirê",
+      "quadrante": "terra"
+    },
+    {
+      "id": "oxum",
+      "nome": "Oxum",
+      "saudacao": "Aieieu Mamãe Oxum",
+      "quadrante": "agua"
+    },
+    {
+      "id": "iemanja",
+      "nome": "Iemanjá",
+      "saudacao": "Odofiyaba",
+      "quadrante": "agua"
+    },
+    {
+      "id": "ewa",
+      "nome": "Ewá",
+      "saudacao": "Rirô",
+      "quadrante": "agua"
+    },
+    {
+      "id": "tempo",
+      "nome": "Tempo",
+      "saudacao": "Tempo oiô",
+      "quadrante": "ar"
+    },
+    {
+      "id": "ifa",
+      "nome": "Ifá",
+      "saudacao": "Ifá",
+      "quadrante": "ar"
+    },
+    {
+      "id": "oxala",
+      "nome": "Oxalá",
+      "saudacao": "Oxalá Babá",
+      "quadrante": "ar"
+    },
+    {
+      "id": "logun",
+      "nome": "Logun Edé",
+      "saudacao": "Lossi Lossi",
+      "quadrante": "outras"
+    }
   ],
   "pontos": [
-    { "id": "ogum-espada", "linha": "ogum", "titulo": "A sua espada brilha no raiar do dia", "audio": "audio/ogum/a-sua-espada-brilha.mp3", "duracao": 38, "letra": "" },
-    { "id": "ogum-humaita", "linha": "ogum", "titulo": "No Humaitá ele é Ogum", "audio": "audio/ogum/no-humaita-ele-e-ogum.mp3", "duracao": 36, "letra": "" },
-    { "id": "ogum-cachoeira", "linha": "ogum", "titulo": "Cachoeira da mata virgem", "audio": "audio/ogum/cachoeira-da-mata-virgem.mp3", "duracao": 46, "letra": "" },
-    { "id": "ogum-e-ogum", "linha": "ogum", "titulo": "É Ogum ah, é Ogum oh", "audio": "audio/ogum/e-ogum-ah-e-ogum-oh.mp3", "duracao": 37, "letra": "" },
-
-    { "id": "oxum-aieieu", "linha": "oxum", "titulo": "Aieieu Mamãe Oxum, aieieu Oxum Apará", "audio": "audio/oxum/aieieu-mamae-oxum.mp3", "duracao": 88, "letra": "" },
-    { "id": "oxum-oxala-renda", "linha": "oxum", "titulo": "Oxalá mandou uma renda para Oxum", "audio": "audio/oxum/oxala-mandou-uma-renda.mp3", "duracao": 44, "letra": "" },
-    { "id": "oxum-guerreira", "linha": "oxum", "titulo": "Oxum guerreira, grande Iyabá", "audio": "audio/oxum/oxum-guerreira.mp3", "duracao": 47, "letra": "" },
-    { "id": "oxum-aguas-itaromim", "linha": "oxum", "titulo": "As suas águas são de Itaromim", "audio": "audio/oxum/as-suas-aguas.mp3", "duracao": 31, "letra": "" },
-
-    { "id": "xango-pedra", "linha": "xango", "titulo": "Eu vi pedra rolar", "audio": "audio/xango/eu-vi-pedra-rolar.mp3", "duracao": 45, "letra": "" },
-    { "id": "xango-serra", "linha": "xango", "titulo": "Por detrás daquela serra", "audio": "audio/xango/por-detras-daquela-serra.mp3", "duracao": 47, "letra": "" },
-    { "id": "xango-kao", "linha": "xango", "titulo": "Kaô Kabecilê, vem de Oió, Alafim Eché", "audio": "audio/xango/kao-kabecile.mp3", "duracao": 39, "letra": "" },
-    { "id": "xango-machada", "linha": "xango", "titulo": "A sua machada é de ouro", "audio": "audio/xango/a-sua-machada-e-de-ouro.mp3", "duracao": 49, "letra": "" }
+    {
+      "id": "ogum-espada",
+      "linha": "ogum",
+      "titulo": "A sua espada brilha no raiar do dia",
+      "audio": "audio/ogum/a-sua-espada-brilha.mp3",
+      "duracao": 38,
+      "letra": ""
+    },
+    {
+      "id": "ogum-humaita",
+      "linha": "ogum",
+      "titulo": "No Humaitá ele é Ogum",
+      "audio": "audio/ogum/no-humaita-ele-e-ogum.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "ogum-cachoeira",
+      "linha": "ogum",
+      "titulo": "Cachoeira da mata virgem",
+      "audio": "audio/ogum/cachoeira-da-mata-virgem.mp3",
+      "duracao": 46,
+      "letra": ""
+    },
+    {
+      "id": "ogum-e-ogum",
+      "linha": "ogum",
+      "titulo": "É Ogum ah, é Ogum oh",
+      "audio": "audio/ogum/e-ogum-ah-e-ogum-oh.mp3",
+      "duracao": 37,
+      "letra": ""
+    },
+    {
+      "id": "xango-pedra",
+      "linha": "xango",
+      "titulo": "Eu vi pedra rolar",
+      "audio": "audio/xango/eu-vi-pedra-rolar.mp3",
+      "duracao": 45,
+      "letra": ""
+    },
+    {
+      "id": "xango-serra",
+      "linha": "xango",
+      "titulo": "Por detrás daquela serra",
+      "audio": "audio/xango/por-detras-daquela-serra.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "xango-kao",
+      "linha": "xango",
+      "titulo": "Kaô Kabecilê, vem de Oió, Alafim Eché",
+      "audio": "audio/xango/kao-kabecile.mp3",
+      "duracao": 39,
+      "letra": ""
+    },
+    {
+      "id": "xango-machada",
+      "linha": "xango",
+      "titulo": "A sua machada é de ouro",
+      "audio": "audio/xango/a-sua-machada-e-de-ouro.mp3",
+      "duracao": 49,
+      "letra": ""
+    },
+    {
+      "id": "oba-ojuoba-ozazie",
+      "linha": "oba",
+      "titulo": "Ojuobá Ozazié",
+      "audio": "audio/oba/ojuoba-ozazie.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "oba-se-vem-de-ketu-pra-angola",
+      "linha": "oba",
+      "titulo": "Se vem de Ketu pra Angola",
+      "audio": "audio/oba/se-vem-de-ketu-pra-angola.mp3",
+      "duracao": 21,
+      "letra": ""
+    },
+    {
+      "id": "oba-obacin-e-onile",
+      "linha": "oba",
+      "titulo": "Obacin é Onilé",
+      "audio": "audio/oba/obacin-e-onile.mp3",
+      "duracao": 21,
+      "letra": ""
+    },
+    {
+      "id": "oba-nao-tem-homem-que-enfrente-oba",
+      "linha": "oba",
+      "titulo": "Não tem homem que enfrente Obá",
+      "audio": "audio/oba/nao-tem-homem-que-enfrente-oba.mp3",
+      "duracao": 92,
+      "letra": ""
+    },
+    {
+      "id": "oba-oba-la-aje-ba-oje",
+      "linha": "oba",
+      "titulo": "Obá lá Ajé, bá Ojé",
+      "audio": "audio/oba/oba-la-aje-ba-oje.mp3",
+      "duracao": 24,
+      "letra": ""
+    },
+    {
+      "id": "oba-oba-xire-oba-xire-jeue",
+      "linha": "oba",
+      "titulo": "Obá xirê, Obá xirê, jeuê",
+      "audio": "audio/oba/oba-xire-oba-xire-jeue.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "oba-minha-oba-gideo",
+      "linha": "oba",
+      "titulo": "Minha Obá Gideô",
+      "audio": "audio/oba/minha-oba-gideo.mp3",
+      "duracao": 37,
+      "letra": ""
+    },
+    {
+      "id": "oba-a-gideo-oba-xire",
+      "linha": "oba",
+      "titulo": "A Gideô Obá, a Gideô Obá xirê",
+      "audio": "audio/oba/a-gideo-oba-xire.mp3",
+      "duracao": 22,
+      "letra": ""
+    },
+    {
+      "id": "oxum-aieieu",
+      "linha": "oxum",
+      "titulo": "Aieieu Mamãe Oxum, aieieu Oxum Apará",
+      "audio": "audio/oxum/aieieu-mamae-oxum.mp3",
+      "duracao": 88,
+      "letra": ""
+    },
+    {
+      "id": "oxum-oxala-renda",
+      "linha": "oxum",
+      "titulo": "Oxalá mandou uma renda para Oxum",
+      "audio": "audio/oxum/oxala-mandou-uma-renda.mp3",
+      "duracao": 44,
+      "letra": ""
+    },
+    {
+      "id": "oxum-guerreira",
+      "linha": "oxum",
+      "titulo": "Oxum guerreira, grande Iyabá",
+      "audio": "audio/oxum/oxum-guerreira.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "oxum-aguas-itaromim",
+      "linha": "oxum",
+      "titulo": "As suas águas são de Itaromim",
+      "audio": "audio/oxum/as-suas-aguas.mp3",
+      "duracao": 31,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-raiz-do-tronco-tupi",
+      "linha": "iemanja",
+      "titulo": "Raiz do tronco Tupi",
+      "audio": "audio/iemanja/raiz-do-tronco-tupi.mp3",
+      "duracao": 43,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-eu-sou-filho-de-iaba",
+      "linha": "iemanja",
+      "titulo": "Eu sou filho de Iabá",
+      "audio": "audio/iemanja/eu-sou-filho-de-iaba.mp3",
+      "duracao": 31,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-eu-sou-filho-das-ondas",
+      "linha": "iemanja",
+      "titulo": "Eu sou filho das ondas",
+      "audio": "audio/iemanja/eu-sou-filho-das-ondas.mp3",
+      "duracao": 35,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-eu-pedi-um-abraco",
+      "linha": "iemanja",
+      "titulo": "Eu pedi um abraço, ela me deu",
+      "audio": "audio/iemanja/eu-pedi-um-abraco.mp3",
+      "duracao": 22,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-hoje-e-o-dia-de-nossa-senhora",
+      "linha": "iemanja",
+      "titulo": "Hoje é o dia de Nossa Senhora",
+      "audio": "audio/iemanja/hoje-e-o-dia-de-nossa-senhora.mp3",
+      "duracao": 58,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-era-uma-ventarola",
+      "linha": "iemanja",
+      "titulo": "Era uma ventarola",
+      "audio": "audio/iemanja/era-uma-ventarola.mp3",
+      "duracao": 45,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-eu-fui-na-beira-da-praia",
+      "linha": "iemanja",
+      "titulo": "Eu fui na beira da praia",
+      "audio": "audio/iemanja/eu-fui-na-beira-da-praia.mp3",
+      "duracao": 57,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-e-e-e-malele",
+      "linha": "iemanja",
+      "titulo": "Ê, ê, ê, Malelê",
+      "audio": "audio/iemanja/e-e-e-malele.mp3",
+      "duracao": 20,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-a-lua-cheia-clareou",
+      "linha": "iemanja",
+      "titulo": "A lua cheia clareou a dança da piracema",
+      "audio": "audio/iemanja/a-lua-cheia-clareou.mp3",
+      "duracao": 42,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-o-dandalunda-embala-lode",
+      "linha": "iemanja",
+      "titulo": "Ô Dandalunda, embala Lodê",
+      "audio": "audio/iemanja/o-dandalunda-embala-lode.mp3",
+      "duracao": 18,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-padroeira-de-todos-os-marujos",
+      "linha": "iemanja",
+      "titulo": "Padroeira de todos os marujos",
+      "audio": "audio/iemanja/padroeira-de-todos-os-marujos.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-iemanja-ogunte-aue",
+      "linha": "iemanja",
+      "titulo": "Iemanjá Oguntê, auê",
+      "audio": "audio/iemanja/iemanja-ogunte-aue.mp3",
+      "duracao": 26,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-o-vento-balanca-as-aguas-do-mar",
+      "linha": "iemanja",
+      "titulo": "O vento balança as águas do mar",
+      "audio": "audio/iemanja/o-vento-balanca-as-aguas-do-mar.mp3",
+      "duracao": 46,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-iemanja-soba-soba-mirere",
+      "linha": "iemanja",
+      "titulo": "Iemanjá Sobá, Sobá Mirerê",
+      "audio": "audio/iemanja/iemanja-soba-soba-mirere.mp3",
+      "duracao": 24,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-iemanja-iemanja-iemanja-iemanja",
+      "linha": "iemanja",
+      "titulo": "Iemanjá, Iemanjá, Iemanjá, Iemanjá",
+      "audio": "audio/iemanja/iemanja-iemanja-iemanja-iemanja.mp3",
+      "duracao": 65,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-iemanja-epade-iemanja-venha-ver",
+      "linha": "iemanja",
+      "titulo": "Iemanjá epadô, Iemanjá venha ver",
+      "audio": "audio/iemanja/iemanja-epade-iemanja-venha-ver.mp3",
+      "duracao": 24,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-iemanja-e-iocindarere",
+      "linha": "iemanja",
+      "titulo": "Iemanjá, eh Iocindarerê",
+      "audio": "audio/iemanja/iemanja-e-iocindarere.mp3",
+      "duracao": 40,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-iemanja-de",
+      "linha": "iemanja",
+      "titulo": "Iemanjá Dêo, Iemanjá lode",
+      "audio": "audio/iemanja/iemanja-de.mp3",
+      "duracao": 27,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-iemanja-assessu",
+      "linha": "iemanja",
+      "titulo": "Iemanjá Assessu",
+      "audio": "audio/iemanja/iemanja-assessu.mp3",
+      "duracao": 44,
+      "letra": ""
+    },
+    {
+      "id": "iemanja-ie-iemanja-ie-iemanja",
+      "linha": "iemanja",
+      "titulo": "Iê Iemanjá, iê Iemanjá",
+      "audio": "audio/iemanja/ie-iemanja-ie-iemanja.mp3",
+      "duracao": 39,
+      "letra": ""
+    },
+    {
+      "id": "ewa-ewa-ewa-ewa-bempoco-ewa",
+      "linha": "ewa",
+      "titulo": "Ewá, Ewá, Ewá, Bempoco Ewá",
+      "audio": "audio/ewa/ewa-ewa-ewa-bempoco-ewa.mp3",
+      "duracao": 26,
+      "letra": ""
+    },
+    {
+      "id": "ewa-adeus-o-linda-primavera",
+      "linha": "ewa",
+      "titulo": "Adeus, ó linda primavera",
+      "audio": "audio/ewa/adeus-o-linda-primavera.mp3",
+      "duracao": 44,
+      "letra": ""
+    },
+    {
+      "id": "ewa-olu-aie-gebeuyin",
+      "linha": "ewa",
+      "titulo": "Olu Aiê, Gebeuyin",
+      "audio": "audio/ewa/olu-aie-gebeuyin.mp3",
+      "duracao": 26,
+      "letra": ""
+    },
+    {
+      "id": "ewa-levou-no-meio-da-mata",
+      "linha": "ewa",
+      "titulo": "Levou no meio da mata",
+      "audio": "audio/ewa/levou-no-meio-da-mata.mp3",
+      "duracao": 26,
+      "letra": ""
+    },
+    {
+      "id": "tempo-e-tempo-e-e-tempo-a",
+      "linha": "tempo",
+      "titulo": "Ê Tempo ê, ê Tempo á",
+      "audio": "audio/tempo/e-tempo-e-e-tempo-a.mp3",
+      "duracao": 33,
+      "letra": ""
+    },
+    {
+      "id": "tempo-iroko-e-iroko-a",
+      "linha": "tempo",
+      "titulo": "Iroko ê, Iroko á",
+      "audio": "audio/tempo/iroko-e-iroko-a.mp3",
+      "duracao": 32,
+      "letra": ""
+    },
+    {
+      "id": "tempo-mas-olha-o-tempo",
+      "linha": "tempo",
+      "titulo": "Mas olha o Tempo, mas olha o Tempo",
+      "audio": "audio/tempo/mas-olha-o-tempo.mp3",
+      "duracao": 19,
+      "letra": ""
+    },
+    {
+      "id": "tempo-oni-onira-ojo",
+      "linha": "tempo",
+      "titulo": "Oni Onirá Ojô",
+      "audio": "audio/tempo/oni-onira-ojo.mp3",
+      "duracao": 21,
+      "letra": ""
+    },
+    {
+      "id": "tempo-tata-que-tempo-me-deu-uma-bandeira",
+      "linha": "tempo",
+      "titulo": "Tatá, que Tempo me deu uma bandeira",
+      "audio": "audio/tempo/tata-que-tempo-me-deu-uma-bandeira.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "tempo-tempo-e-tempo-e",
+      "linha": "tempo",
+      "titulo": "Tempo é, Tempo é",
+      "audio": "audio/tempo/tempo-e-tempo-e.mp3",
+      "duracao": 20,
+      "letra": ""
+    },
+    {
+      "id": "tempo-mas-olha-o-tempo-olha-a-lambada",
+      "linha": "tempo",
+      "titulo": "Mas olha o Tempo, olha a lambada",
+      "audio": "audio/tempo/mas-olha-o-tempo-olha-a-lambada.mp3",
+      "duracao": 19,
+      "letra": ""
+    },
+    {
+      "id": "tempo-tempo-macura-dile",
+      "linha": "tempo",
+      "titulo": "Tempo Macurá Dilê",
+      "audio": "audio/tempo/tempo-macura-dile.mp3",
+      "duracao": 30,
+      "letra": ""
+    },
+    {
+      "id": "tempo-tempo-murunganga",
+      "linha": "tempo",
+      "titulo": "Tempo Murunganga",
+      "audio": "audio/tempo/tempo-murunganga.mp3",
+      "duracao": 20,
+      "letra": ""
+    },
+    {
+      "id": "ifa-ajaco-lobo",
+      "linha": "ifa",
+      "titulo": "Ajacô Lobô",
+      "audio": "audio/ifa/ajaco-lobo.mp3",
+      "duracao": 21,
+      "letra": ""
+    },
+    {
+      "id": "oxala-awure",
+      "linha": "oxala",
+      "titulo": "Awurê",
+      "audio": "audio/oxala/awure.mp3",
+      "duracao": 29,
+      "letra": ""
+    },
+    {
+      "id": "oxala-oxala-meu-pai",
+      "linha": "oxala",
+      "titulo": "Oxalá, meu Pai",
+      "audio": "audio/oxala/oxala-meu-pai.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "oxala-baba-mi-obatala",
+      "linha": "oxala",
+      "titulo": "Babá mi Obatalá",
+      "audio": "audio/oxala/baba-mi-obatala.mp3",
+      "duracao": 24,
+      "letra": ""
+    },
+    {
+      "id": "oxala-ala-coro",
+      "linha": "oxala",
+      "titulo": "Alá Corô",
+      "audio": "audio/oxala/ala-coro.mp3",
+      "duracao": 31,
+      "letra": ""
+    },
+    {
+      "id": "oxala-ah-como-gira",
+      "linha": "oxala",
+      "titulo": "Ah, como gira",
+      "audio": "audio/oxala/ah-como-gira.mp3",
+      "duracao": 33,
+      "letra": ""
+    },
+    {
+      "id": "oxala-o-sol-em-oxala",
+      "linha": "oxala",
+      "titulo": "O sol em Oxalá",
+      "audio": "audio/oxala/o-sol-em-oxala.mp3",
+      "duracao": 28,
+      "letra": ""
+    },
+    {
+      "id": "oxala-ala-ala-orum-ala",
+      "linha": "oxala",
+      "titulo": "Alá, Alá, Orum Alá",
+      "audio": "audio/oxala/ala-ala-orum-ala.mp3",
+      "duracao": 33,
+      "letra": ""
+    },
+    {
+      "id": "oxala-ogui-beni-oje",
+      "linha": "oxala",
+      "titulo": "Ogui Beni Ojé",
+      "audio": "audio/oxala/ogui-beni-oje.mp3",
+      "duracao": 37,
+      "letra": ""
+    },
+    {
+      "id": "oxala-oni-saure",
+      "linha": "oxala",
+      "titulo": "Oni Saurê",
+      "audio": "audio/oxala/oni-saure.mp3",
+      "duracao": 27,
+      "letra": ""
+    },
+    {
+      "id": "oxala-orixa-nla",
+      "linha": "oxala",
+      "titulo": "Orixá Nlá",
+      "audio": "audio/oxala/orixa-nla.mp3",
+      "duracao": 56,
+      "letra": ""
+    },
+    {
+      "id": "oxala-ori-no-bade-de-ara",
+      "linha": "oxala",
+      "titulo": "Ori no Badê de Ará",
+      "audio": "audio/oxala/ori-no-bade-de-ara.mp3",
+      "duracao": 51,
+      "letra": ""
+    },
+    {
+      "id": "oxala-manoba-ile-apocum",
+      "linha": "oxala",
+      "titulo": "Manobá Ilê Apocum",
+      "audio": "audio/oxala/manoba-ile-apocum.mp3",
+      "duracao": 27,
+      "letra": ""
+    },
+    {
+      "id": "oxala-orixa-baba",
+      "linha": "oxala",
+      "titulo": "Orixá Babá",
+      "audio": "audio/oxala/orixa-baba.mp3",
+      "duracao": 86,
+      "letra": ""
+    },
+    {
+      "id": "oxala-olorum-esta-no-aie",
+      "linha": "oxala",
+      "titulo": "Olorum está no Aiê",
+      "audio": "audio/oxala/olorum-esta-no-aie.mp3",
+      "duracao": 33,
+      "letra": ""
+    },
+    {
+      "id": "oxala-oxaguia-oxalufa",
+      "linha": "oxala",
+      "titulo": "Oxaguiã, Oxalufã",
+      "audio": "audio/oxala/oxaguia-oxalufa.mp3",
+      "duracao": 29,
+      "letra": ""
+    },
+    {
+      "id": "oxala-eteke-orum-oh",
+      "linha": "oxala",
+      "titulo": "Etekê Orum ô",
+      "audio": "audio/oxala/eteke-orum-oh.mp3",
+      "duracao": 22,
+      "letra": ""
+    },
+    {
+      "id": "oxala-e-guia",
+      "linha": "oxala",
+      "titulo": "Ê Guiã",
+      "audio": "audio/oxala/e-guia.mp3",
+      "duracao": 27,
+      "letra": ""
+    },
+    {
+      "id": "oxala-eremi-guia",
+      "linha": "oxala",
+      "titulo": "Eremi Guiã",
+      "audio": "audio/oxala/eremi-guia.mp3",
+      "duracao": 21,
+      "letra": ""
+    },
+    {
+      "id": "oxala-e-baba-onire-akire",
+      "linha": "oxala",
+      "titulo": "Ê Babá Onirê Akirê",
+      "audio": "audio/oxala/e-baba-onire-akire.mp3",
+      "duracao": 31,
+      "letra": ""
+    },
+    {
+      "id": "oxala-e-baba-onire-ajagunan",
+      "linha": "oxala",
+      "titulo": "Ê Babá Onirê Ajagunã",
+      "audio": "audio/oxala/e-baba-onire-ajagunan.mp3",
+      "duracao": 31,
+      "letra": ""
+    },
+    {
+      "id": "oxala-o-zambi-apongue",
+      "linha": "oxala",
+      "titulo": "Ô Zambi Apongue",
+      "audio": "audio/oxala/o-zambi-apongue.mp3",
+      "duracao": 48,
+      "letra": ""
+    },
+    {
+      "id": "logun-oliru-oliro-dile",
+      "linha": "logun",
+      "titulo": "Oliru, Oliro Dilê",
+      "audio": "audio/logun/oliru-oliro-dile.mp3",
+      "duracao": 19,
+      "letra": ""
+    },
+    {
+      "id": "logun-omo-oba",
+      "linha": "logun",
+      "titulo": "Omo Obá",
+      "audio": "audio/logun/omo-oba.mp3",
+      "duracao": 20,
+      "letra": ""
+    },
+    {
+      "id": "logun-menino-cacador-me-da-seu-omolocum",
+      "linha": "logun",
+      "titulo": "Menino caçador, me dá seu omolocum",
+      "audio": "audio/logun/menino-cacador-me-da-seu-omolocum.mp3",
+      "duracao": 21,
+      "letra": ""
+    },
+    {
+      "id": "logun-ele-e-menino-mas-tambem-e-cacador",
+      "linha": "logun",
+      "titulo": "Ele é menino, mas também é caçador",
+      "audio": "audio/logun/ele-e-menino-mas-tambem-e-cacador.mp3",
+      "duracao": 38,
+      "letra": ""
+    },
+    {
+      "id": "logun-logun-menino-e-menino",
+      "linha": "logun",
+      "titulo": "Logun menino, é menino",
+      "audio": "audio/logun/logun-menino-e-menino.mp3",
+      "duracao": 22,
+      "letra": ""
+    }
   ]
 }
