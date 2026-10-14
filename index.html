@@ -26,7 +26,7 @@
         <span class="marca__nome" data-config="nomeCasa"></span>
       </a>
       <nav class="nav__links" aria-label="Seções">
-        <a href="#/" class="nav__link" data-nav="inicio">Acervo</a>
+        <a href="#/" class="nav__link" data-nav="inicio">Palestras</a>
         <a href="#/pontos" class="nav__link" data-nav="pontos">Pontos</a>
         <a href="#/favoritas" class="nav__link" data-nav="favoritas">Salvas</a>
       </nav>
@@ -104,7 +104,7 @@
 
       <div class="corpo" id="acervo">
         <header class="secao-cabeca">
-          <p class="olho"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4M4 17l8 4 8-4"/></svg><span id="olho-texto">Acervo</span></p>
+          <p class="olho"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4M4 17l8 4 8-4"/></svg><span id="olho-texto">Palestras</span></p>
           <h2 class="secao-titulo" id="temas-titulo">Estude por <em>tema</em>.</h2>
         </header>
 
@@ -198,11 +198,10 @@
     <section id="vista-pontos" class="vista pontos" hidden>
       <div class="leitura__fundo" aria-hidden="true"><div class="pontos__brilho"></div></div>
       <div class="pontos__inner">
-        <header class="pontos__cabeca">
-          <p class="olho"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l11-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></svg><span>Para ouvir e cantar</span></p>
-          <h1 class="pontos__titulo">Pontos cantados.</h1>
-          <p class="pontos__resumo" id="pt-resumo"></p>
-        </header>
+        <h1 class="sr">Pontos cantados</h1>
+
+        <!-- Xirê e Outras linhas: cada parte em separado, dentro de Pontos -->
+        <nav class="pt-abas" id="pt-abas" aria-label="Partes dos pontos"></nav>
 
         <div class="busca pt-busca">
           <div class="busca__campo">
@@ -228,7 +227,7 @@
       </div>
       <p class="rodape__frase">Palestras para ler, estudar e reencontrar.<span id="rodape-desde"></span></p>
       <nav class="rodape__links" aria-label="Rodapé">
-        <a href="#/">Acervo</a>
+        <a href="#/">Palestras</a>
         <a href="#/pontos">Pontos</a>
         <a href="#/favoritas">Salvas</a>
         <a href="https://instagram.com/temploitaroba" target="_blank" rel="noopener">Instagram</a>
