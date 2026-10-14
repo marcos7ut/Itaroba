@@ -449,24 +449,61 @@ a.etiqueta:hover { background: var(--menta); color: var(--floresta-texto); }
   --oxum: #B08310; --oxum-suave: #F5ECD0; --oxum-texto: #7A5A08;
   --ogum: #B2382D; --ogum-suave: #F7E2DE; --ogum-texto: #8C2A21;
   --xango: #8A5A2B; --xango-suave: #EFE3D4; --xango-texto: #6B4420;
+  --oxala: #7C8494; --oxala-suave: #EEF0F3; --oxala-texto: #4F5664;
+  --ifa: #6E8A12; --ifa-suave: #EEF2D6; --ifa-texto: #4C6009;
+  --tempo: #5B6B3A; --tempo-suave: #E9ECDF; --tempo-texto: #414D27;
+  --ewa: #B8456A; --ewa-suave: #F7E3EA; --ewa-texto: #8E2F50;
+  --oba: #A54B1F; --oba-suave: #F6E4DA; --oba-texto: #7E3714;
+  --logun: #1C8590; --logun-suave: #DDF0F1; --logun-texto: #12646C;
+  --iemanja: #2F72B0; --iemanja-suave: #E1EDF8; --iemanja-texto: #1E5285;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --oxum: #E0B442; --oxum-suave: #2E2916; --oxum-texto: #EBC86A;
     --ogum: #E06A5E; --ogum-suave: #34201D; --ogum-texto: #EE958B;
     --xango: #C8925A; --xango-suave: #2D251C; --xango-texto: #DDB081;
+    --oxala: #ECEDF0; --oxala-suave: #2A2B2F; --oxala-texto: #F4F5F7;
+    --ifa: #B9CF4A; --ifa-suave: #262B14; --ifa-texto: #CFE06E;
+    --tempo: #A7B57E; --tempo-suave: #23271B; --tempo-texto: #C3CF9E;
+    --ewa: #E77FA1; --ewa-suave: #34202A; --ewa-texto: #F2A3BD;
+    --oba: #E08A5C; --oba-suave: #33231B; --oba-texto: #EDA984;
+    --logun: #4FC3CE; --logun-suave: #16292B; --logun-texto: #7DD6DE;
+    --iemanja: #7DB6EA; --iemanja-suave: #18242F; --iemanja-texto: #A3CDF2;
   }
 }
 :root[data-theme="dark"] {
   --oxum: #E0B442; --oxum-suave: #2E2916; --oxum-texto: #EBC86A;
   --ogum: #E06A5E; --ogum-suave: #34201D; --ogum-texto: #EE958B;
   --xango: #C8925A; --xango-suave: #2D251C; --xango-texto: #DDB081;
+  --oxala: #ECEDF0; --oxala-suave: #2A2B2F; --oxala-texto: #F4F5F7;
+  --ifa: #B9CF4A; --ifa-suave: #262B14; --ifa-texto: #CFE06E;
+  --tempo: #A7B57E; --tempo-suave: #23271B; --tempo-texto: #C3CF9E;
+  --ewa: #E77FA1; --ewa-suave: #34202A; --ewa-texto: #F2A3BD;
+  --oba: #E08A5C; --oba-suave: #33231B; --oba-texto: #EDA984;
+  --logun: #4FC3CE; --logun-suave: #16292B; --logun-texto: #7DD6DE;
+  --iemanja: #7DB6EA; --iemanja-suave: #18242F; --iemanja-texto: #A3CDF2;
 }
 
 .pontos, .pt-player, .pt-folha, .pt-linha, .pt-ponto, .tema { --c: var(--floresta); --c-suave: var(--menta); --c-texto: var(--floresta-texto); }
 .pt-cor-oxum { --c: var(--oxum); --c-suave: var(--oxum-suave); --c-texto: var(--oxum-texto); }
 .pt-cor-ogum { --c: var(--ogum); --c-suave: var(--ogum-suave); --c-texto: var(--ogum-texto); }
 .pt-cor-xango { --c: var(--xango); --c-suave: var(--xango-suave); --c-texto: var(--xango-texto); }
+.pt-cor-oxala { --c: var(--oxala); --c-suave: var(--oxala-suave); --c-texto: var(--oxala-texto); }
+/* Ifá: conta verde e amarela; Tempo: conta verde e marrom */
+.pt-cor-ifa { --c: var(--ifa); --c-suave: var(--ifa-suave); --c-texto: var(--ifa-texto); }
+.pt-cor-tempo { --c: var(--tempo); --c-suave: var(--tempo-suave); --c-texto: var(--tempo-texto); }
+.pt-cor-ifa .pt-conta { background: linear-gradient(90deg, #3E8E3A 50%, #E8C21E 50%); }
+.pt-cor-tempo .pt-conta { background: linear-gradient(90deg, #3E7A3A 50%, #7A4E2A 50%); }
+.pt-cor-ewa { --c: var(--ewa); --c-suave: var(--ewa-suave); --c-texto: var(--ewa-texto); }
+.pt-cor-oba { --c: var(--oba); --c-suave: var(--oba-suave); --c-texto: var(--oba-texto); }
+.pt-cor-logun { --c: var(--logun); --c-suave: var(--logun-suave); --c-texto: var(--logun-texto); }
+.pt-cor-ewa .pt-conta { background: linear-gradient(90deg, #D9435E 50%, #F0C330 50%); }
+.pt-cor-oba .pt-conta { background: linear-gradient(90deg, #B4232A 50%, #D9A21A 50%); }
+.pt-cor-logun .pt-conta { background: linear-gradient(90deg, #22A5B5 50%, #E2B53A 50%); }
+.pt-cor-iemanja { --c: var(--iemanja); --c-suave: var(--iemanja-suave); --c-texto: var(--iemanja-texto); }
+.pt-cor-iemanja .pt-conta { background: linear-gradient(90deg, #6BB3EE 50%, #FFFFFF 50%); box-shadow: 0 0 0 1.5px #A9C9E6; }
+/* Oxalá: a conta é sempre branca, com contorno para aparecer no fundo claro */
+.pt-cor-oxala .pt-conta { background: #FFFFFF; box-shadow: 0 0 0 1.5px #B9BFC9, 0 1px 2px rgba(0,0,0,.12); }
 
 .pt-cheio { fill: currentColor; stroke: none; }
 
@@ -497,6 +534,30 @@ a.etiqueta:hover { background: var(--menta); color: var(--floresta-texto); }
 .pt-linha__cabeca .botao svg { font-size: 1rem; }
 .pt-linha__cabeca .botao:hover svg { transform: none; }
 .pt-linha__pronto { display: inline-flex; align-items: center; gap: .4rem; font-size: .8125rem; font-weight: 600; color: var(--c-texto); padding: .55rem .25rem; }
+
+/* Quadrantes dos elementos: Fogo, Terra, Água e Ar */
+.pt-quadrante { display: flex; flex-direction: column; margin-top: 1.4rem; }
+.pt-quadrante:first-child { margin-top: .4rem; }
+.pt-quadrante__nome { margin: 0 0 .1rem; display: flex; align-items: center; gap: .75rem; font-family: var(--fonte-ui); font-size: .75rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--q, var(--tinta-2)); }
+.pt-quadrante__nome::before { content: ""; width: .55rem; height: .55rem; border-radius: 2px; transform: rotate(45deg); background: var(--q, var(--tinta-3)); flex: none; }
+.pt-quadrante__nome::after { content: ""; flex: 1; height: 1px; background: color-mix(in srgb, var(--q, var(--tinta-3)) 35%, transparent); }
+.pt-quadrante--fogo { --q: #C2412D; }
+.pt-quadrante--terra { --q: #8A5A2B; }
+.pt-quadrante--agua { --q: #2F72B0; }
+.pt-quadrante--ar { --q: #7C8494; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pt-quadrante--fogo { --q: #EE7A64; } :root:not([data-theme="light"]) .pt-quadrante--terra { --q: #D2A06C; } :root:not([data-theme="light"]) .pt-quadrante--agua { --q: #7DB6EA; } :root:not([data-theme="light"]) .pt-quadrante--ar { --q: #C9CDD6; } }
+:root[data-theme="dark"] .pt-quadrante--fogo { --q: #EE7A64; } :root[data-theme="dark"] .pt-quadrante--terra { --q: #D2A06C; } :root[data-theme="dark"] .pt-quadrante--agua { --q: #7DB6EA; } :root[data-theme="dark"] .pt-quadrante--ar { --q: #C9CDD6; }
+
+/* Linha recolhível: só o nome do orixá até tocar */
+.pt-linha__cabeca[data-pt-abrir] { cursor: pointer; }
+.pt-linha__abrir { all: unset; display: inline-flex; align-items: center; gap: .65rem; cursor: pointer; border-radius: 8px; }
+.pt-linha__abrir:focus-visible { outline: 2px solid var(--c); outline-offset: 4px; }
+.pt-seta { width: 1.15rem; height: 1.15rem; fill: none; stroke: var(--c-texto); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s; flex: none; }
+.pt-linha--aberta .pt-seta { transform: rotate(180deg); }
+.pt-linha:not(.pt-linha--aberta) { gap: 0; margin-top: .6rem; }
+.pt-linha:not(.pt-linha--aberta) .pt-linha__cabeca { padding: .9rem 1.1rem; }
+.pt-linha:not(.pt-linha--aberta) .pt-linha__nome { font-size: 1.6rem; }
+.pt-lista[hidden] { display: none; }
 
 /* Ponto */
 .pt-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }

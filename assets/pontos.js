@@ -19,12 +19,17 @@
   audio.preload = "metadata";
 
   const estado = {
-    linhas: [], pontos: [], carregou: null,
+    linhas: [], quadrantes: [], pontos: [], carregou: null,
     filtro: "", termo: "",
     atual: null, carregado: null, fila: [],
     repetir: false, vezes: 1,
     naPagina: false, arrastando: false, urlBlob: null,
   };
+  // Linhas abertas (os pontos só aparecem ao tocar no nome do orixá)
+  const CHAVE_ABERTAS = "pt-linhas-abertas";
+  estado.abertas = new Set();
+  try { (JSON.parse(localStorage.getItem(CHAVE_ABERTAS) || "[]") || []).forEach((id) => estado.abertas.add(id)); } catch (e) {}
+  const guardarAbertas = () => { try { localStorage.setItem(CHAVE_ABERTAS, JSON.stringify([...estado.abertas])); } catch (e) {} };
   const salvos = new Map();   // id -> tamanho em bytes
   const salvando = new Set();
 
@@ -43,6 +48,7 @@
     salvo: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle class="pt-cheio" cx="12" cy="12" r="9.5"/><path class="pt-check" d="m7.8 12.3 2.9 2.9 5.6-5.9"/></svg>`,
     nuvem: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.1 9.5 4.3 4.3 0 0 0 7 18z"/><path d="m9.5 13.5 2 2 3.5-3.5"/></svg>`,
     check: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>`,
+    seta: `<svg class="pt-seta" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9.5 6 6 6-6"/></svg>`,
   };
 
   // ---------- Aviso (usa a mesma pílula do app) ----------
@@ -97,6 +103,7 @@
         .then((r) => { if (!r.ok) throw new Error("Não foi possível ler data/pontos.json"); return r.json(); })
         .then((d) => {
           estado.linhas = d.linhas || [];
+          estado.quadrantes = d.quadrantes || [];
           estado.pontos = (d.pontos || []).map((p) => ({ ...p, letra: p.letra || "", _busca: normalizar(p.titulo + " " + (p.letra || "")) }));
           estado.atual = estado.pontos[0] ? estado.pontos[0].id : null;
           estado.fila = estado.pontos.map((p) => p.id);
@@ -153,7 +160,7 @@
       el.conteudo.innerHTML = `<div class="vazio"><h2>Nenhum ponto encontrado</h2><p>Tente outra palavra ou escolha “Todas as linhas”.</p></div>`;
       return;
     }
-    el.conteudo.innerHTML = estado.linhas.filter((l) => vs.some((p) => p.linha === l.id)).map((l) => {
+    const secao = (l) => {
       const todos = estado.pontos.filter((p) => p.linha === l.id);
       const dur = todos.reduce((a, p) => a + (p.duracao || 0), 0);
       const faltam = todos.filter((p) => !salvos.has(p.id)).length;
@@ -161,17 +168,25 @@
       const btn = faltam === 0
         ? `<span class="pt-linha__pronto">${ICO.check}Todos salvos</span>`
         : `<button type="button" class="botao botao--branco botao--compacto" data-pt-salvar-linha="${escapar(l.id)}"${ocupado ? " disabled" : ""}>${ICO.baixar}<span>Salvar todos</span></button>`;
-      return `<section class="pt-linha pt-cor-${escapar(l.id)}">
-        <header class="pt-linha__cabeca">
+      const aberta = estado.abertas.has(l.id) || estado.filtro === l.id || !!estado.termo.trim();
+      return `<section class="pt-linha pt-cor-${escapar(l.id)}${aberta ? " pt-linha--aberta" : ""}">
+        <header class="pt-linha__cabeca" data-pt-abrir="${escapar(l.id)}">
           <div class="pt-linha__titulos">
-            <h2 class="pt-linha__nome"><i class="pt-conta" aria-hidden="true"></i>${escapar(l.nome)}</h2>
+            <h3 class="pt-linha__nome"><button type="button" class="pt-linha__abrir" data-pt-abrir="${escapar(l.id)}" aria-expanded="${aberta}" aria-controls="pt-lista-${escapar(l.id)}"><i class="pt-conta" aria-hidden="true"></i>${escapar(l.nome)}${ICO.seta}</button></h3>
             ${l.saudacao ? `<p class="pt-linha__saudacao">${escapar(l.saudacao)}</p>` : ""}
             <p class="pt-linha__meta">${todos.length} ${todos.length === 1 ? "ponto" : "pontos"} · ${tempo(dur)}</p>
           </div>
           ${btn}
         </header>
-        <ul class="pt-lista">${vs.filter((p) => p.linha === l.id).map(cartao).join("")}</ul>
+        <ul class="pt-lista" id="pt-lista-${escapar(l.id)}"${aberta ? "" : " hidden"}>${aberta ? vs.filter((p) => p.linha === l.id).map(cartao).join("") : ""}</ul>
       </section>`;
+    };
+    const comPontos = estado.linhas.filter((l) => vs.some((p) => p.linha === l.id));
+    const quads = estado.quadrantes.length ? estado.quadrantes : [{ id: "", nome: "" }];
+    el.conteudo.innerHTML = quads.map((q) => {
+      const ls = comPontos.filter((l) => (q.id ? (l.quadrante || "outras") === q.id : true));
+      if (!ls.length) return "";
+      return `<div class="pt-quadrante pt-quadrante--${escapar(q.id)}">${q.nome ? `<h2 class="pt-quadrante__nome"><span>${escapar(q.nome)}</span></h2>` : ""}${ls.map(secao).join("")}</div>`;
     }).join("");
   }
 
@@ -327,8 +342,15 @@
 
   // ---------- Eventos ----------
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-pt-tocar],[data-pt-salvar],[data-pt-salvar-linha],[data-pt-linha]");
+    const t = e.target.closest("[data-pt-tocar],[data-pt-salvar],[data-pt-salvar-linha],[data-pt-linha],[data-pt-abrir]");
     if (!t) return;
+    if (t.dataset.ptAbrir) {
+      const id = t.dataset.ptAbrir;
+      if (estado.abertas.has(id) || estado.filtro === id) { estado.abertas.delete(id); if (estado.filtro === id) { estado.filtro = ""; renderFiltros(); } }
+      else estado.abertas.add(id);
+      guardarAbertas(); render();
+      return;
+    }
     if (t.dataset.ptTocar) tocar(t.dataset.ptTocar, visiveis().map((p) => p.id));
     else if (t.dataset.ptSalvar) { const id = t.dataset.ptSalvar; salvos.has(id) ? remover(id) : salvar(id); }
     else if (t.dataset.ptSalvarLinha) salvarLinha(t.dataset.ptSalvarLinha);
