@@ -363,23 +363,28 @@
     const valor = resto.join("/");
     const linkSalvas = document.querySelector('[data-nav="favoritas"]');
     const linkInicio = document.querySelector('[data-nav="inicio"]');
-    const linkPontos = document.querySelector('[data-nav="pontos"]');
+    // Pontos: "#/pontos" abre o Xirê e "#/pontos/outras-linhas" as Outras linhas
+    const OUTRAS = ["outras-linhas", "segunda-linha"];
+    const ehPontos = secao === "pontos" || secao === "xire" || OUTRAS.includes(secao);
+    const linksPontos = document.querySelectorAll('[data-nav="pontos"]');
     const vistaPontos = $("#vista-pontos");
     const pontos = window.PontosApp;
 
-    if (secao === "pontos") {
+    if (ehPontos) {
+      const segunda = OUTRAS.includes(secao) || OUTRAS.includes(valor);
+      const aba = segunda ? "segunda" : "xire", nomeAba = segunda ? "Outras linhas" : "Xirê";
       if (!el.vistaLista.hidden) estado.rolagemLista = scrollY;
       el.vistaLista.hidden = true; el.vistaPalestra.hidden = true; vistaPontos.hidden = false;
       linkSalvas.removeAttribute("aria-current"); linkInicio.removeAttribute("aria-current");
-      linkPontos.setAttribute("aria-current", "page");
+      linksPontos.forEach((a) => a.setAttribute("aria-current", "page"));
       palestraAtual = null;
-      document.title = `Pontos cantados | ${CFG.nomeCasa || "Templo"}`;
-      if (pontos) pontos.mostrar();
+      document.title = `Pontos · ${nomeAba} | ${CFG.nomeCasa || "Templo"}`;
+      if (pontos) pontos.mostrar(aba);
       scrollTo(0, 0);
       return;
     }
     vistaPontos.hidden = true;
-    linkPontos.removeAttribute("aria-current");
+    linksPontos.forEach((a) => a.removeAttribute("aria-current"));
     if (pontos) pontos.esconder();
 
     if (secao === "palestra" && valor) {
@@ -398,7 +403,7 @@
     estado.soSalvas = secao === "favoritas";
     if (estado.soSalvas) { linkSalvas.setAttribute("aria-current", "page"); linkInicio.removeAttribute("aria-current"); }
     else { linkSalvas.removeAttribute("aria-current"); linkInicio.setAttribute("aria-current", "page"); }
-    $("#olho-texto").textContent = estado.soSalvas ? "Suas palestras salvas" : "Acervo";
+    $("#olho-texto").textContent = estado.soSalvas ? "Suas palestras salvas" : "Palestras";
     if (secao === "tema") { estado.tema = valor; marcarTema(); }
 
     estado.mostrando = POR_PAGINA;

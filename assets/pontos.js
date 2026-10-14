@@ -7,7 +7,7 @@
 
   const $ = (s) => document.querySelector(s);
   const el = {
-    resumo: $("#pt-resumo"), busca: $("#pt-campo-busca"), linhas: $("#pt-linhas"),
+    abasEl: $("#pt-abas"), resumo: $("#pt-resumo"), busca: $("#pt-campo-busca"), linhas: $("#pt-linhas"),
     offline: $("#pt-offline"), conteudo: $("#pt-conteudo"),
     player: $("#pt-player"), pp: $("#pt-pp"), nome: $("#pt-p-nome"), linha: $("#pt-p-linha"),
     atual: $("#pt-p-atual"), total: $("#pt-p-total"), vezes: $("#pt-p-vezes"),
@@ -19,7 +19,7 @@
   audio.preload = "metadata";
 
   const estado = {
-    linhas: [], quadrantes: [], pontos: [], carregou: null,
+    abas: [], aba: "xire", linhas: [], quadrantes: [], pontos: [], carregou: null,
     filtro: "", termo: "",
     atual: null, carregado: null, fila: [],
     repetir: false, vezes: 1,
@@ -40,6 +40,10 @@
   const mb = (b) => (b / 1048576).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " MB";
   const ponto = (id) => estado.pontos.find((p) => p.id === id);
   const linhaDe = (id) => estado.linhas.find((l) => l.id === id) || { id, nome: id, saudacao: "" };
+  // Cada aba (Xirê, Outras linhas) mostra só as suas linhas
+  const abaDe = (l) => l.aba || "xire";
+  const linhasDaAba = () => estado.linhas.filter((l) => abaDe(l) === estado.aba);
+  const pontosDaAba = () => { const ids = new Set(linhasDaAba().map((l) => l.id)); return estado.pontos.filter((p) => ids.has(p.linha)); };
 
   const ICO = {
     play: `<svg class="pt-cheio" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>`,
@@ -102,6 +106,7 @@
       estado.carregou = fetch("data/pontos.json", { cache: "no-cache" })
         .then((r) => { if (!r.ok) throw new Error("Não foi possível ler data/pontos.json"); return r.json(); })
         .then((d) => {
+          estado.abas = d.abas || [];
           estado.linhas = d.linhas || [];
           estado.quadrantes = d.quadrantes || [];
           estado.pontos = (d.pontos || []).map((p) => ({ ...p, letra: p.letra || "", _busca: normalizar(p.titulo + " " + (p.letra || "")) }));
@@ -116,14 +121,14 @@
   // ---------- Tela ----------
   function visiveis() {
     const t = normalizar(estado.termo.trim());
-    return estado.pontos.filter((p) => (!estado.filtro || p.linha === estado.filtro) && (!t || p._busca.includes(t)));
+    return pontosDaAba().filter((p) => (!estado.filtro || p.linha === estado.filtro) && (!t || p._busca.includes(t)));
   }
 
   function renderFiltros() {
     const n = (id) => estado.pontos.filter((p) => p.linha === id).length;
     el.linhas.innerHTML =
-      `<button type="button" class="tema" data-pt-linha="" aria-pressed="${!estado.filtro}">Todas as linhas<span class="tema__n">${estado.pontos.length}</span></button>` +
-      estado.linhas.map((l) => `<button type="button" class="tema pt-cor-${escapar(l.id)}" data-pt-linha="${escapar(l.id)}" aria-pressed="${estado.filtro === l.id}"><i class="pt-conta" aria-hidden="true"></i>${escapar(l.nome)}<span class="tema__n">${n(l.id)}</span></button>`).join("");
+      `<button type="button" class="tema" data-pt-linha="" aria-pressed="${!estado.filtro}">Todas as linhas<span class="tema__n">${pontosDaAba().length}</span></button>` +
+      linhasDaAba().map((l) => `<button type="button" class="tema pt-cor-${escapar(l.id)}" data-pt-linha="${escapar(l.id)}" aria-pressed="${estado.filtro === l.id}"><i class="pt-conta" aria-hidden="true"></i>${escapar(l.nome)}<span class="tema__n">${n(l.id)}</span></button>`).join("");
   }
 
   function botaoSalvar(p) {
@@ -148,15 +153,24 @@
   }
 
   function render() {
-    if (!estado.pontos.length) return;
-    const nL = new Set(estado.pontos.map((p) => p.linha)).size;
-    el.resumo.innerHTML = `<strong>${estado.pontos.length}</strong> ${estado.pontos.length === 1 ? "ponto" : "pontos"}, <strong>${nL}</strong> ${nL === 1 ? "linha" : "linhas"}.`;
+    if (!estado.linhas.length) return;
+    // Seletor Xirê | Outras linhas
+    if (el.abasEl) el.abasEl.innerHTML = estado.abas.map((a) => {
+      const n = estado.pontos.filter((p) => abaDe(linhaDe(p.linha)) === a.id).length;
+      const href = a.id === "xire" ? "#/pontos" : `#/pontos/${escapar(a.rota || a.id)}`;
+      return `<a class="pt-aba" href="${href}"${a.id === estado.aba ? ' aria-current="page"' : ""}>${escapar(a.nome)}<span class="pt-aba__n">${n}</span></a>`;
+    }).join("");
+    const daAba = pontosDaAba(), lin = linhasDaAba();
+    const nP = daAba.length, nL = lin.length;
+    if (el.resumo) el.resumo.innerHTML = `<strong>${nP}</strong> ${nP === 1 ? "ponto" : "pontos"}, <strong>${nL}</strong> ${nL === 1 ? "linha" : "linhas"}.`;
 
-    let total = 0; salvos.forEach((v) => (total += v));
-    el.offline.innerHTML = `${ICO.nuvem}<span>Sem internet: <strong>${salvos.size}</strong> de ${estado.pontos.length} salvos no celular${salvos.size ? " · " + mb(total) : ""}</span>`;
+    let total = 0, nS = 0; daAba.forEach((p) => { if (salvos.has(p.id)) { nS++; total += salvos.get(p.id); } });
+    el.offline.hidden = !nP;
+    el.offline.innerHTML = `${ICO.nuvem}<span>Sem internet: <strong>${nS}</strong> de ${nP} salvos no celular${nS ? " · " + mb(total) : ""}</span>`;
 
     const vs = visiveis();
-    if (!vs.length) {
+    const buscando = !!estado.termo.trim();
+    if (!vs.length && (buscando || !estado.filtro)) {
       el.conteudo.innerHTML = `<div class="vazio"><h2>Nenhum ponto encontrado</h2><p>Tente outra palavra ou escolha “Todas as linhas”.</p></div>`;
       return;
     }
@@ -165,7 +179,8 @@
       const dur = todos.reduce((a, p) => a + (p.duracao || 0), 0);
       const faltam = todos.filter((p) => !salvos.has(p.id)).length;
       const ocupado = todos.some((p) => salvando.has(p.id));
-      const btn = faltam === 0
+      const btn = !todos.length ? ""
+        : faltam === 0
         ? `<span class="pt-linha__pronto">${ICO.check}Todos salvos</span>`
         : `<button type="button" class="botao botao--branco botao--compacto" data-pt-salvar-linha="${escapar(l.id)}"${ocupado ? " disabled" : ""}>${ICO.baixar}<span>Salvar todos</span></button>`;
       const aberta = estado.abertas.has(l.id) || estado.filtro === l.id || !!estado.termo.trim();
@@ -174,18 +189,21 @@
           <div class="pt-linha__titulos">
             <h3 class="pt-linha__nome"><button type="button" class="pt-linha__abrir" data-pt-abrir="${escapar(l.id)}" aria-expanded="${aberta}" aria-controls="pt-lista-${escapar(l.id)}"><i class="pt-conta" aria-hidden="true"></i>${escapar(l.nome)}${ICO.seta}</button></h3>
             ${l.saudacao ? `<p class="pt-linha__saudacao">${escapar(l.saudacao)}</p>` : ""}
-            <p class="pt-linha__meta">${todos.length} ${todos.length === 1 ? "ponto" : "pontos"} · ${tempo(dur)}</p>
+            <p class="pt-linha__meta">${todos.length ? `${todos.length} ${todos.length === 1 ? "ponto" : "pontos"} · ${tempo(dur)}` : "Pontos em breve"}</p>
           </div>
           ${btn}
         </header>
-        <ul class="pt-lista" id="pt-lista-${escapar(l.id)}"${aberta ? "" : " hidden"}>${aberta ? vs.filter((p) => p.linha === l.id).map(cartao).join("") : ""}</ul>
+        <ul class="pt-lista" id="pt-lista-${escapar(l.id)}"${aberta ? "" : " hidden"}>${aberta ? (todos.length ? vs.filter((p) => p.linha === l.id).map(cartao).join("") : `<li class="pt-embreve">Os pontos de ${escapar(l.nome)} ainda vão ser adicionados.</li>`) : ""}</ul>
       </section>`;
     };
-    const comPontos = estado.linhas.filter((l) => vs.some((p) => p.linha === l.id));
-    const quads = estado.quadrantes.length ? estado.quadrantes : [{ id: "", nome: "" }];
+    // Sem busca, mostra todas as linhas da aba (até as que ainda não têm áudio)
+    const comPontos = lin.filter((l) => (estado.filtro ? l.id === estado.filtro : true) && (buscando ? vs.some((p) => p.linha === l.id) : true));
+    const qs = estado.quadrantes.filter((q) => (q.aba || "xire") === estado.aba);
+    const quads = qs.length ? qs : [{ id: "", nome: "" }];
     el.conteudo.innerHTML = quads.map((q) => {
       const ls = comPontos.filter((l) => (q.id ? (l.quadrante || "outras") === q.id : true));
       if (!ls.length) return "";
+      if (!q.id) return `<div class="pt-grupo">${ls.map(secao).join("")}</div>`;
       return `<div class="pt-quadrante pt-quadrante--${escapar(q.id)}">${q.nome ? `<h2 class="pt-quadrante__nome"><span>${escapar(q.nome)}</span></h2>` : ""}${ls.map(secao).join("")}</div>`;
     }).join("");
   }
@@ -380,10 +398,17 @@
 
   // ---------- Ligação com o app ----------
   window.PontosApp = {
-    mostrar() {
+    mostrar(aba) {
       estado.naPagina = true;
+      if (aba && aba !== estado.aba) {
+        estado.aba = aba; estado.filtro = ""; estado.termo = ""; el.busca.value = "";
+      }
       carregar()
-        .then(() => { renderFiltros(); render(); renderPlayer(); })
+        .then(() => {
+          // Se nada tocou ainda, o player mostra o primeiro ponto da aba aberta
+          if (estado.carregado === null) { const ps = pontosDaAba(); if (ps.length) { estado.atual = ps[0].id; estado.fila = ps.map((p) => p.id); } }
+          renderFiltros(); render(); renderPlayer();
+        })
         .catch((e) => { el.conteudo.innerHTML = `<div class="vazio"><h2>Não foi possível carregar os pontos</h2><p>${escapar(e.message)}.</p></div>`; });
     },
     esconder() {
