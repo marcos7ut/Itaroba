@@ -775,3 +775,23 @@ body.com-player .aviso { bottom: calc(9.25rem + env(safe-area-inset-bottom, 0px)
 .pt-cor-iansa { --c: var(--iansa); --c-suave: var(--iansa-suave); --c-texto: var(--iansa-texto); }
 .pt-cor-iansa .pt-conta { background: #D9542A; }
 .pontos__inner { padding-top: clamp(6.25rem, 12vw, 7.5rem); }
+
+/* ---------- Hino da Umbanda e Prece de Káritas ---------- */
+:root {
+  --hino-umbanda: #2F72B0; --hino-umbanda-suave: #E3EDF7; --hino-umbanda-texto: #1E5285;
+  --prece-caritas: #6E7FA8; --prece-caritas-suave: #E8ECF5; --prece-caritas-texto: #4A5A80;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --hino-umbanda: #7DB6EA; --hino-umbanda-suave: #18242F; --hino-umbanda-texto: #A3CDF2;
+    --prece-caritas: #AEBBDD; --prece-caritas-suave: #1F2330; --prece-caritas-texto: #C8D2EA;
+  }
+}
+:root[data-theme="dark"] {
+  --hino-umbanda: #7DB6EA; --hino-umbanda-suave: #18242F; --hino-umbanda-texto: #A3CDF2;
+  --prece-caritas: #AEBBDD; --prece-caritas-suave: #1F2330; --prece-caritas-texto: #C8D2EA;
+}
+.pt-cor-hino-umbanda { --c: var(--hino-umbanda); --c-suave: var(--hino-umbanda-suave); --c-texto: var(--hino-umbanda-texto); }
+.pt-cor-hino-umbanda .pt-conta { background: linear-gradient(90deg, #FFFFFF 50%, #6BB3EE 50%); box-shadow: 0 0 0 1.5px #A9C9E6; }
+.pt-cor-prece-caritas { --c: var(--prece-caritas); --c-suave: var(--prece-caritas-suave); --c-texto: var(--prece-caritas-texto); }
+.pt-cor-prece-caritas .pt-conta { background: #FFFFFF; box-shadow: 0 0 0 1.5px #AEBBDD, 0 1px 2px rgba(0,0,0,.12); }
