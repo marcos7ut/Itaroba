@@ -223,6 +223,18 @@
       "nome": "Logun Edé",
       "saudacao": "Logun",
       "aba": "segunda"
+    },
+    {
+      "id": "hino-umbanda",
+      "nome": "Hino da Umbanda",
+      "saudacao": "",
+      "aba": "segunda"
+    },
+    {
+      "id": "prece-caritas",
+      "nome": "Prece de Káritas",
+      "saudacao": "",
+      "aba": "segunda"
     }
   ],
   "pontos": [
@@ -1221,7 +1233,7 @@
     {
       "id": "obaluaie-e-zambore",
       "linha": "obaluaie",
-      "titulo": "Ê Zamborê",
+      "titulo": "É Zamborá",
       "audio": "audio/obaluaie/e-zambore.mp3",
       "duracao": 25,
       "letra": ""
@@ -1237,7 +1249,7 @@
     {
       "id": "obaluaie-quando-ingoma-fala",
       "linha": "obaluaie",
-      "titulo": "Quando Ingoma fala",
+      "titulo": "Quando Ngoma fala",
       "audio": "audio/obaluaie/quando-ingoma-fala.mp3",
       "duracao": 32,
       "letra": ""
@@ -1317,7 +1329,7 @@
     {
       "id": "obaluaie-ako-que-baiole",
       "linha": "obaluaie",
-      "titulo": "Akô que Baiolê",
+      "titulo": "Aká que baiolá",
       "audio": "audio/obaluaie/ako-que-baiole.mp3",
       "duracao": 37,
       "letra": ""
@@ -3019,6 +3031,1478 @@
       "letra": ""
     },
     {
+      "id": "caboclos-bumba-na-calunga",
+      "linha": "caboclos",
+      "titulo": "Bumba na calunga",
+      "audio": "audio/caboclos/bumba-na-calunga.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-caboclo-da-cachoeira",
+      "linha": "caboclos",
+      "titulo": "Caboclo da cachoeira",
+      "audio": "audio/caboclos/caboclo-da-cachoeira.mp3",
+      "duracao": 46,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-caboclo-guerreiro-tu-es-a-nacao-do-brasil",
+      "linha": "caboclos",
+      "titulo": "Caboclo guerreiro, tu és a nação do Brasil",
+      "audio": "audio/caboclos/caboclo-guerreiro-tu-es-a-nacao-do-brasil.mp3",
+      "duracao": 29,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-caboclo-ja-tem-caminhos",
+      "linha": "caboclos",
+      "titulo": "Caboclo já tem caminhos",
+      "audio": "audio/caboclos/caboclo-ja-tem-caminhos.mp3",
+      "duracao": 40,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-clareou-a-choupana-de-oxossi",
+      "linha": "caboclos",
+      "titulo": "Clareou a choupana de Oxossi",
+      "audio": "audio/caboclos/clareou-a-choupana-de-oxossi.mp3",
+      "duracao": 46,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-ele-e-o-senhor-da-floresta",
+      "linha": "caboclos",
+      "titulo": "Ele é o senhor da floresta",
+      "audio": "audio/caboclos/ele-e-o-senhor-da-floresta.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-ele-veio-de-tao-longe",
+      "linha": "caboclos",
+      "titulo": "Ele veio de tão longe",
+      "audio": "audio/caboclos/ele-veio-de-tao-longe.mp3",
+      "duracao": 31,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-eu-sai-da-minha-aldeia",
+      "linha": "caboclos",
+      "titulo": "Eu saí da minha aldeia",
+      "audio": "audio/caboclos/eu-sai-da-minha-aldeia.mp3",
+      "duracao": 35,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-jubiracaia-e-caboclo",
+      "linha": "caboclos",
+      "titulo": "Jubiracaia é caboclo",
+      "audio": "audio/caboclos/jubiracaia-e-caboclo.mp3",
+      "duracao": 45,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-o-lirio-e-e",
+      "linha": "caboclos",
+      "titulo": "Ô lírio, ê ê",
+      "audio": "audio/caboclos/o-lirio-e-e.mp3",
+      "duracao": 44,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-o-meu-caboclo-que-mata-e-a-sua",
+      "linha": "caboclos",
+      "titulo": "O meu caboclo que mata é a sua",
+      "audio": "audio/caboclos/o-meu-caboclo-que-mata-e-a-sua.mp3",
+      "duracao": 23,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-ogum-mora-na-lua",
+      "linha": "caboclos",
+      "titulo": "Ogum mora na lua",
+      "audio": "audio/caboclos/ogum-mora-na-lua.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-olha-meu-passarinho-azul-o",
+      "linha": "caboclos",
+      "titulo": "Olha meu passarinho azul, ô",
+      "audio": "audio/caboclos/olha-meu-passarinho-azul-o.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-pai-guaracy-quando-vem-la-de-aruanda",
+      "linha": "caboclos",
+      "titulo": "Pai Guaracy quando vem lá de Aruanda",
+      "audio": "audio/caboclos/pai-guaracy-quando-vem-la-de-aruanda.mp3",
+      "duracao": 18,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-pau-brasil-e-pau-forte",
+      "linha": "caboclos",
+      "titulo": "Pau-brasil é pau forte",
+      "audio": "audio/caboclos/pau-brasil-e-pau-forte.mp3",
+      "duracao": 89,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-sereno-que-cai-sao-horas-da-madrugada",
+      "linha": "caboclos",
+      "titulo": "Sereno que cai, são horas da madrugada",
+      "audio": "audio/caboclos/sereno-que-cai-sao-horas-da-madrugada.mp3",
+      "duracao": 40,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-tambor-tambor-vai-buscar-quem-mora-longe",
+      "linha": "caboclos",
+      "titulo": "Tambor, tambor, vai buscar quem mora longe",
+      "audio": "audio/caboclos/tambor-tambor-vai-buscar-quem-mora-longe.mp3",
+      "duracao": 44,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-tupinau-vem-do-reino-de-oxala",
+      "linha": "caboclos",
+      "titulo": "Tupinaú vem do reino de Oxalá",
+      "audio": "audio/caboclos/tupinau-vem-do-reino-de-oxala.mp3",
+      "duracao": 34,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-vestimenta-de-caboclo-e-samambaia",
+      "linha": "caboclos",
+      "titulo": "Vestimenta de caboclo é samambaia",
+      "audio": "audio/caboclos/vestimenta-de-caboclo-e-samambaia.mp3",
+      "duracao": 30,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-voces-estao-vendo-aqueles-meus-caboclos",
+      "linha": "caboclos",
+      "titulo": "Vocês estão vendo aqueles meus caboclos",
+      "audio": "audio/caboclos/voces-estao-vendo-aqueles-meus-caboclos.mp3",
+      "duracao": 54,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-a-noite-e-linda",
+      "linha": "caboclos",
+      "titulo": "A noite é linda",
+      "audio": "audio/caboclos/a-noite-e-linda.mp3",
+      "duracao": 41,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-ainda-tem-caboclo-bom",
+      "linha": "caboclos",
+      "titulo": "Ainda tem caboclo bom",
+      "audio": "audio/caboclos/ainda-tem-caboclo-bom.mp3",
+      "duracao": 23,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-as-cores-da-nossa-bandeira",
+      "linha": "caboclos",
+      "titulo": "As cores da nossa bandeira",
+      "audio": "audio/caboclos/as-cores-da-nossa-bandeira.mp3",
+      "duracao": 33,
+      "letra": ""
+    },
+    {
+      "id": "caboclos-atravessei-o-mar-a-nado",
+      "linha": "caboclos",
+      "titulo": "Atravessei o mar a nado",
+      "audio": "audio/caboclos/atravessei-o-mar-a-nado.mp3",
+      "duracao": 33,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-lenda-de-jaci",
+      "linha": "caboclas",
+      "titulo": "Lenda de Jaci",
+      "audio": "audio/caboclas/lenda-de-jaci.mp3",
+      "duracao": 138,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-mae-joana-quando-danca",
+      "linha": "caboclas",
+      "titulo": "Mãe Joana quando dança",
+      "audio": "audio/caboclas/mae-joana-quando-danca.mp3",
+      "duracao": 43,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-mas-ela-e-jurema",
+      "linha": "caboclas",
+      "titulo": "Mas ela é Jurema",
+      "audio": "audio/caboclas/mas-ela-e-jurema.mp3",
+      "duracao": 23,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-nas-matas-vi-um-caboclo-bradar",
+      "linha": "caboclas",
+      "titulo": "Nas matas vi um caboclo bradar",
+      "audio": "audio/caboclas/nas-matas-vi-um-caboclo-bradar.mp3",
+      "duracao": 55,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-no-meio-da-mata-eu-vi",
+      "linha": "caboclas",
+      "titulo": "No meio da mata eu vi",
+      "audio": "audio/caboclas/no-meio-da-mata-eu-vi.mp3",
+      "duracao": 69,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-no-reino-de-mamae-oxum",
+      "linha": "caboclas",
+      "titulo": "No reino de mamãe Oxum",
+      "audio": "audio/caboclas/no-reino-de-mamae-oxum.mp3",
+      "duracao": 59,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-o-inae-quem-te-magoou-inae",
+      "linha": "caboclas",
+      "titulo": "Ô Inaê, quem te magoou, Inaê",
+      "audio": "audio/caboclas/o-inae-quem-te-magoou-inae.mp3",
+      "duracao": 142,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-o-jurema-manda-aqui-manda-ali-manda-acola",
+      "linha": "caboclas",
+      "titulo": "Ô Jurema, manda aqui, manda ali, manda acolá",
+      "audio": "audio/caboclas/o-jurema-manda-aqui-manda-ali-manda-acola.mp3",
+      "duracao": 19,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-o-jurema-preta",
+      "linha": "caboclas",
+      "titulo": "Ô Jurema preta",
+      "audio": "audio/caboclas/o-jurema-preta.mp3",
+      "duracao": 32,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-o-jureme-o-jurema",
+      "linha": "caboclas",
+      "titulo": "Ô Juremê, ô Juremá",
+      "audio": "audio/caboclas/o-jureme-o-jurema.mp3",
+      "duracao": 41,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-o-seu-saiote-carijo-brilhou-nas-matas",
+      "linha": "caboclas",
+      "titulo": "O seu saiote carijó brilhou nas matas",
+      "audio": "audio/caboclas/o-seu-saiote-carijo-brilhou-nas-matas.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-oxalomim-onde-anda-a-jurema",
+      "linha": "caboclas",
+      "titulo": "Oxalomim, onde anda a Jurema",
+      "audio": "audio/caboclas/oxalomim-onde-anda-a-jurema.mp3",
+      "duracao": 53,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-que-lindo-o-capacete-de-penas",
+      "linha": "caboclas",
+      "titulo": "Que lindo o capacete de penas",
+      "audio": "audio/caboclas/que-lindo-o-capacete-de-penas.mp3",
+      "duracao": 40,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-tetete-tetete",
+      "linha": "caboclas",
+      "titulo": "Teteté, teteté",
+      "audio": "audio/caboclas/tetete-tetete.mp3",
+      "duracao": 50,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-traz-a-leveza-dos-ventos",
+      "linha": "caboclas",
+      "titulo": "Traz a leveza dos ventos",
+      "audio": "audio/caboclas/traz-a-leveza-dos-ventos.mp3",
+      "duracao": 30,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-um-grito-na-mata-ecoou",
+      "linha": "caboclas",
+      "titulo": "Um grito na mata ecoou",
+      "audio": "audio/caboclas/um-grito-na-mata-ecoou.mp3",
+      "duracao": 41,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-como-e-bonito-nos-campos-da-mataganza",
+      "linha": "caboclas",
+      "titulo": "Como é bonito nos campos da Mataganza",
+      "audio": "audio/caboclas/como-e-bonito-nos-campos-da-mataganza.mp3",
+      "duracao": 75,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-diante-de-tanta-pureza",
+      "linha": "caboclas",
+      "titulo": "Diante de tanta pureza",
+      "audio": "audio/caboclas/diante-de-tanta-pureza.mp3",
+      "duracao": 40,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-diante-dos-ventos-de-oya",
+      "linha": "caboclas",
+      "titulo": "Diante dos ventos de Oyá",
+      "audio": "audio/caboclas/diante-dos-ventos-de-oya.mp3",
+      "duracao": 33,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-ela-atravessa-o-rio",
+      "linha": "caboclas",
+      "titulo": "Ela atravessa o rio",
+      "audio": "audio/caboclas/ela-atravessa-o-rio.mp3",
+      "duracao": 22,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-ela-e-a-cabocla-jandira",
+      "linha": "caboclas",
+      "titulo": "Ela é a Cabocla Jandira",
+      "audio": "audio/caboclas/ela-e-a-cabocla-jandira.mp3",
+      "duracao": 21,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-helena-e-a-cabocla-jurema",
+      "linha": "caboclas",
+      "titulo": "Helena é a Cabocla Jurema",
+      "audio": "audio/caboclas/helena-e-a-cabocla-jurema.mp3",
+      "duracao": 22,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-janaina-quando-vem-de-aruanda",
+      "linha": "caboclas",
+      "titulo": "Janaína quando vem de Aruanda",
+      "audio": "audio/caboclas/janaina-quando-vem-de-aruanda.mp3",
+      "duracao": 39,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-jurema-guerreira",
+      "linha": "caboclas",
+      "titulo": "Jurema guerreira",
+      "audio": "audio/caboclas/jurema-guerreira.mp3",
+      "duracao": 41,
+      "letra": ""
+    },
+    {
+      "id": "caboclas-jurema-o-jureminha",
+      "linha": "caboclas",
+      "titulo": "Jurema, ô Jureminha",
+      "audio": "audio/caboclas/jurema-o-jureminha.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "yorima-preto-velho-quando-chega",
+      "linha": "yorima",
+      "titulo": "Preto velho quando chega",
+      "audio": "audio/yorima/preto-velho-quando-chega.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "yorima-preto-velho-que-vem-de-aruanda",
+      "linha": "yorima",
+      "titulo": "Preto velho que vem de Aruanda",
+      "audio": "audio/yorima/preto-velho-que-vem-de-aruanda.mp3",
+      "duracao": 35,
+      "letra": ""
+    },
+    {
+      "id": "yorima-preto-velho-rei-do-congo",
+      "linha": "yorima",
+      "titulo": "Preto velho, rei do Congo",
+      "audio": "audio/yorima/preto-velho-rei-do-congo.mp3",
+      "duracao": 140,
+      "letra": ""
+    },
+    {
+      "id": "yorima-preto-velho-senta-no-toco",
+      "linha": "yorima",
+      "titulo": "Preto velho senta no toco",
+      "audio": "audio/yorima/preto-velho-senta-no-toco.mp3",
+      "duracao": 46,
+      "letra": ""
+    },
+    {
+      "id": "yorima-quando-a-tristeza-invade-o-coracao",
+      "linha": "yorima",
+      "titulo": "Quando a tristeza invade o coração",
+      "audio": "audio/yorima/quando-a-tristeza-invade-o-coracao.mp3",
+      "duracao": 46,
+      "letra": ""
+    },
+    {
+      "id": "yorima-quando-angola-chorava",
+      "linha": "yorima",
+      "titulo": "Quando Angola chorava",
+      "audio": "audio/yorima/quando-angola-chorava.mp3",
+      "duracao": 70,
+      "letra": ""
+    },
+    {
+      "id": "yorima-quando-iaba-desceu-na-terra",
+      "linha": "yorima",
+      "titulo": "Quando Iabá desceu na terra",
+      "audio": "audio/yorima/quando-iaba-desceu-na-terra.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "yorima-quanta-estrela-tem-no-ceu",
+      "linha": "yorima",
+      "titulo": "Quanta estrela tem no céu",
+      "audio": "audio/yorima/quanta-estrela-tem-no-ceu.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "yorima-que-nego-e-esse-o-kalunga",
+      "linha": "yorima",
+      "titulo": "Que nego é esse, ô Kalunga",
+      "audio": "audio/yorima/que-nego-e-esse-o-kalunga.mp3",
+      "duracao": 24,
+      "letra": ""
+    },
+    {
+      "id": "yorima-quem-e-aquele-velhinho",
+      "linha": "yorima",
+      "titulo": "Quem é aquele velhinho",
+      "audio": "audio/yorima/quem-e-aquele-velhinho.mp3",
+      "duracao": 67,
+      "letra": ""
+    },
+    {
+      "id": "yorima-rei-congo-e-cambinda",
+      "linha": "yorima",
+      "titulo": "Rei Congo e Cambinda",
+      "audio": "audio/yorima/rei-congo-e-cambinda.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "yorima-sarava-senzala-sarava-terreiro",
+      "linha": "yorima",
+      "titulo": "Saravá senzala, saravá terreiro",
+      "audio": "audio/yorima/sarava-senzala-sarava-terreiro.mp3",
+      "duracao": 69,
+      "letra": ""
+    },
+    {
+      "id": "yorima-se-vejo-um-velho-no-caminho",
+      "linha": "yorima",
+      "titulo": "Se vejo um velho no caminho",
+      "audio": "audio/yorima/se-vejo-um-velho-no-caminho.mp3",
+      "duracao": 32,
+      "letra": ""
+    },
+    {
+      "id": "yorima-sofreu-se-magoou",
+      "linha": "yorima",
+      "titulo": "Sofreu, se magoou",
+      "audio": "audio/yorima/sofreu-se-magoou.mp3",
+      "duracao": 84,
+      "letra": ""
+    },
+    {
+      "id": "yorima-vo-inacio-pai-velho",
+      "linha": "yorima",
+      "titulo": "Vô Inácio, pai velho",
+      "audio": "audio/yorima/vo-inacio-pai-velho.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "yorima-vou-clarear-o-rosario-de-maria",
+      "linha": "yorima",
+      "titulo": "Vou clarear o rosário de Maria",
+      "audio": "audio/yorima/vou-clarear-o-rosario-de-maria.mp3",
+      "duracao": 46,
+      "letra": ""
+    },
+    {
+      "id": "yorima-vovo-mariana-onde-anda",
+      "linha": "yorima",
+      "titulo": "Vovó Mariana, onde anda",
+      "audio": "audio/yorima/vovo-mariana-onde-anda.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "yorima-vovo-nao-quer-casca-de-coco-no-terreiro",
+      "linha": "yorima",
+      "titulo": "Vovó não quer casca de coco no terreiro",
+      "audio": "audio/yorima/vovo-nao-quer-casca-de-coco-no-terreiro.mp3",
+      "duracao": 48,
+      "letra": ""
+    },
+    {
+      "id": "yorima-vovo-tem-sete-saias",
+      "linha": "yorima",
+      "titulo": "Vovó tem sete saias",
+      "audio": "audio/yorima/vovo-tem-sete-saias.mp3",
+      "duracao": 44,
+      "letra": ""
+    },
+    {
+      "id": "yorima-yorima-brilhou-do-ceu",
+      "linha": "yorima",
+      "titulo": "Yorimá brilhou do céu",
+      "audio": "audio/yorima/yorima-brilhou-do-ceu.mp3",
+      "duracao": 68,
+      "letra": ""
+    },
+    {
+      "id": "yorima-eu-andava-perambulando",
+      "linha": "yorima",
+      "titulo": "Eu andava perambulando",
+      "audio": "audio/yorima/eu-andava-perambulando.mp3",
+      "duracao": 48,
+      "letra": ""
+    },
+    {
+      "id": "yorima-eu-vi-no-ceu-uma-estrela-correr",
+      "linha": "yorima",
+      "titulo": "Eu vi no céu uma estrela correr",
+      "audio": "audio/yorima/eu-vi-no-ceu-uma-estrela-correr.mp3",
+      "duracao": 66,
+      "letra": ""
+    },
+    {
+      "id": "yorima-foi-numa-noite-de-lua",
+      "linha": "yorima",
+      "titulo": "Foi numa noite de lua",
+      "audio": "audio/yorima/foi-numa-noite-de-lua.mp3",
+      "duracao": 56,
+      "letra": ""
+    },
+    {
+      "id": "yorima-hein-hein-hein-olha-la-vai-ver-quem-e",
+      "linha": "yorima",
+      "titulo": "Hein, hein, hein, olha lá, vai ver quem é",
+      "audio": "audio/yorima/hein-hein-hein-olha-la-vai-ver-quem-e.mp3",
+      "duracao": 46,
+      "letra": ""
+    },
+    {
+      "id": "yorima-mas-se-nao-fosse-as-almas-santas",
+      "linha": "yorima",
+      "titulo": "Mas se não fosse as almas santas",
+      "audio": "audio/yorima/mas-se-nao-fosse-as-almas-santas.mp3",
+      "duracao": 48,
+      "letra": ""
+    },
+    {
+      "id": "yorima-meu-cachimbo-ta-no-toco",
+      "linha": "yorima",
+      "titulo": "Meu cachimbo tá no toco",
+      "audio": "audio/yorima/meu-cachimbo-ta-no-toco.mp3",
+      "duracao": 28,
+      "letra": ""
+    },
+    {
+      "id": "yorima-na-aroeira-de-sao-benedito",
+      "linha": "yorima",
+      "titulo": "Na aroeira de São Benedito",
+      "audio": "audio/yorima/na-aroeira-de-sao-benedito.mp3",
+      "duracao": 26,
+      "letra": ""
+    },
+    {
+      "id": "yorima-na-linha-dos-africanos",
+      "linha": "yorima",
+      "titulo": "Na linha dos africanos",
+      "audio": "audio/yorima/na-linha-dos-africanos.mp3",
+      "duracao": 24,
+      "letra": ""
+    },
+    {
+      "id": "yorima-nago-nago-eu-quero-ver-voce-sambar",
+      "linha": "yorima",
+      "titulo": "Nagô, Nagô, eu quero ver você sambar",
+      "audio": "audio/yorima/nago-nago-eu-quero-ver-voce-sambar.mp3",
+      "duracao": 45,
+      "letra": ""
+    },
+    {
+      "id": "yorima-nago-nao-tem-pressa",
+      "linha": "yorima",
+      "titulo": "Nagô não tem pressa",
+      "audio": "audio/yorima/nago-nao-tem-pressa.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "yorima-nego-trabalha-trabalha-cantando",
+      "linha": "yorima",
+      "titulo": "Nego trabalha, trabalha cantando",
+      "audio": "audio/yorima/nego-trabalha-trabalha-cantando.mp3",
+      "duracao": 66,
+      "letra": ""
+    },
+    {
+      "id": "yorima-negra-cambinda-da-costa-rica",
+      "linha": "yorima",
+      "titulo": "Negra Cambinda da Costa Rica",
+      "audio": "audio/yorima/negra-cambinda-da-costa-rica.mp3",
+      "duracao": 45,
+      "letra": ""
+    },
+    {
+      "id": "yorima-o-meu-sao-benedito-que-gira-mundo",
+      "linha": "yorima",
+      "titulo": "Ô meu São Benedito que gira mundo",
+      "audio": "audio/yorima/o-meu-sao-benedito-que-gira-mundo.mp3",
+      "duracao": 45,
+      "letra": ""
+    },
+    {
+      "id": "yorima-o-pai-velho-esta-cansado",
+      "linha": "yorima",
+      "titulo": "O pai velho está cansado",
+      "audio": "audio/yorima/o-pai-velho-esta-cansado.mp3",
+      "duracao": 29,
+      "letra": ""
+    },
+    {
+      "id": "yorima-o-preto-velho-que-nasceu-no-cativeiro",
+      "linha": "yorima",
+      "titulo": "O preto velho que nasceu no cativeiro",
+      "audio": "audio/yorima/o-preto-velho-que-nasceu-no-cativeiro.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "yorima-o-vento-esta-soprando",
+      "linha": "yorima",
+      "titulo": "O vento está soprando",
+      "audio": "audio/yorima/o-vento-esta-soprando.mp3",
+      "duracao": 46,
+      "letra": ""
+    },
+    {
+      "id": "yorima-oi-bate-bate-na-cumbuca",
+      "linha": "yorima",
+      "titulo": "Oi bate, bate na cumbuca",
+      "audio": "audio/yorima/oi-bate-bate-na-cumbuca.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "yorima-oi-curica-que-chora-mironga",
+      "linha": "yorima",
+      "titulo": "Oi curica que chora mironga",
+      "audio": "audio/yorima/oi-curica-que-chora-mironga.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "yorima-olha-a-fogueira-olha-o-fogo-olha-o-chao",
+      "linha": "yorima",
+      "titulo": "Olha a fogueira, olha o fogo, olha o chão",
+      "audio": "audio/yorima/olha-a-fogueira-olha-o-fogo-olha-o-chao.mp3",
+      "duracao": 48,
+      "letra": ""
+    },
+    {
+      "id": "yorima-preta-velha-nao-foi-a-cidade",
+      "linha": "yorima",
+      "titulo": "Preta velha não foi à cidade",
+      "audio": "audio/yorima/preta-velha-nao-foi-a-cidade.mp3",
+      "duracao": 40,
+      "letra": ""
+    },
+    {
+      "id": "yorima-a-fumaca-do-cachimbo-da-vovo",
+      "linha": "yorima",
+      "titulo": "A fumaça do cachimbo da vovó",
+      "audio": "audio/yorima/a-fumaca-do-cachimbo-da-vovo.mp3",
+      "duracao": 35,
+      "letra": ""
+    },
+    {
+      "id": "yorima-as-almas-dao-as-aulas-da",
+      "linha": "yorima",
+      "titulo": "As almas dão as aulas da",
+      "audio": "audio/yorima/as-almas-dao-as-aulas-da.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "yorima-cambinda-mamae-e",
+      "linha": "yorima",
+      "titulo": "Cambinda, mamãe é",
+      "audio": "audio/yorima/cambinda-mamae-e.mp3",
+      "duracao": 50,
+      "letra": ""
+    },
+    {
+      "id": "yorima-carreia-nego-carreia",
+      "linha": "yorima",
+      "titulo": "Carreia, nego, carreia",
+      "audio": "audio/yorima/carreia-nego-carreia.mp3",
+      "duracao": 46,
+      "letra": ""
+    },
+    {
+      "id": "yorima-cativeiro-cativeiro",
+      "linha": "yorima",
+      "titulo": "Cativeiro, cativeiro",
+      "audio": "audio/yorima/cativeiro-cativeiro.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "yorima-corre-ronda-papai-do-ceu-corre-ronda",
+      "linha": "yorima",
+      "titulo": "Corre ronda, papai do céu, corre ronda",
+      "audio": "audio/yorima/corre-ronda-papai-do-ceu-corre-ronda.mp3",
+      "duracao": 46,
+      "letra": ""
+    },
+    {
+      "id": "yorima-de-roupa-velha-viveu-pai-joao",
+      "linha": "yorima",
+      "titulo": "De roupa velha viveu Pai João",
+      "audio": "audio/yorima/de-roupa-velha-viveu-pai-joao.mp3",
+      "duracao": 66,
+      "letra": ""
+    },
+    {
+      "id": "yorima-e-nago-e-nago",
+      "linha": "yorima",
+      "titulo": "É nagô, é nagô",
+      "audio": "audio/yorima/e-nago-e-nago.mp3",
+      "duracao": 20,
+      "letra": ""
+    },
+    {
+      "id": "yorima-e-o-vento-que-balanca-a-folha-da-guine",
+      "linha": "yorima",
+      "titulo": "É o vento que balança a folha da guiné",
+      "audio": "audio/yorima/e-o-vento-que-balanca-a-folha-da-guine.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "yorima-era-um-velho-muito-velho",
+      "linha": "yorima",
+      "titulo": "Era um velho muito velho",
+      "audio": "audio/yorima/era-um-velho-muito-velho.mp3",
+      "duracao": 50,
+      "letra": ""
+    },
+    {
+      "id": "yorima-estava-sentado-quando-ngoma-me-chamou",
+      "linha": "yorima",
+      "titulo": "Estava sentado quando Ngoma me chamou",
+      "audio": "audio/yorima/estava-sentado-quando-ngoma-me-chamou.mp3",
+      "duracao": 49,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-eu-vou-levar-vou-levar-flores-para-o-mar",
+      "linha": "marinheiros",
+      "titulo": "Eu vou levar, vou levar flores para o mar",
+      "audio": "audio/marinheiros/eu-vou-levar-vou-levar-flores-para-o-mar.mp3",
+      "duracao": 40,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-marinheiro-olhe-pro-mar",
+      "linha": "marinheiros",
+      "titulo": "Marinheiro, olhe pro mar",
+      "audio": "audio/marinheiros/marinheiro-olhe-pro-mar.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-mauricio-navega-em-seu-barco",
+      "linha": "marinheiros",
+      "titulo": "Maurício navega em seu barco",
+      "audio": "audio/marinheiros/mauricio-navega-em-seu-barco.mp3",
+      "duracao": 39,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-nao-bambeia-nao-bambeia-no-mar",
+      "linha": "marinheiros",
+      "titulo": "Não bambeia, não bambeia no mar",
+      "audio": "audio/marinheiros/nao-bambeia-nao-bambeia-no-mar.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-nao-sou-eu-quem-me-navega",
+      "linha": "marinheiros",
+      "titulo": "Não sou eu quem me navega",
+      "audio": "audio/marinheiros/nao-sou-eu-quem-me-navega.mp3",
+      "duracao": 44,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-o-marinheiro-e-hora",
+      "linha": "marinheiros",
+      "titulo": "Ô marinheiro, é hora",
+      "audio": "audio/marinheiros/o-marinheiro-e-hora.mp3",
+      "duracao": 33,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-o-marinheiro-foi-voce-quem-trouxe",
+      "linha": "marinheiros",
+      "titulo": "Ô marinheiro, foi você quem trouxe",
+      "audio": "audio/marinheiros/o-marinheiro-foi-voce-quem-trouxe.mp3",
+      "duracao": 28,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-o-marinheiro-vamos-ancorar",
+      "linha": "marinheiros",
+      "titulo": "Ô marinheiro, vamos ancorar",
+      "audio": "audio/marinheiros/o-marinheiro-vamos-ancorar.mp3",
+      "duracao": 34,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-o-no-fundo-do-mar-tem-uma-pedra",
+      "linha": "marinheiros",
+      "titulo": "Ô, no fundo do mar tem uma pedra",
+      "audio": "audio/marinheiros/o-no-fundo-do-mar-tem-uma-pedra.mp3",
+      "duracao": 21,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-o-rema-rema-rema-remador",
+      "linha": "marinheiros",
+      "titulo": "Ô rema, rema, rema, remador",
+      "audio": "audio/marinheiros/o-rema-rema-rema-remador.mp3",
+      "duracao": 22,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-o-vento-venta-ou-nao-venta",
+      "linha": "marinheiros",
+      "titulo": "O vento venta ou não venta",
+      "audio": "audio/marinheiros/o-vento-venta-ou-nao-venta.mp3",
+      "duracao": 27,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-pedi-ao-ceu-uma-estrela-para-me-guiar",
+      "linha": "marinheiros",
+      "titulo": "Pedi ao céu uma estrela para me guiar",
+      "audio": "audio/marinheiros/pedi-ao-ceu-uma-estrela-para-me-guiar.mp3",
+      "duracao": 32,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-quando-estou-navegando",
+      "linha": "marinheiros",
+      "titulo": "Quando estou navegando",
+      "audio": "audio/marinheiros/quando-estou-navegando.mp3",
+      "duracao": 89,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-quem-nessa-vida-sofre-por-amor",
+      "linha": "marinheiros",
+      "titulo": "Quem nessa vida sofre por amor",
+      "audio": "audio/marinheiros/quem-nessa-vida-sofre-por-amor.mp3",
+      "duracao": 55,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-quem-te-ensinou-a-nadar",
+      "linha": "marinheiros",
+      "titulo": "Quem te ensinou a nadar",
+      "audio": "audio/marinheiros/quem-te-ensinou-a-nadar.mp3",
+      "duracao": 33,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-re-le-le-da-marinha",
+      "linha": "marinheiros",
+      "titulo": "Rê lê lê da Marinha",
+      "audio": "audio/marinheiros/re-le-le-da-marinha.mp3",
+      "duracao": 48,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-retira-a-jangada-do-mar-mae-d-agua-mandou-avisar",
+      "linha": "marinheiros",
+      "titulo": "Retira a jangada do mar, mãe d'água mandou avisar",
+      "audio": "audio/marinheiros/retira-a-jangada-do-mar-mae-d-agua-mandou-avisar.mp3",
+      "duracao": 28,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-saia-do-mar-linda-sereia",
+      "linha": "marinheiros",
+      "titulo": "Saia do mar, linda sereia",
+      "audio": "audio/marinheiros/saia-do-mar-linda-sereia.mp3",
+      "duracao": 24,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-sao-tantas-estrelas-no-ceu",
+      "linha": "marinheiros",
+      "titulo": "São tantas estrelas no céu",
+      "audio": "audio/marinheiros/sao-tantas-estrelas-no-ceu.mp3",
+      "duracao": 44,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-sereia-sereinha-que-vem-da-fonte-dourada",
+      "linha": "marinheiros",
+      "titulo": "Sereia, sereinha que vem da fonte dourada",
+      "audio": "audio/marinheiros/sereia-sereinha-que-vem-da-fonte-dourada.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-as-ondas-do-mar-que-vai-levando-nevoeiro",
+      "linha": "marinheiros",
+      "titulo": "As ondas do mar que vai levando nevoeiro",
+      "audio": "audio/marinheiros/as-ondas-do-mar-que-vai-levando-nevoeiro.mp3",
+      "duracao": 77,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-as-ondas-do-mar-rolou",
+      "linha": "marinheiros",
+      "titulo": "As ondas do mar rolou",
+      "audio": "audio/marinheiros/as-ondas-do-mar-rolou.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-eu-fui-na-beira-da-praia",
+      "linha": "marinheiros",
+      "titulo": "Eu fui na beira da praia",
+      "audio": "audio/marinheiros/eu-fui-na-beira-da-praia.mp3",
+      "duracao": 55,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-eu-nao-sou-daqui",
+      "linha": "marinheiros",
+      "titulo": "Eu não sou daqui",
+      "audio": "audio/marinheiros/eu-nao-sou-daqui.mp3",
+      "duracao": 69,
+      "letra": ""
+    },
+    {
+      "id": "marinheiros-eu-quero-saudar-o-mar",
+      "linha": "marinheiros",
+      "titulo": "Eu quero saudar o mar",
+      "audio": "audio/marinheiros/eu-quero-saudar-o-mar.mp3",
+      "duracao": 56,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-e-boa-noite-meus-senhores",
+      "linha": "boiadeiros",
+      "titulo": "É boa noite, meus senhores",
+      "audio": "audio/boiadeiros/e-boa-noite-meus-senhores.mp3",
+      "duracao": 61,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-esse-boi-e-meu-esse-boi-e-meu",
+      "linha": "boiadeiros",
+      "titulo": "Esse boi é meu, esse boi é meu",
+      "audio": "audio/boiadeiros/esse-boi-e-meu-esse-boi-e-meu.mp3",
+      "duracao": 33,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-eu-tenho-meu-chapeu-de-couro",
+      "linha": "boiadeiros",
+      "titulo": "Eu tenho meu chapéu de couro",
+      "audio": "audio/boiadeiros/eu-tenho-meu-chapeu-de-couro.mp3",
+      "duracao": 32,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-ferrao-na-mao-na-mao",
+      "linha": "boiadeiros",
+      "titulo": "Ferrão na mão, na mão",
+      "audio": "audio/boiadeiros/ferrao-na-mao-na-mao.mp3",
+      "duracao": 41,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-ha-muito-tempo-eu-escuto-a-sua",
+      "linha": "boiadeiros",
+      "titulo": "Há muito tempo eu escuto a sua",
+      "audio": "audio/boiadeiros/ha-muito-tempo-eu-escuto-a-sua.mp3",
+      "duracao": 66,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-la-no-sertao-a-boiada-se-espalhou",
+      "linha": "boiadeiros",
+      "titulo": "Lá no sertão a boiada se espalhou",
+      "audio": "audio/boiadeiros/la-no-sertao-a-boiada-se-espalhou.mp3",
+      "duracao": 54,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-meu-sertao-nao-tem-sossego",
+      "linha": "boiadeiros",
+      "titulo": "Meu sertão não tem sossego",
+      "audio": "audio/boiadeiros/meu-sertao-nao-tem-sossego.mp3",
+      "duracao": 47,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-nas-trancas-dos-seus-cabelos",
+      "linha": "boiadeiros",
+      "titulo": "Nas tranças dos seus cabelos",
+      "audio": "audio/boiadeiros/nas-trancas-dos-seus-cabelos.mp3",
+      "duracao": 34,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-no-ceu-uma-voz-se-ouvia",
+      "linha": "boiadeiros",
+      "titulo": "No céu uma voz se ouvia",
+      "audio": "audio/boiadeiros/no-ceu-uma-voz-se-ouvia.mp3",
+      "duracao": 45,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-nos-campos-de-jerusalem",
+      "linha": "boiadeiros",
+      "titulo": "Nos campos de Jerusalém",
+      "audio": "audio/boiadeiros/nos-campos-de-jerusalem.mp3",
+      "duracao": 34,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-pedrinha-miudinha",
+      "linha": "boiadeiros",
+      "titulo": "Pedrinha miudinha",
+      "audio": "audio/boiadeiros/pedrinha-miudinha.mp3",
+      "duracao": 32,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-sao-sete-leguas-de-sol-a-pino",
+      "linha": "boiadeiros",
+      "titulo": "São sete léguas de sol a pino",
+      "audio": "audio/boiadeiros/sao-sete-leguas-de-sol-a-pino.mp3",
+      "duracao": 33,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-seu-boiadeiro-por-aqui-choveu",
+      "linha": "boiadeiros",
+      "titulo": "Seu Boiadeiro, por aqui choveu",
+      "audio": "audio/boiadeiros/seu-boiadeiro-por-aqui-choveu.mp3",
+      "duracao": 33,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-tem-boi-perdido",
+      "linha": "boiadeiros",
+      "titulo": "Tem boi perdido",
+      "audio": "audio/boiadeiros/tem-boi-perdido.mp3",
+      "duracao": 63,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-zai-zai-zai-boa-noite-meu-senhor",
+      "linha": "boiadeiros",
+      "titulo": "Zai, zai, zai, boa noite meu senhor",
+      "audio": "audio/boiadeiros/zai-zai-zai-boa-noite-meu-senhor.mp3",
+      "duracao": 32,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-a-menina-do-sobrado",
+      "linha": "boiadeiros",
+      "titulo": "A menina do sobrado",
+      "audio": "audio/boiadeiros/a-menina-do-sobrado.mp3",
+      "duracao": 77,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-a-mineira-me-pediu",
+      "linha": "boiadeiros",
+      "titulo": "A mineira me pediu",
+      "audio": "audio/boiadeiros/a-mineira-me-pediu.mp3",
+      "duracao": 39,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-boiadeiro-e-meu-amigo-meu-irmao",
+      "linha": "boiadeiros",
+      "titulo": "Boiadeiro é meu amigo, meu irmão",
+      "audio": "audio/boiadeiros/boiadeiro-e-meu-amigo-meu-irmao.mp3",
+      "duracao": 58,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-boiadeiro-o-que-faz-por-aqui",
+      "linha": "boiadeiros",
+      "titulo": "Boiadeiro, o que faz por aqui",
+      "audio": "audio/boiadeiros/boiadeiro-o-que-faz-por-aqui.mp3",
+      "duracao": 31,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-boiadeiro-quando-vem-la-de-aruanda",
+      "linha": "boiadeiros",
+      "titulo": "Boiadeiro quando vem lá de Aruanda",
+      "audio": "audio/boiadeiros/boiadeiro-quando-vem-la-de-aruanda.mp3",
+      "duracao": 42,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-cade-a-minha-corda-de-lacar-meu-boi",
+      "linha": "boiadeiros",
+      "titulo": "Cadê a minha corda de laçar meu boi",
+      "audio": "audio/boiadeiros/cade-a-minha-corda-de-lacar-meu-boi.mp3",
+      "duracao": 68,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-cade-meu-chapeu-de-couro",
+      "linha": "boiadeiros",
+      "titulo": "Cadê meu chapéu de couro",
+      "audio": "audio/boiadeiros/cade-meu-chapeu-de-couro.mp3",
+      "duracao": 35,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-cambono-fecha-o-laco",
+      "linha": "boiadeiros",
+      "titulo": "Cambono, fecha o laço",
+      "audio": "audio/boiadeiros/cambono-fecha-o-laco.mp3",
+      "duracao": 17,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-cavaleiro-de-aruanda",
+      "linha": "boiadeiros",
+      "titulo": "Cavaleiro de Aruanda",
+      "audio": "audio/boiadeiros/cavaleiro-de-aruanda.mp3",
+      "duracao": 26,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-e-boiadeiro-boiadeiro-no-romper-da-aurora",
+      "linha": "boiadeiros",
+      "titulo": "É boiadeiro, boiadeiro, no romper da aurora",
+      "audio": "audio/boiadeiros/e-boiadeiro-boiadeiro-no-romper-da-aurora.mp3",
+      "duracao": 45,
+      "letra": ""
+    },
+    {
+      "id": "boiadeiros-era-mina-de-ouro",
+      "linha": "boiadeiros",
+      "titulo": "Era mina de ouro",
+      "audio": "audio/boiadeiros/era-mina-de-ouro.mp3",
+      "duracao": 44,
+      "letra": ""
+    },
+    {
+      "id": "baianos-o-corisco-maria-bonita-mandou-lhe-chamar",
+      "linha": "baianos",
+      "titulo": "Ô Corisco, Maria Bonita mandou lhe chamar",
+      "audio": "audio/baianos/o-corisco-maria-bonita-mandou-lhe-chamar.mp3",
+      "duracao": 59,
+      "letra": ""
+    },
+    {
+      "id": "baianos-o-senhor-do-bonfim-mandou-eu-ir-la-buscar",
+      "linha": "baianos",
+      "titulo": "O Senhor do Bonfim mandou eu ir lá buscar",
+      "audio": "audio/baianos/o-senhor-do-bonfim-mandou-eu-ir-la-buscar.mp3",
+      "duracao": 66,
+      "letra": ""
+    },
+    {
+      "id": "baianos-ole-mulher-rendeira",
+      "linha": "baianos",
+      "titulo": "Olê mulher rendeira",
+      "audio": "audio/baianos/ole-mulher-rendeira.mp3",
+      "duracao": 29,
+      "letra": ""
+    },
+    {
+      "id": "baianos-paranaue-paranaue-parana",
+      "linha": "baianos",
+      "titulo": "Paranauê, paranauê, paraná",
+      "audio": "audio/baianos/paranaue-paranaue-parana.mp3",
+      "duracao": 29,
+      "letra": ""
+    },
+    {
+      "id": "baianos-pisa-baiano-piso-la-que-eu-piso-ca",
+      "linha": "baianos",
+      "titulo": "Pisa baiano, piso lá que eu piso cá",
+      "audio": "audio/baianos/pisa-baiano-piso-la-que-eu-piso-ca.mp3",
+      "duracao": 27,
+      "letra": ""
+    },
+    {
+      "id": "baianos-se-es-baiano",
+      "linha": "baianos",
+      "titulo": "Se és baiano",
+      "audio": "audio/baianos/se-es-baiano.mp3",
+      "duracao": 33,
+      "letra": ""
+    },
+    {
+      "id": "baianos-segura-a-asa-do-pavao-para-nao-voar",
+      "linha": "baianos",
+      "titulo": "Segura a asa do pavão para não voar",
+      "audio": "audio/baianos/segura-a-asa-do-pavao-para-nao-voar.mp3",
+      "duracao": 51,
+      "letra": ""
+    },
+    {
+      "id": "baianos-ta-na-hora-do-meu-dende",
+      "linha": "baianos",
+      "titulo": "Tá na hora do meu dendê",
+      "audio": "audio/baianos/ta-na-hora-do-meu-dende.mp3",
+      "duracao": 26,
+      "letra": ""
+    },
+    {
+      "id": "baianos-tudo-em-volta-e-so-beleza",
+      "linha": "baianos",
+      "titulo": "Tudo em volta é só beleza",
+      "audio": "audio/baianos/tudo-em-volta-e-so-beleza.mp3",
+      "duracao": 126,
+      "letra": ""
+    },
+    {
+      "id": "baianos-bahia-e-terra-de-dois",
+      "linha": "baianos",
+      "titulo": "Bahia é terra de dois",
+      "audio": "audio/baianos/bahia-e-terra-de-dois.mp3",
+      "duracao": 29,
+      "letra": ""
+    },
+    {
+      "id": "baianos-bahia-o-africa",
+      "linha": "baianos",
+      "titulo": "Bahia, ô África",
+      "audio": "audio/baianos/bahia-o-africa.mp3",
+      "duracao": 45,
+      "letra": ""
+    },
+    {
+      "id": "baianos-baiano-bom-baiano-bom",
+      "linha": "baianos",
+      "titulo": "Baiano bom, baiano bom",
+      "audio": "audio/baianos/baiano-bom-baiano-bom.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "baianos-canarinho-da-alemanha",
+      "linha": "baianos",
+      "titulo": "Canarinho da Alemanha",
+      "audio": "audio/baianos/canarinho-da-alemanha.mp3",
+      "duracao": 42,
+      "letra": ""
+    },
+    {
+      "id": "baianos-candeeiro-se-apagou",
+      "linha": "baianos",
+      "titulo": "Candeeiro se apagou",
+      "audio": "audio/baianos/candeeiro-se-apagou.mp3",
+      "duracao": 53,
+      "letra": ""
+    },
+    {
+      "id": "baianos-com-seu-chapeu-de-couro",
+      "linha": "baianos",
+      "titulo": "Com seu chapéu de couro",
+      "audio": "audio/baianos/com-seu-chapeu-de-couro.mp3",
+      "duracao": 52,
+      "letra": ""
+    },
+    {
+      "id": "baianos-com-tanto-trabalho-bom",
+      "linha": "baianos",
+      "titulo": "Com tanto trabalho bom",
+      "audio": "audio/baianos/com-tanto-trabalho-bom.mp3",
+      "duracao": 27,
+      "letra": ""
+    },
+    {
+      "id": "baianos-e-dona-joana-cade-o-bolo-de-fuba",
+      "linha": "baianos",
+      "titulo": "Ê Dona Joana, cadê o bolo de fubá",
+      "audio": "audio/baianos/e-dona-joana-cade-o-bolo-de-fuba.mp3",
+      "duracao": 27,
+      "letra": ""
+    },
+    {
+      "id": "baianos-eles-vao-embora-para-bahia-eles-vao-girar",
+      "linha": "baianos",
+      "titulo": "Eles vão embora para Bahia, eles vão girar",
+      "audio": "audio/baianos/eles-vao-embora-para-bahia-eles-vao-girar.mp3",
+      "duracao": 43,
+      "letra": ""
+    },
+    {
+      "id": "baianos-eu-fui-a-bahia",
+      "linha": "baianos",
+      "titulo": "Eu fui à Bahia",
+      "audio": "audio/baianos/eu-fui-a-bahia.mp3",
+      "duracao": 57,
+      "letra": ""
+    },
+    {
+      "id": "baianos-galo-cantou-e-de-madrugada",
+      "linha": "baianos",
+      "titulo": "Galo cantou, é de madrugada",
+      "audio": "audio/baianos/galo-cantou-e-de-madrugada.mp3",
+      "duracao": 43,
+      "letra": ""
+    },
+    {
+      "id": "baianos-madalena-madalena",
+      "linha": "baianos",
+      "titulo": "Madalena, Madalena",
+      "audio": "audio/baianos/madalena-madalena.mp3",
+      "duracao": 202,
+      "letra": ""
+    },
+    {
+      "id": "baianos-mas-olha-eu-camarada",
+      "linha": "baianos",
+      "titulo": "Mas olha eu, camarada",
+      "audio": "audio/baianos/mas-olha-eu-camarada.mp3",
+      "duracao": 49,
+      "letra": ""
+    },
+    {
+      "id": "baianos-meu-pai-crispim-me-ajuda-a-plantar",
+      "linha": "baianos",
+      "titulo": "Meu pai Crispim, me ajuda a plantar",
+      "audio": "audio/baianos/meu-pai-crispim-me-ajuda-a-plantar.mp3",
+      "duracao": 52,
+      "letra": ""
+    },
+    {
+      "id": "baianos-na-bahia-tem-eu-vou-mandar-buscar",
+      "linha": "baianos",
+      "titulo": "Na Bahia tem, eu vou mandar buscar",
+      "audio": "audio/baianos/na-bahia-tem-eu-vou-mandar-buscar.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "baianos-na-bahia-tem-mironga",
+      "linha": "baianos",
+      "titulo": "Na Bahia tem mironga",
+      "audio": "audio/baianos/na-bahia-tem-mironga.mp3",
+      "duracao": 25,
+      "letra": ""
+    },
+    {
+      "id": "baianos-o-bahia-bahia-terra-de-sao-salvador",
+      "linha": "baianos",
+      "titulo": "Ô Bahia, Bahia, terra de São Salvador",
+      "audio": "audio/baianos/o-bahia-bahia-terra-de-sao-salvador.mp3",
+      "duracao": 42,
+      "letra": ""
+    },
+    {
+      "id": "baianos-o-bahia-vamos-festejar",
+      "linha": "baianos",
+      "titulo": "Ô Bahia, vamos festejar",
+      "audio": "audio/baianos/o-bahia-vamos-festejar.mp3",
+      "duracao": 60,
+      "letra": ""
+    },
+    {
+      "id": "baianos-o-boa-noite-para-quem-e-de-boa-noite",
+      "linha": "baianos",
+      "titulo": "Ô, boa noite para quem é de boa noite",
+      "audio": "audio/baianos/o-boa-noite-para-quem-e-de-boa-noite.mp3",
+      "duracao": 41,
+      "letra": ""
+    },
+    {
+      "id": "baianos-o-coqueiro-do-norte-esta-balancando",
+      "linha": "baianos",
+      "titulo": "O coqueiro do Norte está balançando",
+      "audio": "audio/baianos/o-coqueiro-do-norte-esta-balancando.mp3",
+      "duracao": 24,
+      "letra": ""
+    },
+    {
+      "id": "baianos-a-bahia-me-deu-a-bahia-me-da",
+      "linha": "baianos",
+      "titulo": "A Bahia me deu, a Bahia me dá",
+      "audio": "audio/baianos/a-bahia-me-deu-a-bahia-me-da.mp3",
+      "duracao": 36,
+      "letra": ""
+    },
+    {
+      "id": "baianos-a-ema-gemeu",
+      "linha": "baianos",
+      "titulo": "A ema gemeu",
+      "audio": "audio/baianos/a-ema-gemeu.mp3",
+      "duracao": 59,
+      "letra": ""
+    },
+    {
+      "id": "baianos-a-flor-da-laranjeira",
+      "linha": "baianos",
+      "titulo": "A flor da laranjeira",
+      "audio": "audio/baianos/a-flor-da-laranjeira.mp3",
+      "duracao": 49,
+      "letra": ""
+    },
+    {
+      "id": "baianos-a-primeira-umbigada",
+      "linha": "baianos",
+      "titulo": "A primeira umbigada",
+      "audio": "audio/baianos/a-primeira-umbigada.mp3",
+      "duracao": 15,
+      "letra": ""
+    },
+    {
       "id": "ibeji-quanta-saudade-quanta",
       "linha": "ibeji",
       "titulo": "Quanta saudade, quanta",
@@ -3128,6 +4612,22 @@
       "titulo": "Caboclinho da Jurema, onde é que você vai",
       "audio": "audio/ibeji/caboclinho-da-jurema-onde-e-que-voce-vai.mp3",
       "duracao": 73,
+      "letra": ""
+    },
+    {
+      "id": "oriente-ela-e-uma-cigana-faceira",
+      "linha": "oriente",
+      "titulo": "Ela é uma cigana faceira",
+      "audio": "audio/oriente/ela-e-uma-cigana-faceira.mp3",
+      "duracao": 26,
+      "letra": ""
+    },
+    {
+      "id": "oriente-sao-joao-batista-vem-ver-minha-gente",
+      "linha": "oriente",
+      "titulo": "São João Batista, vem ver minha gente",
+      "audio": "audio/oriente/sao-joao-batista-vem-ver-minha-gente.mp3",
+      "duracao": 33,
       "letra": ""
     },
     {
@@ -3640,6 +5140,22 @@
       "titulo": "Logun menino, é menino",
       "audio": "audio/logun/logun-menino-e-menino.mp3",
       "duracao": 22,
+      "letra": ""
+    },
+    {
+      "id": "hino-umbanda-refletiu-a-luz-divina",
+      "linha": "hino-umbanda",
+      "titulo": "Refletiu a luz divina",
+      "audio": "audio/hino-umbanda/refletiu-a-luz-divina.mp3",
+      "duracao": 79,
+      "letra": ""
+    },
+    {
+      "id": "prece-caritas-prece-de-karitas",
+      "linha": "prece-caritas",
+      "titulo": "Prece de Káritas",
+      "audio": "audio/prece-caritas/prece-de-karitas.mp3",
+      "duracao": 95,
       "letra": ""
     }
   ]
