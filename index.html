@@ -5,25 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Acervo de Palestras</title>
   <meta name="description" content="Acervo de palestras do Templo Itarobá, com resumos, pontos principais e texto completo.">
-  <meta name="theme-color" content="#EAE7DD">
+  <meta name="theme-color" content="#EFE6D6">
   <meta name="robots" content="noindex, nofollow">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="assets/icone.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/icone-192.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/intertight.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/playfair-it.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
   <a class="pular" href="#conteudo">Ir para o conteúdo</a>
 
-  <!-- Navegação flutuante (cápsula de vidro) -->
+  <!-- Faixa de anotações (estilo Open Design) -->
+  <div class="faixa" aria-hidden="true">
+    <span><b>IT / 2026</b> · Acervo Nº <span class="faixa__n" id="faixa-n">—</span></span>
+    <span class="faixa__meio">Palestras <em>·</em> Pontos cantados <em>·</em> Desde 2011</span>
+    <span class="faixa__dir"><i></i>Templo Itarobá</span>
+  </div>
+
   <header class="nav" id="nav">
     <div class="nav__capsula">
       <a class="marca" href="#/" aria-label="Início">
-        <span class="marca__pontos" aria-hidden="true"><i></i><i></i></span>
+        <img class="marca__logo" src="assets/logo-96.png" srcset="assets/logo-96.png 1x, assets/logo-192.png 2x" width="34" height="34" alt="">
         <span class="marca__nome" data-config="nomeCasa"></span>
+        <span class="marca__curto" aria-hidden="true">Itarobá</span>
       </a>
       <nav class="nav__links" aria-label="Seções">
         <a href="#/" class="nav__link" data-nav="inicio">Palestras</a>
@@ -32,7 +38,7 @@
       </nav>
       <a class="botao botao--pinho botao--compacto" id="nav-recente" href="#/">
         <span>Mais recente</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
       </a>
     </div>
   </header>
@@ -44,40 +50,12 @@
     <section id="vista-lista" class="vista">
 
       <div class="heroi">
-        <div class="heroi__fundo" aria-hidden="true">
-          <div class="heroi__nevoa"></div>
-          <div class="heroi__brilho" id="brilho"></div>
-          <div class="heroi__chao"></div>
-          <canvas class="heroi__chuva" id="chuva"></canvas>
-        </div>
-
-        <!-- Ladrilhos flutuantes (só em telas largas) -->
-        <a class="ladrilho ladrilho--menta l1" href="#acervo">
-          <span class="ladrilho__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h10a4 4 0 0 1 4 4v12H9a4 4 0 0 1-4-4z"/><path d="M9 8h6M9 12h6"/></svg></span>
-          <span><b id="t-palestras">—</b><small>palestras no acervo</small></span>
-        </a>
-        <a class="ladrilho ladrilho--azul l2" href="#temas-titulo">
-          <span class="ladrilho__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg></span>
-          <span><b id="t-temas">—</b><small>temas de estudo</small></span>
-        </a>
-        <span class="ladrilho l3">
-          <span class="ladrilho__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span>
-          <span><b id="t-anos">—</b><small>anos de palestras</small></span>
-        </span>
-        <a class="ladrilho ladrilho--recente l4" id="t-recente" href="#/">
-          <span class="ladrilho__vela" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c2 2.8 2.9 4.8 2.9 6.3a2.9 2.9 0 0 1-5.8 0C9.1 7.8 10 5.8 12 3Z"/><rect x="10" y="13" width="4" height="8" rx="1"/></svg></span>
-          <span><b>Mais recente</b><small id="t-recente-titulo">—</small></span>
-        </a>
-
         <div class="heroi__conteudo">
-          <p class="selo sobe" style="--i:0">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2 2.8 2.9 4.8 2.9 6.3a2.9 2.9 0 0 1-5.8 0C9.1 7.8 10 5.8 12 3Z"/><rect x="10" y="13" width="4" height="8" rx="1"/></svg>
-            <span data-config="nomeCasa"></span>
-          </p>
-          <h1 class="heroi__titulo sobe" style="--i:1">Acervo de<br>Palestras.</h1>
-          <p class="heroi__texto sobe" style="--i:2" data-config="descricao"></p>
+          <p class="rotulo"><span>Templo Itarobá</span> · Nº 01</p>
+          <h1 class="heroi__titulo">Acervo de<br><em>Palestras</em><span class="ponto-final">.</span></h1>
+          <p class="heroi__texto" data-config="descricao"></p>
 
-          <form class="busca sobe" style="--i:3" role="search" id="form-busca">
+          <form class="busca" role="search" id="form-busca">
             <div class="busca__campo">
               <label for="campo-busca" class="sr">Buscar palestras</label>
               <svg class="busca__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -88,19 +66,46 @@
             </div>
             <button type="submit" class="botao botao--pinho">
               <span>Buscar</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 9v8H9"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </button>
           </form>
 
-          <label class="alternar sobe" style="--i:4" for="busca-completa">
+          <label class="alternar" for="busca-completa">
             <input type="checkbox" id="busca-completa">
             <span class="alternar__trilho" aria-hidden="true"><span></span></span>
             <span>Procurar também dentro do texto completo</span>
           </label>
 
-          <p class="heroi__numeros" id="numeros"></p>
+          <ul class="aneis" aria-label="O acervo em números">
+            <li><span class="anel" id="t-palestras">—</span><span><b>Palestras</b>no acervo</span></li>
+            <li><span class="anel anel--tracejado" id="t-temas">—</span><span><b>Temas</b>de estudo</span></li>
+            <li><span class="anel anel--marrom" id="t-n-anos">—</span><span><b>Anos</b><span id="t-anos">—</span></span></li>
+          </ul>
+          <p class="heroi__numeros sr" id="numeros"></p>
+
+          <div class="heroi__rodape">
+            <a id="t-recente" href="#/"><span aria-hidden="true">↳</span> Mais recente · <span id="t-recente-titulo">—</span></a>
+          </div>
         </div>
+
+        <!-- Prancha com a logo do templo -->
+        <figure class="prancha" aria-hidden="true">
+          <span class="prancha__canto c1"></span><span class="prancha__canto c2"></span><span class="prancha__canto c3"></span><span class="prancha__canto c4"></span>
+          <span class="prancha__nota n1">FIG. 01 / IT-26</span>
+          <span class="prancha__nota n2">Xangô · Kaô Kabecilê</span>
+          <div class="prancha__arte">
+            <span class="prancha__sol"></span>
+            <svg class="prancha__orbita" viewBox="0 0 400 400"><circle cx="200" cy="200" r="168"/><circle cx="200" cy="200" r="120" stroke-dasharray="3 6"/><path d="M20 300 380 300M200 20v360"/></svg>
+            <span class="prancha__pontos"></span>
+            <img src="assets/logo-512.png" alt="">
+          </div>
+          <ol class="prancha__indice"><li><i>01</i>Palestras</li><li><i>02</i>Pontos</li><li><i>03</i>Estudo</li></ol>
+          <span class="prancha__nota n3">Pedreira · Justiça · Machado</span>
+          <span class="prancha__nota n4">Templo Itarobá</span>
+        </figure>
       </div>
+
+      <div class="divisor"><span class="divisor__n">I.</span><span>Acervo / Palestras <em>·</em> Estude por tema</span><span id="divisor-conta">001 / 003</span></div>
 
       <div class="corpo" id="acervo">
         <header class="secao-cabeca">
@@ -159,11 +164,11 @@
             </a>
             <button type="button" class="botao botao--branco" id="p-salvar" aria-pressed="false">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
-              <span>Salvar</span>
+              <span class="acao__txt">Salvar</span>
             </button>
             <button type="button" class="botao botao--branco" id="p-compartilhar">
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.4M8.2 13.2l7.6 4.4"/></svg>
-              <span>Compartilhar</span>
+              <span class="acao__txt">Compartilhar</span>
             </button>
           </div>
         </header>
@@ -173,9 +178,9 @@
         <div class="leitura__controles">
           <div class="abas" role="tablist" aria-label="Formas de leitura">
             <button role="tab" id="aba-resumo" aria-controls="painel-resumo" aria-selected="true">Resumo</button>
-            <button role="tab" id="aba-topicos" aria-controls="painel-topicos" aria-selected="false" tabindex="-1">Pontos principais</button>
-            <button role="tab" id="aba-texto" aria-controls="painel-texto" aria-selected="false" tabindex="-1">Texto completo</button>
-            <button role="tab" id="aba-pdf" aria-controls="painel-pdf" aria-selected="false" tabindex="-1">PDF original</button>
+            <button role="tab" id="aba-topicos" aria-controls="painel-topicos" aria-selected="false" tabindex="-1"><span class="longo">Pontos principais</span><span class="curto" aria-hidden="true">Tópicos</span></button>
+            <button role="tab" id="aba-texto" aria-controls="painel-texto" aria-selected="false" tabindex="-1"><span class="longo">Texto completo</span><span class="curto" aria-hidden="true">Texto</span></button>
+            <button role="tab" id="aba-pdf" aria-controls="painel-pdf" aria-selected="false" tabindex="-1"><span class="longo">PDF original</span><span class="curto" aria-hidden="true">PDF</span></button>
           </div>
           <div class="tamanho" role="group" aria-label="Tamanho da letra">
             <button type="button" id="letra-menor" aria-label="Diminuir letra">A−</button>
@@ -198,7 +203,8 @@
     <section id="vista-pontos" class="vista pontos" hidden>
       <div class="leitura__fundo" aria-hidden="true"><div class="pontos__brilho"></div></div>
       <div class="pontos__inner">
-        <h1 class="sr">Pontos cantados</h1>
+        <p class="rotulo"><span>Pontos cantados</span> · Nº 02</p>
+        <h1 class="pontos__titulo">Pontos <em>cantados</em><span class="ponto-final">.</span></h1>
 
         <!-- Xirê e Outras linhas: cada parte em separado, dentro de Pontos -->
         <nav class="pt-abas" id="pt-abas" aria-label="Partes dos pontos"></nav>
@@ -222,7 +228,7 @@
   <footer class="rodape">
     <div class="rodape__painel">
       <div class="rodape__marca">
-        <span class="marca__pontos" aria-hidden="true"><i></i><i></i></span>
+        <img class="marca__logo" src="assets/logo-96.png" srcset="assets/logo-96.png 1x, assets/logo-192.png 2x" width="32" height="32" alt="">
         <span data-config="nomeCasa"></span>
       </div>
       <p class="rodape__frase">Palestras para ler, estudar e reencontrar.<span id="rodape-desde"></span></p>
