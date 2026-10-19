@@ -150,11 +150,13 @@
     $("#t-palestras").textContent = estado.palestras.length;
     $("#t-temas").textContent = contagem.size;
     $("#t-anos").textContent = anosOrd.length > 1 ? `${anosOrd[0]} – ${anosOrd[anosOrd.length - 1]}` : (anosOrd[0] || "—");
+    const nAnosEl = $("#t-n-anos"); if (nAnosEl) nAnosEl.textContent = nAnos || anosOrd.length;
     const recente = [...estado.palestras].sort(ordemCrono).pop();
     if (recente) {
       const href = `#/palestra/${encodeURIComponent(recente.id)}`;
       $("#t-recente").href = href; $("#nav-recente").href = href;
       $("#t-recente-titulo").textContent = `${recente.semana ? "Nº " + recente.semana + " · " : ""}${recente.titulo}`;
+      const fn = $("#faixa-n"); if (fn && recente.semana) fn.textContent = recente.semana;
     }
   }
 
