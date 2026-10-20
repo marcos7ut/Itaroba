@@ -19,7 +19,7 @@
   };
 
   const estado = {
-    palestras: [], porId: new Map(), textos: null, carregandoTextos: null,
+    palestras: [], porId: new Map(), textos: null, carregandoTextos: null, detalhes: null, carregandoDetalhes: null,
     termo: "", tema: "", ano: "", ordem: "recentes",
     soSalvas: false, mostrando: POR_PAGINA, filtradas: [],
     aba: "resumo", rolagemLista: 0,
@@ -105,6 +105,28 @@
       _busca: normalizar([p.titulo, p.palestrante, p.resumo, (p.topicos || []).join(" "), (p.temas || []).join(" "), p.palavras_chave?.join(" ")].join(" ")),
     }));
     estado.palestras.forEach((p) => estado.porId.set(p.id, p));
+    if (estado.detalhes) juntarDetalhes();
+  }
+
+  // O resumo longo e os pontos principais ficam em data/detalhes.json e chegam logo depois
+  function juntarDetalhes() {
+    estado.palestras.forEach((p) => {
+      const d = estado.detalhes[p.id];
+      if (!d || p._comDetalhes) return;
+      if (d.resumo_longo) p.resumo_longo = d.resumo_longo;
+      if (d.topicos) { p.topicos = d.topicos; p._busca += " " + normalizar(d.topicos.join(" ")); }
+      p._comDetalhes = true;
+    });
+  }
+  function carregarDetalhes() {
+    if (estado.detalhes) return Promise.resolve();
+    if (!estado.carregandoDetalhes) {
+      estado.carregandoDetalhes = fetch("data/detalhes.json", { cache: "no-cache" })
+        .then((r) => (r.ok ? r.json() : {}))
+        .then((d) => { estado.detalhes = d; juntarDetalhes(); })
+        .catch(() => { estado.carregandoDetalhes = null; });
+    }
+    return estado.carregandoDetalhes;
   }
 
   function carregarTextos() {
@@ -316,15 +338,8 @@
     if (p.pdf) { pdf.href = encodeURI(p.pdf); pdf.hidden = false; } else pdf.hidden = true;
     atualizarBotaoSalvar();
 
-    $("#painel-resumo").innerHTML = p.resumo
-      ? `<p class="resumo-destaque">${destacar(p.resumo, termos)}</p>` +
-        (p.resumo_longo ? paragrafos(p.resumo_longo, termos) : "") +
-        `<p class="nota">Resumo preparado a partir do texto original. Para estudo aprofundado, leia o texto completo.</p>`
-      : `<p class="carregando">O resumo desta palestra ainda não foi preparado. Veja o texto completo.</p>`;
-
-    $("#painel-topicos").innerHTML = p.topicos.length
-      ? `<ol class="topicos">${p.topicos.map((t) => `<li>${destacar(t, termos)}</li>`).join("")}</ol>`
-      : `<p class="carregando">Os pontos principais desta palestra ainda não foram preparados.</p>`;
+    preencherDetalhes(p, termos);
+    if (!estado.detalhes) carregarDetalhes().then(() => { if (palestraAtual === p) preencherDetalhes(p, termos); });
 
     delete $("#painel-pdf").dataset.id; $("#painel-pdf").innerHTML = "";
     $("#aba-pdf").hidden = !p.pdf;
@@ -350,6 +365,18 @@
       (prox ? `<a class="prox" href="#/palestra/${encodeURIComponent(prox.id)}"><span>Próxima</span><strong>${escapar(prox.titulo)}</strong></a>` : "");
 
     trocarAba(termos.length && el.completa.checked ? "texto" : "resumo");
+  }
+
+  function preencherDetalhes(p, termos) {
+    const esperando = !estado.detalhes;
+    $("#painel-resumo").innerHTML = p.resumo
+      ? `<p class="resumo-destaque">${destacar(p.resumo, termos)}</p>` +
+        (p.resumo_longo ? paragrafos(p.resumo_longo, termos) : esperando ? `<p class="carregando">Carregando o resumo completo…</p>` : "") +
+        `<p class="nota">Resumo preparado a partir do texto original. Para estudo aprofundado, leia o texto completo.</p>`
+      : `<p class="carregando">O resumo desta palestra ainda não foi preparado. Veja o texto completo.</p>`;
+    $("#painel-topicos").innerHTML = p.topicos.length
+      ? `<ol class="topicos">${p.topicos.map((t) => `<li>${destacar(t, termos)}</li>`).join("")}</ol>`
+      : `<p class="carregando">${esperando ? "Carregando os pontos principais…" : "Os pontos principais desta palestra ainda não foram preparados."}</p>`;
   }
 
   function atualizarBotaoSalvar() {
@@ -571,6 +598,7 @@
     }
     montarFiltros();
     rota();
+    (window.requestIdleCallback || ((f) => setTimeout(f, 300)))(() => carregarDetalhes());
     if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
       navigator.serviceWorker.register("sw.js").catch(() => {});
     }
