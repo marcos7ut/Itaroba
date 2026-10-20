@@ -1,15 +1,16 @@
 // Service worker: deixa o app abrir mais rápido e funcionar sem internet
 // depois da primeira visita. Mude a VERSAO sempre que atualizar o app.
-const VERSAO = "acervo-v30";
+const VERSAO = "acervo-v31";
 const ESSENCIAIS = [
   "./", "index.html", "config.js", "manifest.webmanifest",
   "assets/styles.css", "assets/app.js", "assets/pontos.js", "assets/icone.svg",
-  "assets/icone-192.png", "assets/icone-512.png", "assets/logo-96.png", "assets/logo-192.png", "assets/logo-512.png", "assets/favicon.png",
+  "assets/icone-192.png", "assets/icone-512.png", "assets/logo-96.png", "assets/logo-192.png", "assets/logo-512.png", "assets/favicon.png", "assets/grao.png",
   "assets/fonts/intertight.woff2", "assets/fonts/playfair.woff2", "assets/fonts/playfair-it.woff2", "data/palestras.json", "data/pontos.json",
 ];
 
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(VERSAO).then((c) => c.addAll(ESSENCIAIS)).then(() => self.skipWaiting()));
+  // Guarda cada arquivo separadamente: se um faltar no site, os outros continuam valendo
+  e.waitUntil(caches.open(VERSAO).then((c) => Promise.allSettled(ESSENCIAIS.map((u) => c.add(u)))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener("activate", (e) => {
