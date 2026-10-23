@@ -13,8 +13,226 @@
   <link rel="preload" href="assets/fonts/intertight.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/playfair-it.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/styles.css">
+  <style id="abertura-css">
+    #abertura{position:fixed;inset:0;z-index:9999;overflow:hidden;background:radial-gradient(130% 90% at 50% 40%,#2A1A10 0%,#140D08 55%,#080504 100%);color:#F2E9DA;font-family:"Inter Tight",system-ui,sans-serif;transition:opacity .8s cubic-bezier(.4,0,.2,1),visibility .8s;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    #abertura.ab--fim{opacity:0;visibility:hidden}
+    .ab__mundo{position:absolute;inset:0;will-change:transform}
+    #ab-cv{position:absolute;inset:0}
+    .ab__cena{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding-bottom:4vh}
+    .ab__palco{perspective:1000px;width:min(48vw,220px);aspect-ratio:1;position:relative;margin-bottom:26px;transition:transform .9s cubic-bezier(.4,0,.2,1)}
+    .ab--fim .ab__palco{transform:scale(1.18)}
+    .ab__luz{position:absolute;left:50%;top:50%;width:340%;aspect-ratio:1;margin:-170% 0 0 -170%;background:repeating-conic-gradient(from 0deg,rgba(255,206,130,.07) 0deg 3deg,transparent 3deg 14deg);-webkit-mask:radial-gradient(circle,#000 6%,transparent 46%);mask:radial-gradient(circle,#000 6%,transparent 46%);animation:ab-gira 40s linear infinite,ab-aparece 1.6s .65s ease-out both}
+    .ab__halo{position:absolute;inset:-35%;border-radius:50%;background:radial-gradient(circle,rgba(255,196,110,.42),rgba(255,160,70,.12) 45%,transparent 70%);animation:ab-aparece 1s .6s ease-out both,ab-pulsa 3.2s 1.8s ease-in-out infinite}
+    .ab__flutua{position:absolute;inset:0;transform-style:preserve-3d;animation:ab-flutua 6s 2.3s ease-in-out infinite}
+    .ab__moeda{position:absolute;inset:0;transform-style:preserve-3d;animation:ab-entra 1.7s .6s cubic-bezier(.12,.9,.2,1) both}
+    .ab__face,.ab__camada{position:absolute;inset:0;border-radius:50%}
+    .ab__camada{background:#4A2E1A;transform:translateZ(calc(var(--i) * -1px))}
+    .ab__camada:nth-child(odd){background:#6B4426}
+    .ab__frente{overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:translateZ(1px);box-shadow:0 0 0 1px rgba(255,214,150,.35)}
+    .ab__frente img{width:100%;height:100%;display:block}
+    .ab__verso{backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:translateZ(-13px) rotateY(180deg);background:radial-gradient(circle at 40% 35%,#8A5A33,#3E2614 70%);box-shadow:inset 0 0 0 6px #2E1C0F,inset 0 0 0 8px #D6A865;display:flex;align-items:center;justify-content:center;font-family:"Playfair",Georgia,serif;font-style:italic;font-size:clamp(18px,5vw,24px);color:#F0D6A6}
+    .ab__brilho{position:absolute;inset:-10%;background:linear-gradient(105deg,transparent 40%,rgba(255,250,235,.6) 50%,transparent 60%);transform:translateX(-120%);animation:ab-brilho 1.3s 2.05s cubic-bezier(.4,0,.2,1) both;mix-blend-mode:screen}
+    .ab__glint{position:absolute;left:50%;top:86%;width:36%;aspect-ratio:1;margin:-18% 0 0 -18%;background:conic-gradient(from 0deg,transparent 0 10%,#fff 12%,transparent 14% 35%,#fff 37%,transparent 39% 60%,#fff 62%,transparent 64% 85%,#fff 87%,transparent 89%);-webkit-mask:radial-gradient(circle,#000 0 8%,rgba(0,0,0,.7) 20%,transparent 60%);mask:radial-gradient(circle,#000 0 8%,rgba(0,0,0,.7) 20%,transparent 60%);transform:scale(0);animation:ab-glint 1s 2.6s cubic-bezier(.2,.7,.2,1) both}
+    .ab__sombra{position:absolute;left:14%;right:14%;bottom:-17%;height:11%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.65),transparent);animation:ab-aparece 1.4s .8s ease-out both}
+    .ab__nome{font-family:"Playfair",Georgia,serif;font-size:clamp(28px,8vw,38px);font-weight:500;white-space:nowrap;background:linear-gradient(100deg,#A97A42 0%,#E9C98E 40%,#FFF7E6 50%,#E9C98E 60%,#A97A42 100%);background-size:260% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent;animation:ab-titulo 1.5s 1.45s cubic-bezier(.16,.84,.24,1) both,ab-ouro 2.6s 2.1s cubic-bezier(.4,0,.2,1) both}
+    .ab__nome em{color:transparent}
+    .ab__sub{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:#C2A983;animation:ab-sub 1.4s 1.95s cubic-bezier(.16,.84,.24,1) both}
+    .ab__linha{width:120px;height:1.5px;margin-top:12px;background:rgba(242,233,218,.12);overflow:hidden;animation:ab-aparece .8s 2.2s ease-out both}
+    .ab__linha i{display:block;height:100%;background:linear-gradient(90deg,transparent,#F0CF94,transparent);transform-origin:left;animation:ab-carrega 2.2s 2.2s cubic-bezier(.6,0,.2,1) both}
+    .ab__barra{position:absolute;left:0;right:0;height:8vh;background:#000;z-index:2;transition:transform .8s cubic-bezier(.4,0,.2,1);animation:ab-barra 1s cubic-bezier(.16,.84,.24,1) both}
+    .ab__barra--c{top:0;--d:-100%}.ab__barra--b{bottom:0;--d:100%}
+    .ab--fim .ab__barra{transform:translateY(var(--d))}
+    @keyframes ab-barra{from{transform:translateY(var(--d))}}
+    @keyframes ab-entra{0%{opacity:0;transform:scale(.12) rotateX(30deg) rotateY(-720deg)}10%{opacity:1}100%{opacity:1;transform:none}}
+    @keyframes ab-flutua{0%,100%{transform:rotateY(-8deg) rotateX(3deg) translateY(0)}50%{transform:rotateY(8deg) rotateX(-2deg) translateY(-6px)}}
+    @keyframes ab-gira{to{rotate:360deg}}
+    @keyframes ab-aparece{from{opacity:0}}
+    @keyframes ab-pulsa{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+    @keyframes ab-brilho{to{transform:translateX(120%)}}
+    @keyframes ab-glint{0%{transform:scale(0) rotate(0);opacity:0}35%{transform:scale(1) rotate(45deg);opacity:1}100%{transform:scale(0) rotate(90deg);opacity:0}}
+    @keyframes ab-titulo{from{opacity:0;letter-spacing:.42em;filter:blur(12px)}to{opacity:1;letter-spacing:.01em;filter:blur(0)}}
+    @keyframes ab-ouro{to{background-position:0 0}}
+    @keyframes ab-sub{from{opacity:0;letter-spacing:.7em}to{opacity:1;letter-spacing:.3em}}
+    @keyframes ab-carrega{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+    @media (prefers-reduced-motion:reduce){#abertura *{animation-duration:.01s!important;animation-delay:0s!important}.ab__flutua,.ab__luz{animation:none}}
+  </style>
 </head>
 <body>
+  <!-- Abertura cinematográfica: tempestade de Xangô + medalha 3D com a logo (uma vez por visita) -->
+  <div id="abertura" aria-hidden="true">
+    <div class="ab__mundo" id="ab-mundo">
+      <canvas id="ab-cv"></canvas>
+      <div class="ab__cena">
+        <div class="ab__palco" id="ab-palco">
+          <div class="ab__luz"></div>
+          <div class="ab__halo"></div>
+          <div class="ab__flutua">
+            <div class="ab__moeda">
+              <span class="ab__camada" style="--i:1"></span><span class="ab__camada" style="--i:2"></span><span class="ab__camada" style="--i:3"></span><span class="ab__camada" style="--i:4"></span><span class="ab__camada" style="--i:5"></span><span class="ab__camada" style="--i:6"></span><span class="ab__camada" style="--i:7"></span><span class="ab__camada" style="--i:8"></span><span class="ab__camada" style="--i:9"></span><span class="ab__camada" style="--i:10"></span><span class="ab__camada" style="--i:11"></span><span class="ab__camada" style="--i:12"></span>
+              <div class="ab__face ab__verso">Itarobá</div>
+              <div class="ab__face ab__frente"><img src="assets/logo-512.png" alt=""><span class="ab__brilho"></span><span class="ab__glint"></span></div>
+            </div>
+          </div>
+          <div class="ab__sombra"></div>
+        </div>
+        <div class="ab__nome">Templo <em>Itarobá</em></div>
+        <div class="ab__sub">Acervo de palestras · desde 2011</div>
+        <div class="ab__linha"><i></i></div>
+      </div>
+    </div>
+    <div class="ab__barra ab__barra--c"></div><div class="ab__barra ab__barra--b"></div>
+  </div>
+  <script>
+    (function () {
+      var ab = document.getElementById("abertura"), cor = document.querySelector('meta[name="theme-color"]'), corOrig = cor && cor.content;
+      var MIN = 4600, MAX = 8000, ini = performance.now(), feito = false, vivo = true;
+      try { if (sessionStorage.getItem("ab-vista")) { ab.remove(); return; } sessionStorage.setItem("ab-vista", "1"); } catch (e) {}
+      if (cor) cor.content = "#000000";
+      function fechar() { if (feito) return; feito = true; ab.classList.add("ab--fim"); if (cor) cor.content = corOrig; setTimeout(function () { vivo = false; ab.remove(); }, 900); }
+      function aoCarregar() { setTimeout(fechar, Math.max(0, MIN - (performance.now() - ini))); }
+      if (document.readyState === "complete") aoCarregar(); else window.addEventListener("load", aoCarregar);
+      setTimeout(fechar, MAX);
+      ab.addEventListener("click", fechar);
+      if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      var cv = document.getElementById("ab-cv"), x = cv.getContext("2d"), mundo = document.getElementById("ab-mundo"), palco = document.getElementById("ab-palco");
+      var dpr = Math.min(window.devicePixelRatio || 1, 2), W = innerWidth, H = innerHeight;
+      cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px";
+      var R = palco.getBoundingClientRect(), cx = R.left + R.width / 2, cy = R.top + R.height / 2;
+      var A = Math.random;
+
+      /* nuvens: textura pré-desenhada em meia resolução */
+      function nuvem(n, cor) {
+        var c = document.createElement("canvas"); c.width = Math.ceil(W); c.height = Math.ceil(H * .8);
+        var g = c.getContext("2d"), k = c.width / 200;
+        for (var i = 0; i < n; i++) {
+          var px = A() * c.width, py = Math.pow(A(), 1.5) * c.height, r = (30 + A() * 90) * k, gr = g.createRadialGradient(px, py, 0, px, py, r), a = .025 + A() * .045;
+          gr.addColorStop(0, "rgba(" + cor + "," + a + ")"); gr.addColorStop(1, "rgba(" + cor + ",0)"); g.fillStyle = gr; g.fillRect(px - r, py - r, r * 2, r * 2);
+        }
+        g.globalCompositeOperation = "destination-in"; var fd = g.createLinearGradient(0, 0, 0, c.height); fd.addColorStop(0, "#000"); fd.addColorStop(.55, "rgba(0,0,0,.8)"); fd.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = fd; g.fillRect(0, 0, c.width, c.height);
+        return c;
+      }
+      var nv1 = nuvem(90, "70,52,42"), nv2 = nuvem(55, "120,94,74");
+
+      /* raio: deslocamento de ponto médio + ramificações */
+      function trilha(x0, y0, x1, y1, d, n) {
+        var p = [[x0, y0], [x1, y1]];
+        for (var k = 0; k < n; k++) { var q = [p[0]]; for (var i = 1; i < p.length; i++) { var a = p[i - 1], b = p[i]; q.push([(a[0] + b[0]) / 2 + (A() - .5) * d, (a[1] + b[1]) / 2 + (A() - .5) * d * .3]); q.push(b); } p = q; d *= .52; }
+        return p;
+      }
+      var raios = [], faiscas = [], brasas = [], eventos = [];
+      function raio(t0, x0, x1, y1, forca, impacto) {
+        var pts = trilha(x0, -30, x1, y1, W * .3 * forca, 7), br = [];
+        for (var r = 0; r < 4; r++) { var i = 10 + Math.floor(A() * (pts.length * .7)), o = pts[i], s = A() < .5 ? -1 : 1; br.push({ i: i, pts: trilha(o[0], o[1], o[0] + s * W * (.1 + A() * .18) * forca, o[1] + H * (.06 + A() * .14), W * .09 * forca, 5) }); }
+        raios.push({ t0: t0, pts: pts, br: br, f: forca, imp: impacto, bateu: false, x: x0 });
+      }
+      function brilhoRaio(r, t) {
+        var age = t - r.t0, L = 150;
+        if (age < 0) return 0;
+        if (age < L) return .5;
+        var e = Math.exp(-(age - L) / 160);
+        if (age > L + 210) e += .75 * Math.exp(-(age - L - 210) / 110);
+        if (age > L + 420) e += .35 * Math.exp(-(age - L - 420) / 90);
+        return Math.min(1.2, e);
+      }
+      var passes = [[34, .05, "255,150,60"], [16, .12, "255,190,110"], [6, .4, "255,228,180"], [2.2, 1, "255,255,250"]];
+      function traco(p, k, w, a, c) { if (k < 2) return; x.beginPath(); x.moveTo(p[0][0], p[0][1]); for (var i = 1; i < k; i++) x.lineTo(p[i][0], p[i][1]); x.lineWidth = w; x.strokeStyle = "rgba(" + c + "," + a + ")"; x.stroke(); }
+      function desenhaRaio(r, t, b) {
+        var age = t - r.t0, prog = Math.min(1, age / 150), k = Math.max(2, Math.floor(prog * (r.pts.length - 1)) + 1);
+        for (var j = 0; j < passes.length; j++) {
+          var P = passes[j], w = P[0] * (.5 + .5 * r.f), a = P[1] * b;
+          traco(r.pts, k, w, a, P[2]);
+          for (var m = 0; m < r.br.length; m++) { var B = r.br[m]; if (B.i < k) traco(B.pts, Math.min(B.pts.length, Math.floor((k - B.i) * 1.4) + 1), w * .5, a * .7, P[2]); }
+        }
+      }
+      function impacto(t) {
+        for (var i = 0; i < 80; i++) { var ang = A() * Math.PI * 2, v = 2 + Math.pow(A(), .6) * 9; faiscas.push({ x: cx, y: cy, vx: Math.cos(ang) * v, vy: Math.sin(ang) * v - 2, t0: t, vida: 500 + A() * 800 }); }
+        eventos.push({ tipo: "onda", t0: t }, { tipo: "flare", t0: t }, { tipo: "tremor", t0: t });
+      }
+      function luzNuvem(t0, px, forca) { eventos.push({ tipo: "nuvem", t0: t0, x: px, f: forca }); }
+      for (var i = 0; i < 46; i++) brasas.push({ x: A() * W, y: H * (.3 + A() * .8), v: .25 + A() * .7, s: .8 + A() * 1.8, fase: A() * 6.3, vida: A() });
+
+      /* roteiro (ms) */
+      luzNuvem(180, W * .3, .5);
+      raio(420, cx + (A() - .5) * W * .15, cx, cy, 1, true);
+      luzNuvem(1700, W * .8, .45);
+      raio(2050, W * (.05 + A() * .12), W * (.18 + A() * .1), H * (.62 + A() * .1), .5, false);
+      luzNuvem(2900, W * .2, .35);
+      raio(3350, W * (.84 + A() * .1), W * (.72 + A() * .1), H * (.6 + A() * .12), .45, false);
+
+      var ant = 0;
+      function quadro(agora) {
+        if (!vivo) return;
+        var t = agora - ini, dt = Math.min(48, ant ? agora - ant : 16) / 16.67; ant = agora;
+        x.setTransform(dpr, 0, 0, dpr, 0, 0); x.clearRect(0, 0, W, H);
+
+        /* intensidade do relâmpago */
+        var flash = 0, fx = W / 2;
+        raios.forEach(function (r) { var b = brilhoRaio(r, t) * r.f; if (b > flash) { flash = b; fx = r.x; } });
+        eventos.forEach(function (e) { if (e.tipo !== "nuvem") return; var a = t - e.t0; if (a < 0 || a > 900) return; var b = e.f * (Math.exp(-a / 140) + (a > 200 ? .6 * Math.exp(-(a - 200) / 120) : 0)); if (b > flash) { flash = b; fx = e.x; } });
+
+        /* nuvens com deriva lenta + iluminação interna */
+        var d1 = (t / 1000) * 5, d2 = (t / 1000) * 9;
+        x.globalCompositeOperation = "source-over"; x.globalAlpha = .85;
+        x.drawImage(nv1, -20 - d1, -10, W + 40, H * .8); x.drawImage(nv2, -30 + d2 * .5, 0, W + 60, H * .75);
+        if (flash > .01) {
+          x.globalCompositeOperation = "lighter"; x.globalAlpha = Math.min(1, flash * .9);
+          x.drawImage(nv2, -30 + d2 * .5, 0, W + 60, H * .75); x.drawImage(nv1, -20 - d1, -10, W + 40, H * .8);
+          x.globalAlpha = 1;
+          var g = x.createRadialGradient(fx, H * .1, 0, fx, H * .1, H * .9); g.addColorStop(0, "rgba(255,214,160," + flash * .22 + ")"); g.addColorStop(1, "rgba(255,180,110,0)");
+          x.fillStyle = g; x.fillRect(0, 0, W, H);
+        }
+        x.globalAlpha = 1; x.globalCompositeOperation = "lighter"; x.lineCap = "round"; x.lineJoin = "round";
+
+        /* raios */
+        raios.forEach(function (r) {
+          var b = brilhoRaio(r, t); if (b > .01 && t - r.t0 < 1600) desenhaRaio(r, t, b);
+          if (r.imp && !r.bateu && t - r.t0 >= 150) { r.bateu = true; impacto(t); }
+        });
+
+        /* onda de choque, flare anamórfico e tremor de câmera */
+        var tremor = 0;
+        eventos.forEach(function (e) {
+          var a = t - e.t0; if (a < 0) return;
+          if (e.tipo === "onda" && a < 900) {
+            var q = a / 900, ez = 1 - Math.pow(1 - q, 3), rr = 20 + ez * Math.max(W, H) * .55, al = Math.pow(1 - q, 2);
+            x.beginPath(); x.arc(cx, cy, rr, 0, 6.2832); x.lineWidth = 1 + 10 * (1 - q); x.strokeStyle = "rgba(255,200,120," + al * .35 + ")"; x.stroke();
+            x.lineWidth = 1.2; x.strokeStyle = "rgba(255,245,220," + al * .7 + ")"; x.stroke();
+          }
+          if (e.tipo === "flare" && a < 1100) {
+            var q2 = a / 1100, al2 = Math.pow(1 - q2, 1.6);
+            x.save(); x.translate(cx, cy); x.scale(7, 1);
+            var gf = x.createRadialGradient(0, 0, 0, 0, 0, 70); gf.addColorStop(0, "rgba(255,250,235," + al2 * .9 + ")"); gf.addColorStop(.25, "rgba(255,200,120," + al2 * .35 + ")"); gf.addColorStop(1, "rgba(255,160,70,0)");
+            x.fillStyle = gf; x.beginPath(); x.arc(0, 0, 70, 0, 6.2832); x.fill(); x.restore();
+            var gl = x.createLinearGradient(0, 0, W, 0); gl.addColorStop(0, "rgba(255,200,130,0)"); gl.addColorStop(.5, "rgba(255,245,225," + al2 * .8 + ")"); gl.addColorStop(1, "rgba(255,200,130,0)");
+            x.fillStyle = gl; x.fillRect(0, cy - 1, W, 2);
+          }
+          if (e.tipo === "tremor" && a < 600) tremor = 10 * Math.exp(-a / 130);
+        });
+        mundo.style.transform = tremor > .3 ? "translate3d(" + ((A() - .5) * tremor).toFixed(1) + "px," + ((A() - .5) * tremor).toFixed(1) + "px,0)" : "";
+
+        /* faíscas com rastro (motion blur) */
+        for (var i = faiscas.length - 1; i >= 0; i--) {
+          var s = faiscas[i], a3 = t - s.t0; if (a3 > s.vida) { faiscas.splice(i, 1); continue; }
+          s.vx *= Math.pow(.965, dt); s.vy = s.vy * Math.pow(.965, dt) + .14 * dt; s.x += s.vx * dt; s.y += s.vy * dt;
+          var al3 = 1 - a3 / s.vida; x.lineWidth = 1.6; x.strokeStyle = "rgba(255," + (190 + 60 * al3 | 0) + "," + (120 + 100 * al3 | 0) + "," + al3 + ")";
+          x.beginPath(); x.moveTo(s.x, s.y); x.lineTo(s.x - s.vx * 2.4, s.y - s.vy * 2.4); x.stroke();
+        }
+
+        /* brasas subindo */
+        var ent = Math.min(1, Math.max(0, (t - 700) / 900));
+        if (ent > 0) brasas.forEach(function (b) {
+          b.y -= b.v * dt; b.x += Math.sin(t / 900 + b.fase) * .25 * dt; if (b.y < -10) { b.y = H + 10; b.x = A() * W; }
+          var tw = .5 + .5 * Math.sin(t / 260 + b.fase * 3), al4 = ent * (.25 + .55 * tw) * (b.y / H);
+          var gb = x.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.s * 3); gb.addColorStop(0, "rgba(255,214,150," + al4 + ")"); gb.addColorStop(1, "rgba(255,150,60,0)");
+          x.fillStyle = gb; x.fillRect(b.x - b.s * 3, b.y - b.s * 3, b.s * 6, b.s * 6);
+        });
+
+        requestAnimationFrame(quadro);
+      }
+      requestAnimationFrame(quadro);
+    })();
+  </script>
   <a class="pular" href="#conteudo">Ir para o conteúdo</a>
 
   <!-- Faixa de anotações (estilo Open Design) -->
