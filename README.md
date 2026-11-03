@@ -10,6 +10,8 @@ App (PWA) com as palestras e os pontos cantados do Templo Itarobá, **exclusivo 
 - O conteúdo fica na **pasta privada `acervo` do Supabase**: só membros aprovados conseguem abrir, por links que vencem em 1 hora.
 - Entrar com Google → pedido de acesso (nome, sobrenome, gira e WhatsApp) → o administrador aprova, nega ou remove pelo **Painel** (escudo no menu).
 - As regras de segurança ficam no banco de dados, não só na tela.
+- Pode haver mais de um administrador (Painel → Aprovados → Tornar administrador).
+- **Marca d'água** só para membros: nome, e-mail e data por cima do app e carimbados em cada página dos PDFs (`assets/vendor/pdf-lib-1.17.1.min.js`, MIT). Administradores veem sem marca.
 
 ## Onde fica cada coisa
 

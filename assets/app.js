@@ -304,15 +304,22 @@
         <a class="botao botao--pinho botao--compacto" href="${url}" data-pdf="${escapar(p.pdf)}" target="_blank" rel="noopener"><span>Abrir em tela cheia</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
       <iframe class="pdf__quadro" ${ARQ.nuvem ? "" : `src="${url}#view=FitH"`} title="PDF original: ${escapar(p.titulo)}" loading="lazy"></iframe>
       <p class="nota pdf__nota">Se o documento não aparecer aqui (alguns celulares não mostram PDF dentro da página), toque em “Abrir em tela cheia”.</p>`;
-    if (ARQ.nuvem) ARQ.url(p.pdf).then((u) => { const f = painel.querySelector("iframe"); if (f && palestraAtual === p) f.src = u + "#view=FitH"; }, () => {});
+    if (ARQ.nuvem) ARQ.pdf(p.pdf).then((r) => { const f = painel.querySelector("iframe"); if (f && palestraAtual === p) f.src = r.url + "#view=FitH"; }, () => {});
   }
   // PDF na pasta privada: o link é gerado na hora do toque (vale por 1 hora)
   document.addEventListener("click", (e) => {
     const a = e.target.closest("a[data-pdf]"); if (!a || !ARQ.nuvem) return;
     e.preventDefault(); e.stopPropagation();
-    const janela = window.open("about:blank", "_blank");
-    ARQ.url(a.dataset.pdf).then(
-      (u) => { if (janela) { janela.opener = null; janela.location.href = u; } else location.href = u; },
+    // Celular sem leitor de PDF no navegador (Android): baixa o arquivo para abrir no app de PDF
+    const baixar = navigator.pdfViewerEnabled === false;
+    const janela = baixar ? null : window.open("about:blank", "_blank");
+    if (baixar) avisar("Preparando o PDF…");
+    ARQ.pdf(a.dataset.pdf).then(
+      (r) => {
+        if (janela) { janela.opener = null; janela.location.href = r.url; return; }
+        const d = document.createElement("a"); d.href = r.url; if (r.marcado) d.download = r.nome; else { d.target = "_blank"; d.rel = "noopener"; }
+        document.body.appendChild(d); d.click(); d.remove();
+      },
       () => { if (janela) janela.close(); avisar("Não deu para abrir o PDF agora. Confira a internet."); });
   }, true);
   function preencherTexto() {

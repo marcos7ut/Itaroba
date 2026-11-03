@@ -132,3 +132,8 @@ html.com-painel body > *:not(#ac-painel):not(.nav):not(#acp-aviso):not(script) {
 :root[data-theme="dark"] .acp__btn--perigo { color: #FF9C8C; }
 @media (max-width: 420px) { .acp__aba { padding: .55rem .5rem; font-size: .75rem; gap: .25rem; } .acp__filtros { grid-template-columns: 1fr; } }
 .ac__aceite a { color: #E2B36A; }
+
+/* marca d'água (só membros): nome, e-mail e data por cima de tudo, sem atrapalhar o toque */
+html.com-marca body::after { content: ""; position: fixed; inset: 0; z-index: 8000; pointer-events: none; background-image: var(--marca); background-repeat: repeat; }
+@media print { html.com-marca body::after { position: fixed; } }
+.acp__selo + .acp__btn { flex: 0 1 auto; }

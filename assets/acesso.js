@@ -59,6 +59,14 @@
         (data || []).forEach((d) => { if (d.signedUrl && !d.error) links.set(d.path, { url: d.signedUrl, ate: Date.now() + 50 * 60e3 }); });
       }
     },
+    // PDF: para membros, cada página sai carimbada com nome, e-mail e data (administradores veem sem marca)
+    async pdf(caminho) {
+      const marca = window.ACESSO.marcaPdf;
+      if (!NUVEM || !marca) return { url: await this.url(caminho) };
+      const chave = caminho + "|" + marca;
+      if (!pdfsMarcados.has(chave)) pdfsMarcados.set(chave, carimbar(caminho, marca).catch((e) => { pdfsMarcados.delete(chave); throw e; }));
+      return { url: await pdfsMarcados.get(chave), marcado: true, nome: "Itaroba-" + caminho.split("/").pop() };
+    },
     // arquivo inteiro (para salvar o ponto no celular e ouvir sem internet)
     async blob(caminho) {
       if (!NUVEM) { const r = await fetch(caminho); if (!r.ok) throw new Error(r.status); return r.blob(); }
@@ -67,6 +75,25 @@
       return data;
     },
   };
+  const pdfsMarcados = new Map();
+  function carregarPdfLib() {
+    if (window.PDFLib) return Promise.resolve(window.PDFLib);
+    return new Promise((ok, falha) => { const s = document.createElement("script"); s.src = "assets/vendor/pdf-lib-1.17.1.min.js"; s.onload = () => ok(window.PDFLib); s.onerror = falha; document.head.appendChild(s); });
+  }
+  async function carimbar(caminho, marca) {
+    const [L, arquivo] = await Promise.all([carregarPdfLib(), window.ACERVO_ARQ.blob(caminho)]);
+    const doc = await L.PDFDocument.load(await arquivo.arrayBuffer(), { ignoreEncryption: true });
+    const fonte = await doc.embedFont(L.StandardFonts.Helvetica);
+    // a fonte padrão do PDF não tem todos os caracteres: o que não couber vira a letra sem acento
+    const cabe = (t) => { try { fonte.widthOfTextAtSize(t, 10); return t; } catch (e) { return t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\x20-\x7E]/g, "?"); } };
+    const diag = cabe(marca), rodape = cabe("Exclusivo para membros do Templo Itarobá · " + marca), cinza = L.rgb(0.45, 0.45, 0.45);
+    for (const pg of doc.getPages()) {
+      const { width: w, height: h } = pg.getSize(), tam = Math.max(9, Math.min(w, h) / 32);
+      for (let i = 0; i < 4; i++) pg.drawText(diag, { x: w * 0.08, y: h * (0.12 + i * 0.24), size: tam, font: fonte, color: cinza, opacity: 0.2, rotate: L.degrees(28) });
+      pg.drawText(rodape, { x: 18, y: 12, size: Math.max(6, tam * 0.5), font: fonte, color: cinza, opacity: 0.7 });
+    }
+    return URL.createObjectURL(new Blob([await doc.save()], { type: "application/pdf" }));
+  }
   if (!ligado) return;
 
   const raiz = document.documentElement;
@@ -131,7 +158,7 @@
     } catch (e) { semConexao(); }
   }
 
-  function guardar(p) { try { localStorage.setItem(CACHE, JSON.stringify({ status: p.status, papel: p.papel, nome: p.nome, t: Date.now() })); } catch (e) {} }
+  function guardar(p) { try { localStorage.setItem(CACHE, JSON.stringify({ status: p.status, papel: p.papel, nome: p.nome, sobrenome: p.sobrenome, email: p.email, t: Date.now() })); } catch (e) {} }
   function guardado() { try { return JSON.parse(localStorage.getItem(CACHE)); } catch (e) { return null; } }
 
   function semConexao() {
@@ -239,9 +266,22 @@
   }
 
   /* ---------- 4. liberado ---------- */
-  function travar() { clearInterval(relogio); raiz.classList.add("acesso-travado"); document.getElementById("ac-nav")?.remove(); }
+  function travar() { clearInterval(relogio); raiz.classList.add("acesso-travado"); document.getElementById("ac-nav")?.remove(); aplicarMarca(null); }
+
+  /* ---------- marca d'água: só para membros (administradores veem sem marca) ---------- */
+  function aplicarMarca(p) {
+    const tem = !!(p && p.papel !== "admin");
+    raiz.classList.toggle("com-marca", tem);
+    window.ACESSO.marcaPdf = null;
+    if (!tem) { raiz.style.removeProperty("--marca"); return; }
+    const texto = [`${p.nome || ""} ${p.sobrenome || ""}`.trim(), p.email, new Date().toLocaleDateString("pt-BR")].filter(Boolean).join(" · ");
+    window.ACESSO.marcaPdf = texto;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="440" height="260"><text x="220" y="130" fill="rgb(128,128,128)" fill-opacity="0.17" font-family="Inter Tight, Arial, sans-serif" font-size="14" text-anchor="middle" transform="rotate(-28 220 130)">${esc(texto)}</text></svg>`;
+    raiz.style.setProperty("--marca", `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`);
+  }
+
   function liberar(p) {
-    perfil = p; window.ACESSO.perfil = p;
+    perfil = p; window.ACESSO.perfil = p; aplicarMarca(p);
     tela.hidden = true; tela.innerHTML = ""; raiz.classList.remove("acesso-travado");
     if (!p.offline) sb.rpc("registrar_acesso").then(() => {}, () => {});
     linkPainel();
@@ -259,7 +299,7 @@
       const { data, error } = await sb.from("membros").select("*").eq("id", session.user.id).maybeSingle();
       if (error) return; // sem internet: segue com o que tem
       if (!data || data.status !== "aprovado") { perfil = data; if (data) guardar(data); return data ? verificar() : telaPedido(session.user.email); }
-      perfil = data; guardar(data); linkPainel();
+      perfil = data; guardar(data); linkPainel(); aplicarMarca(data);
     } catch (e) {}
   }
   document.addEventListener("visibilitychange", reconferir);
@@ -355,9 +395,10 @@
     ul.innerHTML = vs.map((m) => {
       const ini = ((m.nome || "?")[0] + (m.sobrenome || "")[0]).toUpperCase();
       const eu = m.id === perfil.id, admin = m.papel === "admin";
-      const acoes = eu || admin ? `<span class="acp__selo">Administrador</span>` : {
+      const acoes = eu ? `<span class="acp__selo">Você · Administrador</span>`
+        : admin ? `<span class="acp__selo">Administrador</span><button type="button" class="acp__btn" data-acp-acao="tirar_admin" data-id="${m.id}">Tirar de administrador</button>` : {
         pendente: `<button type="button" class="acp__btn acp__btn--sim" data-acp-acao="aprovar" data-id="${m.id}">Aprovar</button><button type="button" class="acp__btn" data-acp-acao="negar" data-id="${m.id}">Negar</button>`,
-        aprovado: `<button type="button" class="acp__btn acp__btn--perigo" data-acp-acao="remover" data-id="${m.id}">Remover acesso</button>`,
+        aprovado: `<button type="button" class="acp__btn" data-acp-acao="tornar_admin" data-id="${m.id}">Tornar administrador</button><button type="button" class="acp__btn acp__btn--perigo" data-acp-acao="remover" data-id="${m.id}">Remover acesso</button>`,
         negado: `<button type="button" class="acp__btn acp__btn--sim" data-acp-acao="aprovar" data-id="${m.id}">Aprovar</button><button type="button" class="acp__btn" data-acp-acao="excluir" data-id="${m.id}">Excluir pedido</button>`,
         removido: `<button type="button" class="acp__btn acp__btn--sim" data-acp-acao="reativar" data-id="${m.id}">Reativar</button><button type="button" class="acp__btn" data-acp-acao="excluir" data-id="${m.id}">Excluir</button>`,
       }[m.status];
@@ -379,13 +420,17 @@
     negar: (m) => `Negar o pedido de ${m.nome} ${m.sobrenome}?`,
     remover: (m) => `Remover o acesso de ${m.nome} ${m.sobrenome}?\n\nO acervo fecha para essa pessoa e o que ela salvou no celular é apagado.`,
     excluir: (m) => `Excluir o cadastro de ${m.nome} ${m.sobrenome}?\n\nA pessoa poderá fazer um novo pedido depois.`,
+    tornar_admin: (m) => `Tornar ${m.nome} ${m.sobrenome} administrador(a)?\n\nEla(e) vai poder aprovar, negar e remover membros, e verá o acervo sem marca d'água.`,
+    tirar_admin: (m) => `Tirar ${m.nome} ${m.sobrenome} de administrador(a)?\n\nEla(e) continua membro, sem acesso ao painel.`,
   };
-  const FEITO = { aprovar: "aprovado(a)", reativar: "reativado(a)", negar: "negado(a)", remover: "removido(a)", excluir: "excluído(a)" };
+  const FEITO = { aprovar: "aprovado(a)", reativar: "reativado(a)", negar: "negado(a)", remover: "removido(a)", excluir: "excluído(a)", tornar_admin: "agora é administrador(a)", tirar_admin: "voltou a ser membro" };
   async function agir(btn) {
     const id = btn.dataset.id, acao = btn.dataset.acpAcao, m = P.lista.find((x) => x.id === id); if (!m) return;
     if (PERGUNTA[acao] && !confirm(PERGUNTA[acao](m))) return;
     btn.closest(".acp__acoes").querySelectorAll("button").forEach((b) => (b.disabled = true));
-    const { error } = acao === "excluir" ? await sb.rpc("excluir_pedido", { alvo: id }) : await sb.rpc("decidir", { alvo: id, acao });
+    const { error } = acao === "excluir" ? await sb.rpc("excluir_pedido", { alvo: id })
+      : acao === "tornar_admin" || acao === "tirar_admin" ? await sb.rpc("definir_papel", { alvo: id, novo_papel: acao === "tornar_admin" ? "admin" : "membro" })
+      : await sb.rpc("decidir", { alvo: id, acao });
     if (error) { alert("Não deu certo: " + error.message); btn.closest(".acp__acoes").querySelectorAll("button").forEach((b) => (b.disabled = false)); return; }
     avisar(`${m.nome} ${FEITO[acao]}`);
     await carregarLista();
