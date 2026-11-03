@@ -345,8 +345,11 @@
   addEventListener("hashchange", rota);
   function abrirPainel() {
     painel.hidden = false; raiz.classList.add("com-painel"); scrollTo(0, 0);
-    document.querySelectorAll('.nav__link[aria-current]').forEach((a) => a.removeAttribute("aria-current"));
-    document.getElementById("ac-nav")?.setAttribute("aria-current", "page");
+    // o roteador do app marca o menu logo depois; espera ele e marca só o Painel
+    setTimeout(() => {
+      document.querySelectorAll('.nav__link[aria-current]').forEach((a) => a.removeAttribute("aria-current"));
+      document.getElementById("ac-nav")?.setAttribute("aria-current", "page");
+    }, 0);
     desenharPainel(); carregarLista();
     clearInterval(P.timer); P.timer = setInterval(carregarLista, 30000);
   }
