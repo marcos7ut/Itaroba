@@ -74,7 +74,7 @@
 
   const GIRAS = [
     ["segunda", "Segunda"], ["terca", "Terça"], ["quarta", "Quarta"], ["quinta", "Quinta"], ["sexta", "Sexta"],
-    ["sabado-10h", "Sábado · 10h"], ["sabado-16h", "Sábado · 16h"], ["sabado-20h30", "Sábado · 20h30"],
+    ["sabado-10h", "Sábado · 10h30"], ["sabado-16h", "Sábado · 16h"], ["sabado-20h30", "Sábado · 20h30"],
   ];
   const nomeGira = (id) => (GIRAS.find((g) => g[0] === id) || [id, id])[1];
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
