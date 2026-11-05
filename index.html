@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="assets/styles.css">
   <link rel="stylesheet" href="assets/acesso.css">
   <link rel="stylesheet" href="assets/leitor-pdf.css">
+  <link rel="stylesheet" href="assets/estudos.css">
   <style id="abertura-css">
     #abertura{position:fixed;inset:0;width:100vw;height:100vh;height:100lvh;contain:strict;z-index:9999;overflow:hidden;background:radial-gradient(130% 90% at 50% 40%,#2A1A10 0%,#140D08 55%,#080504 100%);color:#F2E9DA;font-family:"Inter Tight",system-ui,sans-serif;transition:opacity .8s cubic-bezier(.4,0,.2,1),visibility .8s;cursor:pointer;-webkit-tap-highlight-color:transparent}
     #abertura.ab--fim{opacity:0;visibility:hidden}
@@ -366,6 +367,7 @@
         <a href="#/" class="nav__link" data-nav="inicio">Palestras</a>
         <a href="#/pontos" class="nav__link" data-nav="pontos">Pontos</a>
         <a href="#/favoritas" class="nav__link" data-nav="favoritas">Salvas</a>
+        <a href="#/estudos" class="nav__link" data-nav="estudos" hidden>Estudos</a>
       </nav>
       <a class="botao botao--pinho botao--compacto" id="nav-recente" href="#/">
         <span>Mais recente</span>
@@ -512,6 +514,7 @@
             <button role="tab" id="aba-topicos" aria-controls="painel-topicos" aria-selected="false" tabindex="-1"><span class="longo">Pontos principais</span><span class="curto" aria-hidden="true">Tópicos</span></button>
             <button role="tab" id="aba-texto" aria-controls="painel-texto" aria-selected="false" tabindex="-1"><span class="longo">Texto completo</span><span class="curto" aria-hidden="true">Texto</span></button>
             <button role="tab" id="aba-pdf" aria-controls="painel-pdf" aria-selected="false" tabindex="-1"><span class="longo">PDF original</span><span class="curto" aria-hidden="true">PDF</span></button>
+            <button role="tab" id="aba-questoes" aria-controls="painel-questoes" aria-selected="false" tabindex="-1" hidden><span class="longo">Questionário</span><span class="curto" aria-hidden="true">Questões</span></button>
           </div>
           <div class="tamanho" role="group" aria-label="Tamanho da letra">
             <button type="button" id="letra-menor" aria-label="Diminuir letra">A−</button>
@@ -524,6 +527,7 @@
           <section id="painel-topicos" role="tabpanel" aria-labelledby="aba-topicos" class="painel texto-leitura" hidden></section>
           <section id="painel-texto" role="tabpanel" aria-labelledby="aba-texto" class="painel texto-leitura" hidden></section>
           <section id="painel-pdf" role="tabpanel" aria-labelledby="aba-pdf" class="painel painel--pdf" hidden></section>
+          <section id="painel-questoes" role="tabpanel" aria-labelledby="aba-questoes" class="painel painel--questoes" hidden></section>
         </div>
 
         <nav class="vizinhas" id="vizinhas" aria-label="Outras palestras"></nav>
@@ -624,6 +628,7 @@
   <script src="config.js"></script>
   <script src="assets/acesso.js"></script>
   <script src="assets/leitor-pdf.js"></script>
+  <script src="assets/estudos.js"></script>
   <script src="assets/pontos.js"></script>
   <script src="assets/app.js"></script>
 </body>

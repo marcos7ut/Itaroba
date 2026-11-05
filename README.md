@@ -11,7 +11,7 @@ App (PWA) com as palestras e os pontos cantados do Templo Itarobá, **exclusivo 
 - Entrar com Google → pedido de acesso (nome, sobrenome, gira e WhatsApp) → o administrador aprova, nega ou remove pelo **Painel** (escudo no menu).
 - As regras de segurança ficam no banco de dados, não só na tela.
 - Pode haver mais de um administrador (Painel → Aprovados → Tornar administrador).
-- **Marca d'água** só para membros: nome, e-mail e data por cima das telas do app. Administradores veem sem marca.
+- **Estudos**: cada palestra tem um questionário (aba "Questionário"); a cada 5 palestras estudadas, um simulado de 10 perguntas (7 para passar) libera as próximas. "Meus estudos" mostra o progresso; o Painel mostra o de todos ("Estudos dos membros"). O gabarito fica só no banco. "Pontos principais" só para administradores.
 - **PDFs só para leitura**, num leitor dentro do app (`assets/leitor-pdf.js`, com PDF.js 3.11.174, Apache-2.0). Baixar só para administradores e para quem foi liberado no Painel ("Pode baixar PDFs").
 
 ## Onde fica cada coisa

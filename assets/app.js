@@ -105,6 +105,7 @@
       _busca: normalizar([p.titulo, p.palestrante, p.resumo, (p.topicos || []).join(" "), (p.temas || []).join(" "), p.palavras_chave?.join(" ")].join(" ")),
     }));
     estado.palestras.forEach((p) => estado.porId.set(p.id, p));
+    window.ACERVO_PALESTRAS = estado.porId; // usado pela área de estudos
     if (estado.detalhes) juntarDetalhes();
   }
 
@@ -282,15 +283,18 @@
       .map((p) => `<p>${destacar(p.replace(/\s*\n\s*/g, " "), termos)}</p>`).join("");
   }
 
+  const ABAS = ["resumo", "topicos", "texto", "pdf", "questoes"];
   function trocarAba(nome, foco) {
+    if ($("#aba-" + nome).hidden) nome = "resumo";
     estado.aba = nome;
-    ["resumo", "topicos", "texto", "pdf"].forEach((a) => {
+    ABAS.forEach((a) => {
       const b = $("#aba-" + a), painel = $("#painel-" + a), ativa = a === nome;
       b.setAttribute("aria-selected", ativa); b.tabIndex = ativa ? 0 : -1; painel.hidden = !ativa;
       if (ativa && foco) b.focus();
     });
     if (nome === "texto") preencherTexto();
     if (nome === "pdf") preencherPdf();
+    if (nome === "questoes" && window.Estudos && palestraAtual && $("#painel-questoes").dataset.id !== palestraAtual.id) window.Estudos.questionario(palestraAtual, $("#painel-questoes"));
   }
 
   let palestraAtual = null;
@@ -345,6 +349,9 @@
     if (!estado.detalhes) carregarDetalhes().then(() => { if (palestraAtual === p) preencherDetalhes(p, termos); });
 
     delete $("#painel-pdf").dataset.id; $("#painel-pdf").innerHTML = "";
+    delete $("#painel-questoes").dataset.id; $("#painel-questoes").innerHTML = "";
+    // "Pontos principais" só para administradores (eles adiantam as respostas do questionário)
+    const AC = window.ACESSO; $("#aba-topicos").hidden = !!(AC && AC.ligado && !AC.ehAdmin());
     $("#aba-pdf").hidden = !p.pdf;
     const painelTexto = $("#painel-texto");
     delete painelTexto.dataset.id;
@@ -492,12 +499,11 @@
     });
 
     // Abas (com setas do teclado)
-    const abas = ["resumo", "topicos", "texto", "pdf"];
-    abas.forEach((a) => $("#aba-" + a).addEventListener("click", () => trocarAba(a)));
+    ABAS.forEach((a) => $("#aba-" + a).addEventListener("click", () => trocarAba(a)));
     document.querySelector(".abas").addEventListener("keydown", (e) => {
-      const i = abas.indexOf(estado.aba);
-      if (e.key === "ArrowRight") trocarAba(abas[(i + 1) % 4], true);
-      if (e.key === "ArrowLeft") trocarAba(abas[(i + 3) % 4], true);
+      const vis = ABAS.filter((a) => !$("#aba-" + a).hidden), i = vis.indexOf(estado.aba);
+      if (e.key === "ArrowRight") trocarAba(vis[(i + 1) % vis.length], true);
+      if (e.key === "ArrowLeft") trocarAba(vis[(i + vis.length - 1) % vis.length], true);
     });
 
     $("#p-salvar").addEventListener("click", () => {
