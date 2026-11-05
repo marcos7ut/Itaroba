@@ -1,0 +1,26 @@
+/* ============================================================
+   Leitor de PDF dentro do app
+   ============================================================ */
+html.com-lpdf, html.com-lpdf body { overflow: hidden; }
+.lpdf { position: fixed; inset: 0; z-index: 8500; display: flex; flex-direction: column; background: #1C1A17; color: #F2E9DA; font-family: "Inter Tight", system-ui, sans-serif; }
+.lpdf[hidden] { display: none; }
+.lpdf__topo { display: flex; align-items: center; gap: .6rem; padding: calc(env(safe-area-inset-top, 0px) + .55rem) .7rem .55rem; background: #120F0C; border-bottom: 1px solid rgba(255, 220, 170, .12); }
+.lpdf__titulo { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.lpdf__titulo b { font-size: .9rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lpdf__info { font-size: .72rem; color: #BFAE93; }
+.lpdf__acoes { display: flex; gap: .35rem; flex: none; }
+.lpdf__btn { display: inline-flex; align-items: center; justify-content: center; gap: .35rem; min-width: 2.5rem; height: 2.5rem; padding: 0 .55rem; border: 1px solid rgba(255, 220, 170, .18); border-radius: 999px; background: rgba(255, 240, 215, .06); color: #F2E9DA; font: inherit; font-size: .8rem; font-weight: 600; cursor: pointer; }
+.lpdf__btn svg { width: 1.15rem; height: 1.15rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.lpdf__btn--baixar { background: linear-gradient(140deg, #F4DDAF, #D9A45A 70%); color: #1A110A; border: 0; }
+.lpdf__btn:disabled { opacity: .6; }
+.lpdf__btn:focus-visible { outline: 2px solid #F4DDAF; outline-offset: 2px; }
+.lpdf__paginas { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; padding: 12px 12px calc(env(safe-area-inset-bottom, 0px) + 24px); display: block; outline: none; }
+.lpdf__pagina { position: relative; margin: 0 auto 12px; max-width: none; background: #fff; box-shadow: 0 6px 22px rgba(0, 0, 0, .45); border-radius: 2px; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.lpdf__pagina canvas { display: block; pointer-events: none; }
+.lpdf__num { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #B9B2A6; font-size: 1.4rem; font-weight: 700; }
+.lpdf__pagina canvas + .lpdf__num, .lpdf__pagina:has(canvas) .lpdf__num { display: none; }
+.lpdf__aviso { margin: 3rem 1rem; display: flex; align-items: center; gap: .6rem; color: #CDBFA8; font-size: .95rem; text-align: center; }
+.lpdf__girando { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255, 220, 170, .2); border-top-color: #E2B36A; animation: lpdf-gira .9s linear infinite; flex: none; }
+@keyframes lpdf-gira { to { transform: rotate(360deg); } }
+@media (max-width: 380px) { .lpdf__btn--baixar span { display: none; } }
+@media print { .lpdf { display: none !important; } }

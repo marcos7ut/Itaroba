@@ -137,3 +137,7 @@ html.com-painel body > *:not(#ac-painel):not(.nav):not(#acp-aviso):not(script) {
 html.com-marca body::after { content: ""; position: fixed; inset: 0; z-index: 8000; pointer-events: none; background-image: var(--marca); background-repeat: repeat; }
 @media print { html.com-marca body::after { position: fixed; } }
 .acp__selo + .acp__btn { flex: 0 1 auto; }
+.acp__btn--baixar { flex-basis: 100%; }
+.acp__btn--ligado { border-color: rgba(30, 142, 78, .5); background: rgba(30, 142, 78, .1); color: #1E8E4E; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .acp__btn--ligado { color: #6FD39A; } }
+:root[data-theme="dark"] .acp__btn--ligado { color: #6FD39A; }

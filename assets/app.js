@@ -237,7 +237,7 @@
       const autor = p.palestrante && p.palestrante !== "Babalorixá" ? `<p class="cartao__autor">${destacar(p.palestrante, termos)}</p>` : "";
       const temas = p.temas.length ? `<ul class="cartao__temas">${p.temas.map((t) => `<li class="etiqueta">${escapar(t)}</li>`).join("")}</ul>` : "";
       const href = `#/palestra/${encodeURIComponent(p.id)}`;
-      const pdfBtn = p.pdf ? `<a class="cartao__pdf" href="${encodeURI(p.pdf)}" data-pdf="${escapar(p.pdf)}" target="_blank" rel="noopener" aria-label="Abrir o PDF original de ${escapar(p.titulo)}">${icoPdf}<span>PDF</span></a>` : "";
+      const pdfBtn = p.pdf ? `<a class="cartao__pdf" href="${encodeURI(p.pdf)}" data-pdf="${escapar(p.pdf)}" data-titulo="${escapar(p.titulo)}" target="_blank" rel="noopener" aria-label="Abrir o PDF original de ${escapar(p.titulo)}">${icoPdf}<span>PDF</span></a>` : "";
       if (semFiltro && i === 0) {
         return `<li class="item item--destaque"><div class="cartao">
           <div class="cartao__cabeca">
@@ -300,27 +300,15 @@
     painel.dataset.id = p.id;
     if (!p.pdf) { painel.innerHTML = `<p class="carregando">Esta palestra ainda não tem o PDF original.</p>`; return; }
     const url = encodeURI(p.pdf);
-    painel.innerHTML = `<div class="pdf__barra"><span>${escapar(p.pdf.split("/").pop())} · ${p.paginas || 1} ${p.paginas > 1 ? "páginas" : "página"}</span>
-        <a class="botao botao--pinho botao--compacto" href="${url}" data-pdf="${escapar(p.pdf)}" target="_blank" rel="noopener"><span>Abrir em tela cheia</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
-      <iframe class="pdf__quadro" ${ARQ.nuvem ? "" : `src="${url}#view=FitH"`} title="PDF original: ${escapar(p.titulo)}" loading="lazy"></iframe>
-      <p class="nota pdf__nota">Se o documento não aparecer aqui (alguns celulares não mostram PDF dentro da página), toque em “Abrir em tela cheia”.</p>`;
-    if (ARQ.nuvem) ARQ.pdf(p.pdf).then((r) => { const f = painel.querySelector("iframe"); if (f && palestraAtual === p) f.src = r.url + "#view=FitH"; }, () => {});
+    painel.innerHTML = `<div class="pdf__barra"><span>Documento original · ${p.paginas || 1} ${p.paginas > 1 ? "páginas" : "página"}</span>
+        <a class="botao botao--pinho botao--compacto" href="${url}" data-pdf="${escapar(p.pdf)}" data-titulo="${escapar(p.titulo)}"><span>Abrir o PDF</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
+      <p class="nota pdf__nota">O PDF abre no leitor do app, com zoom. ${window.ACESSO && window.ACESSO.podeBaixar() ? "Você pode baixar o arquivo pelo botão “Baixar” do leitor." : "Para baixar o arquivo, fale com a administração da casa."}</p>`;
   }
-  // PDF na pasta privada: o link é gerado na hora do toque (vale por 1 hora)
+  // PDF: sempre no leitor dentro do app (baixar só para quem tem permissão)
   document.addEventListener("click", (e) => {
-    const a = e.target.closest("a[data-pdf]"); if (!a || !ARQ.nuvem) return;
+    const a = e.target.closest("a[data-pdf]"); if (!a || !window.LeitorPDF) return;
     e.preventDefault(); e.stopPropagation();
-    // Celular sem leitor de PDF no navegador (Android): baixa o arquivo para abrir no app de PDF
-    const baixar = navigator.pdfViewerEnabled === false;
-    const janela = baixar ? null : window.open("about:blank", "_blank");
-    if (baixar) avisar("Preparando o PDF…");
-    ARQ.pdf(a.dataset.pdf).then(
-      (r) => {
-        if (janela) { janela.opener = null; janela.location.href = r.url; return; }
-        const d = document.createElement("a"); d.href = r.url; if (r.marcado) d.download = r.nome; else { d.target = "_blank"; d.rel = "noopener"; }
-        document.body.appendChild(d); d.click(); d.remove();
-      },
-      () => { if (janela) janela.close(); avisar("Não deu para abrir o PDF agora. Confira a internet."); });
+    window.LeitorPDF.abrir(a.dataset.pdf, a.dataset.titulo || (palestraAtual && palestraAtual.titulo) || "PDF original");
   }, true);
   function preencherTexto() {
     const painel = $("#painel-texto");
@@ -350,7 +338,7 @@
     $("#p-temas").innerHTML = p.temas.map((t) => `<li><a class="etiqueta" href="#/tema/${encodeURIComponent(t)}">${escapar(t)}</a></li>`).join("");
 
     const pdf = $("#p-pdf");
-    if (p.pdf) { pdf.href = encodeURI(p.pdf); pdf.dataset.pdf = p.pdf; pdf.hidden = false; } else pdf.hidden = true;
+    if (p.pdf) { pdf.href = encodeURI(p.pdf); pdf.dataset.pdf = p.pdf; pdf.dataset.titulo = p.titulo; pdf.hidden = false; } else pdf.hidden = true;
     atualizarBotaoSalvar();
 
     preencherDetalhes(p, termos);
