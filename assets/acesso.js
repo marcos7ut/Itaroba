@@ -13,6 +13,8 @@
   const ligado = !!(C.supabaseUrl && C.supabaseChave);
   window.ACESSO = { ligado, perfil: null };
   // baixar PDFs: sem acesso restrito, livre; com acesso restrito, só administradores e quem foi liberado no Painel
+  // administrador de verdade (com internet); usado para mostrar "Tópicos" e o painel de estudos
+  window.ACESSO.ehAdmin = () => { const p = window.ACESSO.perfil; return !!(p && p.papel === "admin" && p.status === "aprovado"); };
   window.ACESSO.podeBaixar = () => { const p = window.ACESSO.perfil; return !ligado || !!(p && (p.papel === "admin" || p.pode_baixar)); };
 
   /* ---------- arquivos do acervo (textos, PDFs, áudios) ----------
@@ -129,7 +131,7 @@
     mostrar(`${cabeca("Templo Itarobá", "Acervo da casa", "Conferindo o seu acesso…")}<div class="ac__girando" aria-hidden="true"></div>`);
     try {
       await carregarBiblioteca();
-      sb = window.supabase.createClient(C.supabaseUrl, C.supabaseChave, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: "pkce" } });
+      sb = window.ACESSO.sb = window.supabase.createClient(C.supabaseUrl, C.supabaseChave, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: "pkce" } });
       sb.auth.onAuthStateChange((ev) => { if (ev === "SIGNED_OUT") { perfil = null; telaEntrar(); } });
       await verificar();
     } catch (e) { semConexao(); }
@@ -243,20 +245,10 @@
   }
 
   /* ---------- 4. liberado ---------- */
-  function travar() { clearInterval(relogio); raiz.classList.add("acesso-travado"); document.getElementById("ac-nav")?.remove(); aplicarMarca(null); }
-
-  /* ---------- marca d'água: só para membros (administradores veem sem marca) ---------- */
-  function aplicarMarca(p) {
-    const tem = !!(p && p.papel !== "admin");
-    raiz.classList.toggle("com-marca", tem);
-    if (!tem) { raiz.style.removeProperty("--marca"); return; }
-    const texto = [`${p.nome || ""} ${p.sobrenome || ""}`.trim(), p.email, new Date().toLocaleDateString("pt-BR")].filter(Boolean).join(" · ");
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="440" height="260"><text x="220" y="130" fill="rgb(128,128,128)" fill-opacity="0.17" font-family="Inter Tight, Arial, sans-serif" font-size="14" text-anchor="middle" transform="rotate(-28 220 130)">${esc(texto)}</text></svg>`;
-    raiz.style.setProperty("--marca", `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`);
-  }
+  function travar() { clearInterval(relogio); raiz.classList.add("acesso-travado"); document.getElementById("ac-nav")?.remove(); }
 
   function liberar(p) {
-    perfil = p; window.ACESSO.perfil = p; aplicarMarca(p);
+    perfil = p; window.ACESSO.perfil = p;
     tela.hidden = true; tela.innerHTML = ""; raiz.classList.remove("acesso-travado");
     if (!p.offline) sb.rpc("registrar_acesso").then(() => {}, () => {});
     linkPainel();
@@ -274,7 +266,7 @@
       const { data, error } = await sb.from("membros").select("*").eq("id", session.user.id).maybeSingle();
       if (error) return; // sem internet: segue com o que tem
       if (!data || data.status !== "aprovado") { perfil = data; if (data) guardar(data); return data ? verificar() : telaPedido(session.user.email); }
-      perfil = data; window.ACESSO.perfil = data; guardar(data); linkPainel(); aplicarMarca(data);
+      perfil = data; window.ACESSO.perfil = data; guardar(data); linkPainel();
     } catch (e) {}
   }
   document.addEventListener("visibilitychange", reconferir);
@@ -356,7 +348,7 @@
         <input type="search" class="acp__busca" placeholder="Buscar por nome, e-mail ou WhatsApp" value="${esc(P.busca)}" aria-label="Buscar membro">
         <select class="acp__gira" aria-label="Filtrar por gira"><option value="">Todas as giras</option>${GIRAS.map(([id, nome]) => `<option value="${id}"${P.gira === id ? " selected" : ""}>${nome}</option>`).join("")}</select>
       </div>
-      <div class="acp__barra"><button type="button" class="acp__mini" data-acp="atualizar">Atualizar</button><button type="button" class="acp__mini" data-acp="csv">Baixar lista (planilha)</button></div>
+      <div class="acp__barra"><a class="acp__mini acp__mini--destaque" href="#/estudos-admin">📚 Estudos dos membros</a><button type="button" class="acp__mini" data-acp="atualizar">Atualizar</button><button type="button" class="acp__mini" data-acp="csv">Baixar lista (planilha)</button></div>
       <ul class="acp__lista" id="acp-lista"></ul>
     </div>`;
     desenharLista();
@@ -398,7 +390,7 @@
     negar: (m) => `Negar o pedido de ${m.nome} ${m.sobrenome}?`,
     remover: (m) => `Remover o acesso de ${m.nome} ${m.sobrenome}?\n\nO acervo fecha para essa pessoa e o que ela salvou no celular é apagado.`,
     excluir: (m) => `Excluir o cadastro de ${m.nome} ${m.sobrenome}?\n\nA pessoa poderá fazer um novo pedido depois.`,
-    tornar_admin: (m) => `Tornar ${m.nome} ${m.sobrenome} administrador(a)?\n\nEla(e) vai poder aprovar, negar e remover membros, e verá o acervo sem marca d'água.`,
+    tornar_admin: (m) => `Tornar ${m.nome} ${m.sobrenome} administrador(a)?\n\nEla(e) vai poder aprovar, negar e remover membros, ver os estudos de todos e baixar os PDFs.`,
     tirar_admin: (m) => `Tirar ${m.nome} ${m.sobrenome} de administrador(a)?\n\nEla(e) continua membro, sem acesso ao painel.`,
   };
   const FEITO = { aprovar: "aprovado(a)", reativar: "reativado(a)", negar: "negado(a)", remover: "removido(a)", excluir: "excluído(a)", tornar_admin: "agora é administrador(a)", tirar_admin: "voltou a ser membro", liberar_download: "pode baixar PDFs", bloquear_download: "não baixa mais PDFs" };
