@@ -83,7 +83,7 @@ html.acesso-travado, html.acesso-travado body { overflow: hidden; }
 @media (max-width: 420px) { .ac-nav__txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); } }
 
 /* ---------- painel do administrador (segue o tema do app) ---------- */
-html.com-painel body > *:not(#ac-painel):not(.nav):not(#acp-aviso):not(script) { display: none !important; }
+html.com-painel body > *:not(#ac-painel):not(.nav):not(#acp-aviso):not(#acp-convite):not(script) { display: none !important; }
 .acp { min-height: 100vh; background: var(--papel, #EFE7D2); color: var(--tinta, #222); }
 .acp__inner { max-width: 46rem; margin: 0 auto; padding: 1.6rem 1rem 4rem; display: flex; flex-direction: column; gap: 1rem; }
 .acp__topo { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
@@ -139,3 +139,28 @@ html.com-painel body > *:not(#ac-painel):not(.nav):not(#acp-aviso):not(script) {
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .acp__btn--ligado { color: #6FD39A; } }
 :root[data-theme="dark"] .acp__btn--ligado { color: #6FD39A; }
 .acp__mini--destaque { text-decoration: none; color: var(--tinta, #222); border-color: color-mix(in srgb, var(--acento, #9C4A22) 45%, transparent); font-weight: 600; }
+
+/* convite no pedido e avisos */
+.ac__ajuda { font-size: .72rem; color: #8F8170; line-height: 1.4; }
+.ac input[name="convite"] { text-transform: uppercase; letter-spacing: .12em; font-family: "JetBrains Mono", ui-monospace, monospace; }
+.ac__obs { margin: 0; padding: .6rem .8rem; border-radius: 12px; background: rgba(226, 179, 106, .12); color: #F0CF94; font-size: .85rem; }
+/* painel: aparelhos, convites e modal do convite */
+.acp__obs { color: var(--acento, #9C4A22) !important; font-weight: 600; }
+.acp__aparelhos { margin-top: .45rem; padding: .55rem .7rem; border-radius: 12px; background: var(--papel, #f5f0e5); display: flex; flex-direction: column; gap: .25rem; font-size: .78rem; }
+.acp__aparelhos b { font-size: .78rem; }
+.acp__aparelho { display: flex; align-items: center; justify-content: space-between; gap: .5rem; color: var(--tinta-2, #555); }
+.acp__link { background: none; border: 0; padding: .2rem 0; font: inherit; font-size: .78rem; font-weight: 600; color: var(--acento, #9C4A22); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; align-self: flex-start; }
+.acp__convites { border-radius: 16px; background: var(--osso, #fff); box-shadow: 0 0 0 1px var(--linha, #ddd); padding: .2rem .9rem; }
+.acp__convites summary { cursor: pointer; padding: .7rem 0; font-weight: 700; font-size: .9rem; }
+.acp__convites ul { list-style: none; margin: 0 0 .6rem; padding: 0; display: flex; flex-direction: column; gap: .4rem; }
+.acp__convite { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .7rem; font-size: .8rem; color: var(--tinta-2, #555); }
+.acp__convite code { font-family: var(--mono, monospace); font-weight: 700; letter-spacing: .06em; color: var(--tinta, #222); }
+.acp__convite--fora { opacity: .55; }
+.acp__convite--usado code { color: #1E8E4E; }
+.acp__modal { position: fixed; inset: 0; z-index: 9600; display: grid; place-items: center; padding: 1rem; background: rgba(0, 0, 0, .55); }
+.acp__modal[hidden] { display: none; }
+.acp__modal-caixa { width: 100%; max-width: 22rem; display: flex; flex-direction: column; gap: .7rem; padding: 1.4rem; border-radius: 22px; background: var(--osso, #fff); color: var(--tinta, #222); text-align: center; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .6); }
+.acp__codigo { margin: 0; font-family: var(--mono, monospace); font-size: 2rem; font-weight: 800; letter-spacing: .12em; }
+.acp__nota { margin: 0; font-size: .85rem; color: var(--tinta-2, #555); }
+.acp__modal-caixa .acp__btn { flex: none; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+.acp__modal-caixa .acp__link { align-self: center; }

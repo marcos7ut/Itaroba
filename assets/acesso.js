@@ -95,6 +95,30 @@
     const d = Math.floor(s / 86400); return d === 1 ? "ontem" : d < 30 ? `há ${d} dias` : dataHora(t).slice(0, 8);
   };
   const LOGO = "assets/logo-192.png";
+  // Aparelho: um código guardado neste navegador; o servidor só libera o acervo para os aparelhos autorizados
+  const APARELHO = "acesso:aparelho";
+  function idAparelho() {
+    let id = null; try { id = localStorage.getItem(APARELHO); } catch (e) {}
+    if (!id || !/^[0-9a-f-]{36}$/.test(id)) {
+      id = (crypto.randomUUID ? crypto.randomUUID() : "10000000-1000-4000-8000-100000000000".replace(/[018]/g, (c) => (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)));
+      try { localStorage.setItem(APARELHO, id); } catch (e) {}
+    }
+    return id;
+  }
+  function nomeAparelho() {
+    const u = navigator.userAgent || "";
+    if (/iPhone/.test(u)) return "iPhone";
+    if (/iPad/.test(u)) return "iPad";
+    if (/Android/.test(u)) return /Mobile/.test(u) ? "Celular Android" : "Tablet Android";
+    if (/Windows/.test(u)) return "Computador Windows";
+    if (/Mac OS X/.test(u)) return "Computador Mac";
+    if (/Linux/.test(u)) return "Computador Linux";
+    return "Outro aparelho";
+  }
+  // convite que veio no link (…/Itaroba/?convite=KAO-XXXXX): guarda antes do login com Google
+  const CONVITE = "acesso:convite";
+  try { const c = new URLSearchParams(location.search).get("convite"); if (c) { localStorage.setItem(CONVITE, c.toUpperCase()); history.replaceState(null, "", location.pathname + location.hash); } } catch (e) {}
+  const conviteGuardado = () => { try { return localStorage.getItem(CONVITE) || ""; } catch (e) { return ""; } };
   const CACHE = "acesso:perfil";
   const OFFLINE_DIAS = 30; // sem internet, quem já foi aprovado continua usando por até 30 dias
 
@@ -156,10 +180,30 @@
     perfil = data;
     if (!perfil) return telaPedido(usuario.email);
     guardar(perfil);
-    if (perfil.status === "aprovado") return liberar(perfil);
+    if (perfil.status === "aprovado") return conferirAparelho(perfil);
     if (perfil.status === "pendente") return telaAguardando();
     if (perfil.status === "negado") return telaNegado();
     if (perfil.status === "removido") return telaRemovido();
+  }
+
+  // confere no servidor se este aparelho pode usar a conta (e se a conta não ficou inativa)
+  async function conferirAparelho(p, deFundo) {
+    const { data, error } = await sb.rpc("registrar_aparelho", { p_aparelho: idAparelho(), p_rotulo: nomeAparelho() });
+    if (error) return deFundo ? null : semConexao();
+    if (data && data.ok) return deFundo ? null : liberar(p);
+    const motivo = data && data.motivo;
+    if (motivo === "limite") return telaAparelho("limite", data.limite);
+    if (motivo === "desconectado") return telaAparelho("desconectado");
+    if (["inativo", "pendente", "negado", "removido"].includes(motivo)) return verificar(); // mostra a tela certa
+    return deFundo ? null : semConexao();
+  }
+  async function telaAparelho(motivo, limite) {
+    travar();
+    if (motivo === "desconectado") await apagarDados();
+    const t = motivo === "limite"
+      ? cabeca("Acesso único", "Conta em uso em outro aparelho", `Por segurança, cada membro usa o acervo em ${limite > 1 ? "até 2 aparelhos" : "1 aparelho"}. Se você trocou de celular ou quer usar também em outro aparelho, fale com a administração da casa.`)
+      : cabeca("Acesso único", "Este aparelho foi desconectado", "A administração da casa desconectou este aparelho, e os conteúdos salvos nele foram apagados. Se foi engano, fale com a administração.");
+    mostrar(`${t}<button type="button" class="ac__botao" data-ac="tentar">Tentar de novo</button><button type="button" class="ac__link" data-ac="sair">Sair</button>`);
   }
 
   /* ---------- 1. entrar ---------- */
@@ -202,6 +246,7 @@
           <legend>Gira que você frequenta</legend>
           <div class="ac__giras-grade">${GIRAS.map(([id, nome]) => `<label class="ac__gira${id.startsWith("sabado") ? " ac__gira--sab" : ""}"><input type="radio" name="gira" value="${id}"${p.gira === id ? " checked" : ""} required><span>${nome}</span></label>`).join("")}</div>
         </fieldset>
+        ${atual ? "" : `<label class="ac__campo"><span>Código de convite</span><input name="convite" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" placeholder="KAO-XXXXX" value="${esc(conviteGuardado())}" required><small class="ac__ajuda">A administração da casa envia este código para quem é do terreiro.</small></label>`}
         <label class="ac__campo"><span>WhatsApp com DDD</span><input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(11) 91234-5678" value="${esc(p.whatsapp ? formatarZap(p.whatsapp) : "")}" required></label>
         <label class="ac__aceite"><input type="checkbox" name="aceite" required${atual ? " checked" : ""}><span>Concordo que estes dados sejam usados só para controlar o acesso ao acervo da casa (<a href="privacidade.html" target="_blank" rel="noopener">privacidade e regras de uso</a>).</span></label>
         <button class="ac__botao" type="submit">${atual ? "Enviar de novo" : "Enviar pedido"}</button>
@@ -220,6 +265,7 @@
         <div><dt>Gira</dt><dd>${esc(nomeGira(perfil.gira))}</dd></div>
         <div><dt>WhatsApp</dt><dd>${esc(formatarZap(perfil.whatsapp))}</dd></div>
       </dl>
+      ${perfil.obs ? `<p class="ac__obs">${esc(perfil.obs)}.</p>` : ""}
       <p class="ac__espera"><i aria-hidden="true"></i>Aguardando aprovação</p>
       <div class="ac__acoes"><button type="button" class="ac__link" data-ac="corrigir">Corrigir meus dados</button><button type="button" class="ac__link" data-ac="sair">Sair</button></div>`);
     vigiar(15000);
@@ -250,7 +296,6 @@
   function liberar(p) {
     perfil = p; window.ACESSO.perfil = p;
     tela.hidden = true; tela.innerHTML = ""; raiz.classList.remove("acesso-travado");
-    if (!p.offline) sb.rpc("registrar_acesso").then(() => {}, () => {});
     linkPainel();
     rodape();
     window.dispatchEvent(new CustomEvent("acesso-liberado", { detail: p }));
@@ -267,6 +312,7 @@
       if (error) return; // sem internet: segue com o que tem
       if (!data || data.status !== "aprovado") { perfil = data; if (data) guardar(data); return data ? verificar() : telaPedido(session.user.email); }
       perfil = data; window.ACESSO.perfil = data; guardar(data); linkPainel();
+      conferirAparelho(data, true); // se foi desconectado ou passou do limite, fecha na hora
     } catch (e) {}
   }
   document.addEventListener("visibilitychange", reconferir);
@@ -324,9 +370,14 @@
 
   async function carregarLista() {
     P.carregando = true; desenharLista();
-    const { data, error } = await sb.from("membros").select("*").order("criado_em", { ascending: false });
+    const [{ data, error }, ap, cv] = await Promise.all([
+      sb.from("membros").select("*").order("criado_em", { ascending: false }),
+      sb.from("aparelhos").select("*").is("revogado_em", null).order("ultimo_acesso", { ascending: false }),
+      sb.from("convites").select("*").order("criado_em", { ascending: false }).limit(60),
+    ]);
     P.carregando = false;
     if (error) { P.erro = "Não foi possível carregar. Confira a internet."; } else { P.erro = ""; P.lista = data || []; }
+    P.aparelhos = (ap && ap.data) || []; P.convites = (cv && cv.data) || [];
     desenharPainel();
     contarPendentes();
   }
@@ -348,7 +399,8 @@
         <input type="search" class="acp__busca" placeholder="Buscar por nome, e-mail ou WhatsApp" value="${esc(P.busca)}" aria-label="Buscar membro">
         <select class="acp__gira" aria-label="Filtrar por gira"><option value="">Todas as giras</option>${GIRAS.map(([id, nome]) => `<option value="${id}"${P.gira === id ? " selected" : ""}>${nome}</option>`).join("")}</select>
       </div>
-      <div class="acp__barra"><a class="acp__mini acp__mini--destaque" href="#/estudos-admin">📚 Estudos dos membros</a><button type="button" class="acp__mini" data-acp="atualizar">Atualizar</button><button type="button" class="acp__mini" data-acp="csv">Baixar lista (planilha)</button></div>
+      <div class="acp__barra"><button type="button" class="acp__mini acp__mini--destaque" data-acp="convite">🎟️ Gerar convite</button><a class="acp__mini acp__mini--destaque" href="#/estudos-admin">📚 Estudos dos membros</a><button type="button" class="acp__mini" data-acp="atualizar">Atualizar</button><button type="button" class="acp__mini" data-acp="csv">Baixar lista (planilha)</button></div>
+      ${convitesHtml()}
       <ul class="acp__lista" id="acp-lista"></ul>
     </div>`;
     desenharLista();
@@ -379,6 +431,9 @@
           <span class="acp__gira-selo">Gira de ${esc(nomeGira(m.gira))}</span>
           <a class="acp__zap" href="${linkZap(m.whatsapp)}" target="_blank" rel="noopener">${esc(formatarZap(m.whatsapp))}</a>
           <small>${esc(m.email)}</small>
+          ${m.indicado_por ? `<small>Convidado(a) por ${esc(nomeDe(m.indicado_por))}${m.convite ? ` · ${esc(m.convite)}` : ""}</small>` : ""}
+          ${m.obs ? `<small class="acp__obs">⚠️ ${esc(m.obs)}</small>` : ""}
+          ${m.status === "aprovado" && m.papel !== "admin" ? aparelhosHtml(m) : ""}
           <small>${m.status === "pendente" ? "Pediu" : "Pedido"} em ${dataHora(m.criado_em)}${m.status === "aprovado" ? ` · último acesso ${quando(m.ultimo_acesso)}` : m.decidido_em ? ` · decidido em ${dataHora(m.decidido_em)}` : ""}</small>
         </div>
         <div class="acp__acoes">${acoes}</div>
@@ -386,23 +441,66 @@
     }).join("");
   }
 
+  const nomeDe = (id) => { const x = (P.lista || []).find((m) => m.id === id); return x ? `${x.nome} ${x.sobrenome}` : "administração"; };
+  function aparelhosHtml(m) {
+    const lim = m.limite_aparelhos || 1, aps = (P.aparelhos || []).filter((a) => a.membro === m.id);
+    return `<div class="acp__aparelhos"><b>📱 Aparelhos: ${aps.length} de ${lim}</b>
+      ${aps.map((a) => `<span class="acp__aparelho">${esc(a.rotulo || "Aparelho")} · ${quando(a.ultimo_acesso)}<button type="button" class="acp__link" data-acp-acao="desconectar" data-id="${m.id}" data-aparelho="${a.id}">Desconectar</button></span>`).join("") || `<span class="acp__aparelho">Ainda não entrou depois da aprovação</span>`}
+      <button type="button" class="acp__link" data-acp-acao="${lim > 1 ? "voltar_um" : "liberar_extra"}" data-id="${m.id}">${lim > 1 ? "Voltar para 1 aparelho" : "+ Liberar 2º aparelho"}</button></div>`;
+  }
+  function convitesHtml() {
+    const cs = P.convites || [], agora = Date.now();
+    const sit = (c) => c.usado_por ? ["usado", `usado por ${esc(nomeDe(c.usado_por))} em ${dataHora(c.usado_em).slice(0, 8)}`]
+      : c.cancelado ? ["fora", "cancelado"] : new Date(c.expira_em) < agora ? ["fora", "vencido"] : ["ativo", `vale até ${dataHora(c.expira_em).slice(0, 8)}`];
+    const ativos = cs.filter((c) => sit(c)[0] === "ativo").length;
+    if (!cs.length) return "";
+    return `<details class="acp__convites"><summary>🎟️ Convites · ${ativos} ${ativos === 1 ? "ativo" : "ativos"}</summary><ul>${cs.map((c) => { const [k, t] = sit(c); return `<li class="acp__convite acp__convite--${k}"><code>${esc(c.codigo)}</code><span>${c.para ? esc(c.para) + " · " : ""}${t}</span>${k === "ativo" ? `<button type="button" class="acp__link" data-acp="cancelar-convite" data-codigo="${esc(c.codigo)}">Cancelar</button>` : ""}</li>`; }).join("")}</ul></details>`;
+  }
+  async function gerarConvite() {
+    const para = prompt("Para quem é este convite? (opcional, só para você lembrar)", "");
+    if (para === null) return;
+    const { data, error } = await sb.rpc("gerar_convite", { p_para: para });
+    if (error) return alert("Não deu certo: " + error.message);
+    const link = `${location.origin}${location.pathname}?convite=${data.codigo}`;
+    const texto = `Seu convite para o acervo do Templo Itarobá 🙏\n\nAbra: ${link}\nEntre com o Google e use o código *${data.codigo}* (vale por 7 dias, para uma pessoa só).`;
+    let caixa = document.getElementById("acp-convite");
+    if (!caixa) { caixa = document.createElement("div"); caixa.id = "acp-convite"; caixa.className = "acp__modal"; document.body.appendChild(caixa); }
+    caixa.innerHTML = `<div class="acp__modal-caixa" role="dialog" aria-modal="true" aria-labelledby="acp-conv-t">
+      <p class="acp__rotulo">Convite de uso único${data.para ? " · " + esc(data.para) : ""}</p>
+      <p class="acp__codigo" id="acp-conv-t">${esc(data.codigo)}</p>
+      <p class="acp__nota">Vale por 7 dias, para uma pessoa só. Envie pelo WhatsApp ou entregue na gira.</p>
+      <a class="acp__btn acp__btn--sim" href="https://wa.me/?text=${encodeURIComponent(texto)}" target="_blank" rel="noopener">Enviar pelo WhatsApp</a>
+      <button type="button" class="acp__btn" data-acp-modal="copiar">Copiar link</button>
+      <button type="button" class="acp__link" data-acp-modal="fechar">Fechar</button></div>`;
+    caixa.hidden = false;
+    caixa.onclick = async (e) => {
+      const b = e.target.closest("[data-acp-modal]"); if (e.target === caixa || (b && b.dataset.acpModal === "fechar")) { caixa.hidden = true; return; }
+      if (b && b.dataset.acpModal === "copiar") { try { await navigator.clipboard.writeText(texto.replace(/\*/g, "")); avisar("Convite copiado"); } catch (x) { prompt("Copie o link:", link); } }
+    };
+    carregarLista();
+  }
+
   const PERGUNTA = {
     negar: (m) => `Negar o pedido de ${m.nome} ${m.sobrenome}?`,
     remover: (m) => `Remover o acesso de ${m.nome} ${m.sobrenome}?\n\nO acervo fecha para essa pessoa e o que ela salvou no celular é apagado.`,
+    desconectar: (m) => `Desconectar este aparelho de ${m.nome} ${m.sobrenome}?\n\nEle perde o acesso na hora. Ela(e) poderá entrar em outro aparelho.`,
+    voltar_um: (m) => `Voltar ${m.nome} ${m.sobrenome} para 1 aparelho?\n\nO aparelho usado há mais tempo será desconectado.`,
     excluir: (m) => `Excluir o cadastro de ${m.nome} ${m.sobrenome}?\n\nA pessoa poderá fazer um novo pedido depois.`,
     tornar_admin: (m) => `Tornar ${m.nome} ${m.sobrenome} administrador(a)?\n\nEla(e) vai poder aprovar, negar e remover membros, ver os estudos de todos e baixar os PDFs.`,
     tirar_admin: (m) => `Tirar ${m.nome} ${m.sobrenome} de administrador(a)?\n\nEla(e) continua membro, sem acesso ao painel.`,
   };
-  const FEITO = { aprovar: "aprovado(a)", reativar: "reativado(a)", negar: "negado(a)", remover: "removido(a)", excluir: "excluído(a)", tornar_admin: "agora é administrador(a)", tirar_admin: "voltou a ser membro", liberar_download: "pode baixar PDFs", bloquear_download: "não baixa mais PDFs" };
+  const FEITO = { aprovar: "aprovado(a)", reativar: "reativado(a)", negar: "negado(a)", remover: "removido(a)", excluir: "excluído(a)", tornar_admin: "agora é administrador(a)", desconectar: "teve o aparelho desconectado", liberar_extra: "pode usar 2 aparelhos", voltar_um: "volta a usar 1 aparelho", tirar_admin: "voltou a ser membro", liberar_download: "pode baixar PDFs", bloquear_download: "não baixa mais PDFs" };
   async function agir(btn) {
     const id = btn.dataset.id, acao = btn.dataset.acpAcao, m = P.lista.find((x) => x.id === id); if (!m) return;
     if (PERGUNTA[acao] && !confirm(PERGUNTA[acao](m))) return;
-    btn.closest(".acp__acoes").querySelectorAll("button").forEach((b) => (b.disabled = true));
+    btn.closest(".acp__membro").querySelectorAll("button").forEach((b) => (b.disabled = true));
     const { error } = acao === "excluir" ? await sb.rpc("excluir_pedido", { alvo: id })
+      : acao === "desconectar" ? await sb.rpc("desconectar_aparelho", { alvo: id, p_aparelho: btn.dataset.aparelho })
+      : acao === "liberar_extra" || acao === "voltar_um" ? await sb.rpc("definir_limite_aparelhos", { alvo: id, limite: acao === "liberar_extra" ? 2 : 1 })
       : acao === "liberar_download" || acao === "bloquear_download" ? await sb.rpc("definir_download", { alvo: id, pode: acao === "liberar_download" })
       : acao === "tornar_admin" || acao === "tirar_admin" ? await sb.rpc("definir_papel", { alvo: id, novo_papel: acao === "tornar_admin" ? "admin" : "membro" })
       : await sb.rpc("decidir", { alvo: id, acao });
-    if (error) { alert("Não deu certo: " + error.message); btn.closest(".acp__acoes").querySelectorAll("button").forEach((b) => (b.disabled = false)); return; }
+    if (error) { alert("Não deu certo: " + error.message); btn.closest(".acp__membro").querySelectorAll("button").forEach((b) => (b.disabled = false)); return; }
     avisar(`${m.nome} ${FEITO[acao]}`);
     await carregarLista();
   }
@@ -426,6 +524,8 @@
     const b = e.target.closest("[data-acp]"); if (!b) return;
     if (b.dataset.acp === "atualizar") carregarLista();
     if (b.dataset.acp === "csv") baixarCsv();
+    if (b.dataset.acp === "convite") gerarConvite();
+    if (b.dataset.acp === "cancelar-convite" && confirm(`Cancelar o convite ${b.dataset.codigo}?`)) sb.rpc("cancelar_convite", { p_codigo: b.dataset.codigo }).then(({ error }) => { if (error) alert("Não deu certo: " + error.message); else { avisar("Convite cancelado"); carregarLista(); } });
   });
   painel.addEventListener("input", (e) => {
     if (e.target.matches(".acp__busca")) { P.busca = e.target.value; desenharLista(); }
@@ -476,15 +576,23 @@
       if (!d.sobrenome) return erro("Preencha o sobrenome."), f.sobrenome.focus();
       if (!d.gira) return erro("Escolha a gira que você frequenta.");
       if (d.whatsapp.length < 10 || d.whatsapp.length > 11) return erro("Confira o WhatsApp com DDD."), f.whatsapp.focus();
+      const convite = f.convite ? f.convite.value.trim().toUpperCase() : "";
+      if (f.convite && !/^KAO-[A-Z0-9]{5}$/.test(convite)) return erro("Confira o código de convite (ex.: KAO-7Q2MX)."), f.convite.focus();
       if (!f.aceite.checked) return erro("Marque a concordância para enviar.");
       ocupado(btn, true, "Enviando…");
       const { data: { session } } = await sb.auth.getSession();
       if (!session) return telaEntrar();
       const r = perfil
         ? await sb.rpc("atualizar_pedido", { p_nome: d.nome, p_sobrenome: d.sobrenome, p_gira: d.gira, p_whatsapp: d.whatsapp })
-        : await sb.from("membros").insert({ id: session.user.id, email: session.user.email, ...d });
+        : await sb.from("membros").insert({ id: session.user.id, email: session.user.email, ...d, convite });
       ocupado(btn, false);
-      if (r.error && !/duplicate|unique/i.test(r.error.message)) return erro("Não deu para enviar. Confira a internet e tente de novo.");
+      if (r.error) {
+        const m = r.error.message || "";
+        if (/whatsapp/i.test(m)) return erro("Este WhatsApp já está cadastrado. Se é seu, fale com a administração da casa.");
+        if (/convite/i.test(m)) return erro(m.replace(/\.$/, "") + ".");
+        if (!/membros_pkey|duplicate key/i.test(m)) return erro("Não deu para enviar. Confira a internet e tente de novo.");
+      }
+      try { localStorage.removeItem(CONVITE); } catch (e) {}
       return verificar();
     }
   });
