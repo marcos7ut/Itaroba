@@ -487,9 +487,9 @@
     voltar_um: (m) => `Voltar ${m.nome} ${m.sobrenome} para 1 aparelho?\n\nO aparelho usado há mais tempo será desconectado.`,
     excluir: (m) => `Excluir o cadastro de ${m.nome} ${m.sobrenome}?\n\nA pessoa poderá fazer um novo pedido depois.`,
     tornar_admin: (m) => `Tornar ${m.nome} ${m.sobrenome} administrador(a)?\n\nEla(e) vai poder aprovar, negar e remover membros, ver os estudos de todos e baixar os PDFs.`,
-    tirar_admin: (m) => `Tirar ${m.nome} ${m.sobrenome} de administrador(a)?\n\nEla(e) continua membro, sem acesso ao painel.`,
+    tirar_admin: (m) => `Tirar ${m.nome} ${m.sobrenome} de administrador(a)?\n\nEla(e) continua membro, sem acesso ao painel, e volta para 1 aparelho (fica conectado só o usado por último).`,
   };
-  const FEITO = { aprovar: "aprovado(a)", reativar: "reativado(a)", negar: "negado(a)", remover: "removido(a)", excluir: "excluído(a)", tornar_admin: "agora é administrador(a)", desconectar: "teve o aparelho desconectado", liberar_extra: "pode usar 2 aparelhos", voltar_um: "volta a usar 1 aparelho", tirar_admin: "voltou a ser membro", liberar_download: "pode baixar PDFs", bloquear_download: "não baixa mais PDFs" };
+  const FEITO = { aprovar: "aprovado(a)", reativar: "reativado(a)", negar: "negado(a)", remover: "removido(a)", excluir: "excluído(a)", tornar_admin: "agora é administrador(a)", desconectar: "teve o aparelho desconectado", liberar_extra: "pode usar 2 aparelhos", voltar_um: "volta a usar 1 aparelho", tirar_admin: "voltou a ser membro, com 1 aparelho", liberar_download: "pode baixar PDFs", bloquear_download: "não baixa mais PDFs" };
   async function agir(btn) {
     const id = btn.dataset.id, acao = btn.dataset.acpAcao, m = P.lista.find((x) => x.id === id); if (!m) return;
     if (PERGUNTA[acao] && !confirm(PERGUNTA[acao](m))) return;
