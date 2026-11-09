@@ -1,6 +1,6 @@
 // Service worker: deixa o app abrir mais rápido e funcionar sem internet
 // depois da primeira visita. Mude a VERSAO sempre que atualizar o app.
-const VERSAO = "acervo-v54";
+const VERSAO = "acervo-v55";
 const ESSENCIAIS = [
   "./", "index.html", "config.js", "manifest.webmanifest",
   "assets/styles.css", "assets/acesso.css", "assets/acesso.js", "assets/leitor-pdf.css", "assets/leitor-pdf.js", "assets/estudos.css", "assets/estudos.js", "assets/vendor/supabase-2.117.3.js", "assets/app.js", "assets/pontos.js", "assets/icone.svg",

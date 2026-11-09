@@ -31,6 +31,15 @@
     gravar(chave, valor) { try { localStorage.setItem(chave, JSON.stringify(valor)); } catch { /* sem armazenamento */ } },
   };
   let salvas = new Set(guardar.ler("acervo:salvas", []));
+  // usado pela área de estudos para levar as salvas para a nuvem (mesmo membro em qualquer aparelho)
+  window.ACERVO_SALVAS = {
+    lista: () => [...salvas],
+    trocar(ids) {
+      salvas = new Set(ids); guardar.gravar("acervo:salvas", [...salvas]);
+      if (palestraAtual) atualizarBotaoSalvar();
+      if (estado.palestras.length && !el.vistaLista.hidden) renderLista();
+    },
+  };
   const tamanhoLetra = { atual: guardar.ler("acervo:letra", 1.1875) };
 
   // ---------- Utilidades ----------
@@ -323,6 +332,7 @@
       if (palestraAtual !== p) return;
       const txt = t[p.id];
       painel.dataset.id = p.id;
+      setTimeout(() => dispatchEvent(new CustomEvent("texto-pronto", { detail: { id: p.id } })), 0);
       painel.innerHTML = txt
         ? paragrafos(txt, termosBusca()) + (p.pdf ? `<p class="nota">Transcrição do documento original${p.ocr ? ", feita automaticamente e ainda não revisada" : ""}. Em caso de dúvida, consulte o PDF.</p>` : "")
         : `<p class="carregando">O texto completo desta palestra ainda não foi adicionado.${p.pdf ? " Use o botão “Abrir PDF original”." : ""}</p>`;
@@ -513,6 +523,7 @@
       else { salvas.add(id); avisar("Palestra salva"); }
       guardar.gravar("acervo:salvas", [...salvas]);
       atualizarBotaoSalvar();
+      dispatchEvent(new CustomEvent("salva-mudou", { detail: { id, salva: salvas.has(id) } }));
     });
 
     $("#p-compartilhar").addEventListener("click", async () => {
