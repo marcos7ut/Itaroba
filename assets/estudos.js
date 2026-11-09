@@ -8,6 +8,7 @@
      e o caderno de revisão (#/revisao): perguntas erradas voltam em 1, 3, 7 e 15 dias.
    - Palestras salvas e posição da leitura ficam na nuvem (mesmo membro, qualquer aparelho).
    - "Estudos dos membros" (#/estudos-admin): progresso de todos (administração).
+   - "Relatório" (#/relatorio): perguntas que mais gente erra, quem parou, estudos por mês.
    Só funciona com o acesso restrito ligado (precisa saber quem é a pessoa).
    ============================================================ */
 (() => {
@@ -366,13 +367,55 @@
       </div>
       <div class="eq-filtros"><input type="search" class="eq-busca" placeholder="Buscar pelo nome" value="${esc(ADM.busca)}" aria-label="Buscar membro">
         <select class="eq-gira" aria-label="Filtrar por gira"><option value="">Todas as giras</option>${Object.entries(GIRAS).map(([k, v]) => `<option value="${k}"${ADM.gira === k ? " selected" : ""}>${v}</option>`).join("")}</select></div>
-      <div class="eq-barra"><a class="eq-mini" href="#/painel">‹ Voltar ao painel</a><button type="button" class="eq-mini" data-eq="csv">Baixar planilha</button></div>
+      <div class="eq-barra"><a class="eq-mini" href="#/painel">‹ Voltar ao painel</a><a class="eq-mini" href="#/relatorio">Relatório</a><button type="button" class="eq-mini" data-eq="csv">Baixar planilha</button></div>
       <ul class="eq-membros" id="eq-membros"></ul>`, "#/painel");
     pagina.querySelector(".eq-busca").oninput = (e) => { ADM.busca = e.target.value; listarAdm(); };
     pagina.querySelector(".eq-gira").onchange = (e) => { ADM.gira = e.target.value; listarAdm(); };
     pagina.querySelector('[data-eq="csv"]').onclick = csvAdm;
     listarAdm();
   }
+  /* ---------- relatório para a administração ---------- */
+  const MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+  async function relatorio() {
+    if (!A.ehAdmin()) { location.hash = "#/"; return; }
+    mostrarPagina("#ac-nav");
+    const ROT = "Administração", TIT = "Relatório de <em>estudos</em>";
+    pagina.innerHTML = carregando(ROT, TIT);
+    try {
+      const r = await rpc("relatorio_estudos"), z = r.resumo || {};
+      const meses = r.por_mes || [], maior = Math.max(1, ...meses.map((m) => m.questionarios));
+      const lista = (itens, vazio) => (itens.length ? `<ul class="eq-itens">${itens.join("")}</ul>` : `<p class="eq-vazio-txt">${vazio}</p>`);
+      pagina.innerHTML = moldura(ROT, TIT, `
+        <div class="eq-barra"><a class="eq-mini" href="#/estudos-admin">‹ Estudos dos membros</a></div>
+        <div class="eq-numeros">
+          <div><b>${z.estudando_30d || 0}</b><span>estudaram nos últimos 30 dias</span></div>
+          <div><b>${z.parados || 0}</b><span>parados ou sem começar</span></div>
+          <div><b>${z.media || 0}%</b><span>de acertos na corrente</span></div>
+        </div>
+        <div class="eq-numeros">
+          <div><b>${z.questionarios || 0}</b><span>questionários feitos</span></div>
+          <div><b>${z.simulados_aprovados || 0}/${z.simulados_feitos || 0}</b><span>simulados aprovados</span></div>
+          <div><b>${z.aprendidas || 0}</b><span>perguntas aprendidas na revisão</span></div>
+        </div>
+
+        <h2 class="eq-sub">Estudos por mês</h2>
+        ${lista(meses.slice().reverse().filter((m) => m.questionarios || m.membros || m.simulados).map((m) => { const [a, mm] = m.mes.split("-"); return `<li><div class="eq-item"><span class="eq-item__txt"><small>${m.membros} ${m.membros === 1 ? "membro estudou" : "membros estudaram"} · ${m.simulados} ${m.simulados === 1 ? "simulado aprovado" : "simulados aprovados"}</small><b>${MESES[+mm - 1]} de ${a}</b></span><span class="eq-pill${m.questionarios === maior && maior > 1 ? " eq-pill--cheia" : ""}">${m.questionarios} ${m.questionarios === 1 ? "palestra" : "palestras"}</span></div></li>`; }), "Ainda sem estudos.")}
+
+        <h2 class="eq-sub">Perguntas que mais gente erra <span>${(r.perguntas_dificeis || []).length}</span></h2>
+        <p class="eq-vazio-txt">Muita gente errando a mesma pergunta pode ser pergunta confusa ou um ensinamento que vale reforçar na gira.</p>
+        ${lista((r.perguntas_dificeis || []).map((q) => `<li><a class="eq-item" href="#/palestra/${encodeURIComponent(q.palestra_id)}"><span class="eq-item__txt"><small>${esc(numeroDe(q.palestra_id))} · ${esc(tituloDe(q.palestra_id))}</small><b>${esc(q.enunciado)}</b></span><span class="eq-pill eq-pill--alerta">${q.membros} ${q.membros === 1 ? "errou" : "erraram"}</span></a></li>`), "Ninguém errou pergunta ainda (ou o caderno de revisão começou agora).")}
+
+        <h2 class="eq-sub">Palestras mais estudadas</h2>
+        ${lista((r.palestras_estudadas || []).map((p) => `<li><a class="eq-item" href="#/palestra/${encodeURIComponent(p.palestra_id)}"><span class="eq-item__txt"><small>${esc(numeroDe(p.palestra_id))} · ${p.media}% de acertos</small><b>${esc(tituloDe(p.palestra_id))}</b></span><span class="eq-pill">${p.membros} ${p.membros === 1 ? "membro" : "membros"}</span></a></li>`), "Ainda sem estudos.")}
+
+        <h2 class="eq-sub">Parados há mais de 30 dias <span>${(r.parados || []).length}</span></h2>
+        ${lista((r.parados || []).map((m) => `<li><a class="eq-membro" href="#/estudos-admin/${m.id}">
+            <span class="eq-ini" aria-hidden="true">${esc(((m.nome || "?")[0] + (m.sobrenome || "")[0]).toUpperCase())}</span>
+            <span class="eq-membro__txt"><b>${esc(m.nome)} ${esc(m.sobrenome)}</b><small>Gira de ${esc(GIRAS[m.gira] || m.gira)} · ${m.ultimo ? `último estudo ${quando(m.ultimo)} · ${m.respondidas} ${m.respondidas === 1 ? "palestra" : "palestras"}` : "ainda não começou"}</small></span>
+            <span class="eq-seta">›</span></a></li>`), "Todo mundo estudou nos últimos 30 dias. 🎉")}`, "#/estudos-admin");
+    } catch (e) { pagina.innerHTML = moldura(ROT, TIT, `<div class="eq-vazio"><b>Não deu para carregar</b><p>${esc(msgErro(e))}</p></div>`, "#/estudos-admin"); }
+  }
+
   function listarAdm() {
     const t = ADM.busca.trim().toLowerCase();
     const vs = (ADM.lista || []).filter((m) => (!ADM.gira || m.gira === ADM.gira) && (!t || `${m.nome} ${m.sobrenome}`.toLowerCase().includes(t)));
@@ -423,6 +466,7 @@
     if (h === "estudos") return meusEstudos();
     if (h === "simulado") return simulado();
     if (h === "revisao") return revisao();
+    if (h === "relatorio") return relatorio();
     if (h === "estudos-admin" || h.startsWith("estudos-admin/")) return estudosMembros(h.split("/")[1]);
     esconderPagina();
     // veio de "Continue estudando": abre direto a aba do questionário
