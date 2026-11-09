@@ -4,7 +4,9 @@
    - A cada 5 palestras respondidas: simulado (10 perguntas, 7 para passar).
      Enquanto ele estiver pendente, não dá para responder palestra nova
      (ler e ouvir continua liberado). As regras e o gabarito ficam no banco.
-   - "Meus estudos" (#/estudos): progresso de quem estuda.
+   - "Meus estudos" (#/estudos): progresso de quem estuda, "continuar de onde parei"
+     e o caderno de revisão (#/revisao): perguntas erradas voltam em 1, 3, 7 e 15 dias.
+   - Palestras salvas e posição da leitura ficam na nuvem (mesmo membro, qualquer aparelho).
    - "Estudos dos membros" (#/estudos-admin): progresso de todos (administração).
    Só funciona com o acesso restrito ligado (precisa saber quem é a pessoa).
    ============================================================ */
@@ -22,6 +24,7 @@
   const LETRAS = ["A", "B", "C", "D", "E"];
   const GIRAS = { segunda: "Segunda", terca: "Terça", quarta: "Quarta", quinta: "Quinta", sexta: "Sexta", "sabado-10h": "Sábado · 10h30", "sabado-16h": "Sábado · 16h", "sabado-20h30": "Sábado · 20h30" };
   const data = (t) => (t ? new Date(t).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit" }) : "—");
+  const dia = (d) => (d ? String(d).slice(0, 10).split("-").reverse().slice(0, 2).join("/") : "—");
   const quando = (t) => {
     if (!t) return "nunca";
     const d = Math.floor((Date.now() - new Date(t)) / 864e5);
@@ -93,6 +96,17 @@
     return `<div class="eq-aviso">${pontinhos(sit.no_lote || 0)}<p>${falta === 5 ? "A cada 5 palestras estudadas, você faz um simulado de revisão." : `Faltam <b>${falta}</b> ${falta === 1 ? "palestra" : "palestras"} para o próximo simulado.`} <a href="#/estudos">Ver meus estudos</a></p></div>`;
   }
 
+  function avisoRevisao(sit) {
+    if (!sit) return "";
+    if (sit.revisao_hoje > 0) return `<div class="eq-aviso eq-aviso--simulado">
+        <b>Revisão do dia: ${sit.revisao_hoje} ${sit.revisao_hoje === 1 ? "pergunta" : "perguntas"} 🔁</b>
+        <p>São perguntas que você errou antes. Acertando, elas voltam em 3, 7 e 15 dias, até ficarem aprendidas.</p>
+        <a class="eq-botao" href="#/revisao">Fazer a revisão</a></div>`;
+    if (sit.revisao_total > 0) return `<div class="eq-aviso"><p>Seu caderno de revisão tem <b>${sit.revisao_total}</b> ${sit.revisao_total === 1 ? "pergunta" : "perguntas"}${sit.proxima_revisao ? `. A próxima revisão é dia <b>${dia(sit.proxima_revisao)}</b>` : ""}.${sit.aprendidas ? ` Já aprendidas: <b>${sit.aprendidas}</b>.` : ""}</p></div>`;
+    return "";
+  }
+  const notaRevisao = (n) => (n > 0 ? ` ${n === 1 ? "A que você errou entra" : `As ${n} que você errou entram`} no seu <a href="#/revisao">caderno de revisão</a> e ${n === 1 ? "volta" : "voltam"} amanhã.` : "");
+
   /* ---------- aba "Questionário" de uma palestra ---------- */
   async function questionario(p, painel, refazer) {
     if (!p) return;
@@ -130,7 +144,7 @@
         const r = await rpc("responder_questionario", { p_palestra: p.id, respostas });
         corrigir(f, r.correcao);
         const res = document.createElement("div");
-        res.innerHTML = `<div class="eq-resultado${r.acertos === r.total ? " eq-resultado--cheio" : ""}"><span class="eq-nota">${r.acertos}<small>/${r.total}</small></span><div><b>${r.acertos === r.total ? "Perfeito! Você acertou tudo." : r.acertos >= Math.ceil(r.total * 0.6) ? "Muito bem!" : "Vale reler a palestra."}</b><p>Veja abaixo a explicação de cada resposta.</p></div></div>${avisoSituacao(r.situacao)}`;
+        res.innerHTML = `<div class="eq-resultado${r.acertos === r.total ? " eq-resultado--cheio" : ""}"><span class="eq-nota">${r.acertos}<small>/${r.total}</small></span><div><b>${r.acertos === r.total ? "Perfeito! Você acertou tudo." : r.acertos >= Math.ceil(r.total * 0.6) ? "Muito bem!" : "Vale reler a palestra."}</b><p>Veja abaixo a explicação de cada resposta.${notaRevisao(r.para_revisao)}</p></div></div>${avisoSituacao(r.situacao)}`;
         painel.prepend(res);
         painel.scrollIntoView({ behavior: "smooth", block: "start" });
       });
@@ -163,11 +177,14 @@
     pagina.innerHTML = carregando("Seu caminho", "Meus <em>estudos</em>");
     try {
       const uid = A.perfil.id;
-      const [sit, comQuest, est, sims] = await Promise.all([
+      const [sit, comQuest, est, sims, prog] = await Promise.all([
         rpc("situacao_estudos"), rpc("palestras_com_questionario"),
         sb().from("estudos").select("*").eq("membro", uid).order("respondido_em", { ascending: false }).then((r) => r.data || []),
         sb().from("simulados").select("*").eq("membro", uid).not("respondido_em", "is", null).order("id", { ascending: false }).then((r) => r.data || []),
+        rpc("meu_progresso").catch(() => progresso),
       ]);
+      progresso = prog || progresso;
+      const meio = (progresso.leituras || []).filter((l) => !l.lida && l.posicao >= 0.02 && palestra(l.id)).slice(0, 3);
       const feitas = new Set(est.map((e) => e.palestra_id));
       const ordem = (ids) => ids.map((id) => palestra(id)).filter(Boolean).sort((a, b) => (b.data || "").localeCompare(a.data || "") || (b.semana || 0) - (a.semana || 0));
       const proximas = ordem((comQuest || []).filter((id) => !feitas.has(id)));
@@ -179,12 +196,16 @@
           <div><b>${media}%</b><span>de acertos</span></div>
           <div><b>${sit.aprovados}</b><span>simulados aprovados</span></div>
         </div>
+        ${meio.length ? `<h2 class="eq-sub">Continuar de onde parei</h2>
+          <ul class="eq-itens">${meio.map((l) => { const p = palestra(l.id); return `<li><a class="eq-item" href="#/palestra/${encodeURIComponent(p.id)}" data-eq-retomar="${esc(p.id)}" data-pos="${l.posicao}"><span class="eq-item__txt"><small>${esc(p.semana ? "Nº " + p.semana + " · " : "")}leitura ${quando(l.em)}</small><b>${esc(p.titulo)}</b></span><span class="eq-pill">${Math.round(l.posicao * 100)}%</span></a></li>`; }).join("")}</ul>` : ""}
+        ${avisoRevisao(sit)}
         ${avisoSituacao(sit)}
         <h2 class="eq-sub">Continue estudando <span>${proximas.length}</span></h2>
         ${proximas.length ? `<ul class="eq-itens">${proximas.slice(0, 6).map((p) => item(p, `<span class="eq-seta">›</span>`)).join("")}</ul>
           ${proximas.length > 6 ? `<details class="eq-mais"><summary>Ver mais ${proximas.length - 6}</summary><ul class="eq-itens">${proximas.slice(6).map((p) => item(p, `<span class="eq-seta">›</span>`)).join("")}</ul></details>` : ""}`
           : `<p class="eq-vazio-txt">${(comQuest || []).length ? "Você já respondeu todos os questionários disponíveis. 🎉" : "Os questionários ainda estão sendo preparados."}</p>`}
         <h2 class="eq-sub">Já estudadas <span>${est.length}</span></h2>
+        ${sit.lidas ? `<p class="eq-vazio-txt">Você leu o texto completo de <b>${sit.lidas}</b> ${sit.lidas === 1 ? "palestra" : "palestras"} até o fim.</p>` : ""}
         ${est.length ? `<ul class="eq-itens">${est.map((e) => { const p = palestra(e.palestra_id) || { id: e.palestra_id, titulo: "Palestra", data: "" }; return item(p, `<span class="eq-pill${e.melhor === e.total ? " eq-pill--cheia" : ""}">${e.melhor}/${e.total}</span>`); }).join("")}</ul>` : `<p class="eq-vazio-txt">Abra uma palestra e responda o questionário para começar.</p>`}
         ${sims.length ? `<h2 class="eq-sub">Simulados <span>${sims.length}</span></h2>
           <ul class="eq-itens">${sims.map((s) => `<li><div class="eq-item"><span class="eq-item__txt"><small>${data(s.respondido_em)}</small><b>${s.palestras.map((id) => esc(numeroDe(id) || "")).filter(Boolean).join(", ") || "5 palestras"}</b></span><span class="eq-pill ${s.aprovado ? "eq-pill--cheia" : "eq-pill--erro"}">${s.acertos}/${s.total} ${s.aprovado ? "✓" : "✗"}</span></div></li>`).join("")}</ul>` : ""}
@@ -208,8 +229,8 @@
         corrigir(f, r.correcao);
         const res = document.createElement("div");
         res.innerHTML = r.aprovado
-          ? `<div class="eq-resultado eq-resultado--cheio"><span class="eq-nota">${r.acertos}<small>/${r.total}</small></span><div><b>Aprovado! 🎉</b><p>Pode seguir para as próximas palestras.</p></div></div><a class="eq-botao" href="#/estudos">Continuar estudando</a>`
-          : `<div class="eq-resultado eq-resultado--baixo"><span class="eq-nota">${r.acertos}<small>/${r.total}</small></span><div><b>Quase! Precisa de ${r.minimo} acertos.</b><p>Releia as palestras, confira as explicações abaixo e tente de novo. O próximo simulado sorteia outras perguntas.</p></div></div>
+          ? `<div class="eq-resultado eq-resultado--cheio"><span class="eq-nota">${r.acertos}<small>/${r.total}</small></span><div><b>Aprovado! 🎉</b><p>Pode seguir para as próximas palestras.${notaRevisao(r.para_revisao)}</p></div></div><a class="eq-botao" href="#/estudos">Continuar estudando</a>`
+          : `<div class="eq-resultado eq-resultado--baixo"><span class="eq-nota">${r.acertos}<small>/${r.total}</small></span><div><b>Quase! Precisa de ${r.minimo} acertos.</b><p>Releia as palestras, confira as explicações abaixo e tente de novo. O próximo simulado sorteia outras perguntas.${notaRevisao(r.para_revisao)}</p></div></div>
              <button type="button" class="eq-botao" data-eq="de-novo">Tentar de novo</button>`;
         caixa.prepend(res);
         res.querySelector('[data-eq="de-novo"]')?.addEventListener("click", simulado);
@@ -220,6 +241,111 @@
       pagina.innerHTML = moldura("Revisão", "Simulado", `<div class="eq-vazio"><b>${nada ? "Nenhum simulado pendente" : "Não deu para abrir o simulado"}</b><p>${nada ? "O simulado aparece quando você completar 5 palestras estudadas." : esc(msgErro(e))}</p><a class="eq-botao eq-botao--claro" href="#/estudos">Ver meus estudos</a></div>`, "#/estudos");
     }
   }
+
+  async function revisao() {
+    mostrarPagina('[data-nav="estudos"]');
+    const ROT = "Caderno de revisão", TIT = "Revisão do <em>dia</em>";
+    pagina.innerHTML = carregando(ROT, TIT);
+    try {
+      const r = await rpc("revisao_do_dia"), sit = r.situacao || {}, qs = r.perguntas || [];
+      if (!qs.length) {
+        pagina.innerHTML = moldura(ROT, TIT, `<div class="eq-vazio"><b>Nada para revisar hoje ✨</b>
+          <p>${sit.revisao_total ? `Seu caderno tem ${sit.revisao_total} ${sit.revisao_total === 1 ? "pergunta" : "perguntas"}.${sit.proxima_revisao ? ` A próxima revisão é dia ${dia(sit.proxima_revisao)}.` : ""}` : "Quando você errar uma pergunta, ela entra aqui para você revisar nos dias seguintes."}${sit.aprendidas ? ` Já aprendidas: ${sit.aprendidas}.` : ""}</p>
+          <a class="eq-botao eq-botao--claro" href="#/estudos">Ver meus estudos</a></div>`, "#/estudos");
+        return;
+      }
+      pagina.innerHTML = moldura(ROT, TIT, `
+        <div class="eq-intro"><b>${qs.length} ${qs.length === 1 ? "pergunta" : "perguntas"} para revisar${sit.revisao_hoje > qs.length ? ` (de ${sit.revisao_hoje} de hoje)` : ""}</b>
+          <p>São perguntas que você errou antes. Acertou: ela volta em alguns dias (3, 7 e 15) até ficar aprendida. Errou: volta amanhã.</p></div>
+        <div id="eq-rev">${formulario(qs, { comPalestra: true, botao: "Conferir" })}</div>`, "#/estudos");
+      const caixa = pagina.querySelector("#eq-rev");
+      ligarFormulario(caixa, async (respostas, f) => {
+        const x = await rpc("responder_revisao", { respostas });
+        corrigir(f, x.correcao);
+        const resta = (x.situacao || {}).revisao_hoje || 0, aprendidas = (x.correcao || []).filter((c) => c.acertou && c.nivel >= 3).length;
+        const res = document.createElement("div");
+        res.innerHTML = `<div class="eq-resultado${x.acertos === x.total ? " eq-resultado--cheio" : ""}"><span class="eq-nota">${x.acertos}<small>/${x.total}</small></span>
+            <div><b>${x.acertos === x.total ? "Tudo certo na revisão!" : "Revisão feita."}</b><p>${aprendidas ? `${aprendidas === 1 ? "Uma pergunta ficou aprendida" : `${aprendidas} perguntas ficaram aprendidas`} e saiu do caderno. ` : ""}${x.total - x.acertos ? "As que você errou voltam amanhã." : "As que você acertou voltam daqui a alguns dias."}</p></div></div>
+          ${resta ? `<button type="button" class="eq-botao" data-eq="mais">Revisar mais ${resta}</button>` : `<a class="eq-botao" href="#/estudos">Continuar estudando</a>`}`;
+        caixa.prepend(res);
+        res.querySelector('[data-eq="mais"]')?.addEventListener("click", revisao);
+        pagina.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    } catch (e) {
+      pagina.innerHTML = moldura(ROT, TIT, `<div class="eq-vazio"><b>Não deu para abrir a revisão</b><p>${esc(msgErro(e))}</p><a class="eq-botao eq-botao--claro" href="#/estudos">Ver meus estudos</a></div>`, "#/estudos");
+    }
+  }
+
+  /* ---------- progresso na nuvem: palestras salvas e leitura ---------- */
+  const DONO = "acervo:salvas-dono", FILA = "acervo:salvas-fila";
+  const lerLS = (k, p) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : p; } catch (e) { return p; } };
+  const gravarLS = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* sem armazenamento */ } };
+  let progresso = { salvas: [], leituras: [] };
+  async function sincronizar() {
+    const S = window.ACERVO_SALVAS, uid = A.perfil && A.perfil.id; if (!uid) return;
+    try {
+      // primeiro manda o que ficou pendente sem internet
+      const fila = lerLS(FILA, {});
+      for (const [id, on] of Object.entries(fila)) await rpc("definir_salva", { p_palestra: id, p_salva: on });
+      gravarLS(FILA, {});
+      progresso = await rpc("meu_progresso");
+      if (!S) return;
+      const nuvem = progresso.salvas || [];
+      // só na primeira vez neste aparelho: leva para a nuvem as salvas que estavam no celular
+      const dono = lerLS(DONO, null), novas = dono === null ? S.lista().filter((id) => !nuvem.includes(id)) : [];
+      if (novas.length) await rpc("importar_salvas", { p_ids: novas });
+      gravarLS(DONO, uid);
+      S.trocar([...nuvem, ...novas]);
+    } catch (e) { /* sem internet: fica com as do celular e tenta de novo na próxima vez */ }
+  }
+  addEventListener("salva-mudou", async (e) => {
+    const { id, salva } = e.detail || {}; if (!id || !liberado) return;
+    try { await rpc("definir_salva", { p_palestra: id, p_salva: salva }); }
+    catch (x) { const f = lerLS(FILA, {}); f[id] = salva; gravarLS(FILA, f); }
+  });
+
+  // posição da leitura no texto completo: 0 = começo, 1 = fim
+  const painelTexto = () => document.getElementById("painel-texto");
+  function posicaoLeitura() {
+    const pt = painelTexto(), vista = document.getElementById("vista-palestra");
+    if (!pt || pt.hidden || !pt.dataset.id || (vista && vista.hidden)) return null;
+    const r = pt.getBoundingClientRect(); if (r.height < 80) return null;
+    return { id: pt.dataset.id, pos: Math.min(1, Math.max(0, (innerHeight * 0.85 - r.top) / r.height)) };
+  }
+  let leitura = null, enviadaEm = 0, enviada = null;
+  async function enviarLeitura(forcar) {
+    const l = leitura; if (!l || !liberado) return;
+    if (enviada && enviada.id === l.id && Math.abs(enviada.pos - l.pos) < 0.02) return;
+    if (!forcar && Date.now() - enviadaEm < 15000) return;
+    enviadaEm = Date.now(); enviada = { ...l };
+    const lista = (progresso.leituras || []).filter((x) => x.id !== l.id), antes = (progresso.leituras || []).find((x) => x.id === l.id);
+    progresso.leituras = [{ id: l.id, posicao: l.pos, lida: (antes && antes.lida) || l.pos >= 0.9, em: new Date().toISOString() }, ...lista];
+    try { await rpc("marcar_leitura", { p_palestra: l.id, p_posicao: l.pos }); } catch (e) { enviada = null; }
+  }
+  let rolando = null;
+  addEventListener("scroll", () => {
+    if (rolando) return;
+    rolando = setTimeout(() => { rolando = null; const p = posicaoLeitura(); if (p) { leitura = p; enviarLeitura(false); } }, 400);
+  }, { passive: true });
+  const sairDaLeitura = () => { enviarLeitura(true); };
+  addEventListener("hashchange", sairDaLeitura);
+  addEventListener("pagehide", sairDaLeitura);
+  document.addEventListener("visibilitychange", () => { if (document.hidden) sairDaLeitura(); });
+  // "Continuar de onde parei": abre o texto completo e rola até onde a pessoa parou
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("[data-eq-retomar]");
+    if (a) sessionStorage.setItem("eq:retomar", JSON.stringify({ id: a.dataset.eqRetomar, pos: +a.dataset.pos || 0 }));
+  });
+  addEventListener("texto-pronto", (e) => {
+    let r = null; try { r = JSON.parse(sessionStorage.getItem("eq:retomar")); } catch (x) { /* nada */ }
+    if (!r || r.id !== (e.detail || {}).id) return;
+    sessionStorage.removeItem("eq:retomar");
+    requestAnimationFrame(() => {
+      const pt = painelTexto(); if (!pt) return;
+      const topo = pt.getBoundingClientRect().top + scrollY;
+      scrollTo({ top: Math.max(0, topo + r.pos * pt.offsetHeight - innerHeight * 0.85), behavior: "smooth" });
+    });
+  });
 
   const ADM = { busca: "", gira: "", lista: [] };
   async function estudosMembros(detalhe) {
@@ -296,11 +422,14 @@
     const h = location.hash.replace(/^#\/?/, "");
     if (h === "estudos") return meusEstudos();
     if (h === "simulado") return simulado();
+    if (h === "revisao") return revisao();
     if (h === "estudos-admin" || h.startsWith("estudos-admin/")) return estudosMembros(h.split("/")[1]);
     esconderPagina();
     // veio de "Continue estudando": abre direto a aba do questionário
     const m = h.match(/^palestra\/(.+)$/);
-    if (m && sessionStorage.getItem("eq:abrir") === decodeURIComponent(m[1])) {
+    if (m && (sessionStorage.getItem("eq:retomar") || "").includes(JSON.stringify(decodeURIComponent(m[1])))) {
+      setTimeout(() => document.getElementById("aba-texto")?.click(), 60);
+    } else if (m && sessionStorage.getItem("eq:abrir") === decodeURIComponent(m[1])) {
       sessionStorage.removeItem("eq:abrir");
       setTimeout(() => document.getElementById("aba-questoes")?.click(), 60);
     }
@@ -312,6 +441,7 @@
     document.querySelectorAll('[data-nav="estudos"]').forEach((a) => (a.hidden = false));
     const aba = document.getElementById("aba-questoes"); if (aba) aba.hidden = false;
     rota();
+    sincronizar();
   });
 
   window.Estudos = { questionario };
