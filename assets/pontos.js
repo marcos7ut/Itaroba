@@ -271,7 +271,8 @@
 
   function renderPlayer() {
     const p = ponto(estado.atual);
-    const mostrar = !!p && (estado.naPagina || estado.carregado !== null);
+    // Fora da aba Pontos, o player só aparece enquanto o áudio está tocando
+    const mostrar = !!p && (estado.naPagina || (estado.carregado !== null && !audio.paused));
     el.player.hidden = !mostrar;
     document.body.classList.toggle("com-player", mostrar);
     if (!p) return;
