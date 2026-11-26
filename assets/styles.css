@@ -614,16 +614,10 @@ a.etiqueta:hover { background: var(--menta); color: var(--floresta-texto); }
 .pt-player__linha--barra { gap: .25rem; }
 #pt-barra { flex: 1; min-width: 0; margin: 0; height: 1.4rem; accent-color: var(--c); cursor: pointer; }
 
-/* Mini-player flutuante (fora da aba Pontos): cartão compacto que se arrasta pela tela */
-.pt-so-mini { display: none; }
-.pt-player--mini .pt-player__linha--barra, .pt-player--mini #pt-repetir, .pt-player--mini #pt-btn-letra, .pt-player--mini #pt-p-vezes { display: none; }
-.pt-player--mini .pt-so-mini { display: grid; }
-.pt-player--mini { left: auto; bottom: auto; top: 40vh; right: auto; transform: none; width: min(15rem, calc(100% - 1.5rem)); touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
-.pt-player--mini:not([style*="left"]) { left: calc(100% - min(15rem, calc(100% - 1.5rem)) - .75rem); top: auto; bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); }
-.pt-player--mini .pt-player__capsula { padding: .35rem .5rem .35rem .4rem; border-radius: 999px; box-shadow: 0 10px 30px -8px rgba(0,0,0,.55); }
-.pt-player--mini .pt-pp { width: 2.4rem; height: 2.4rem; }
-.pt-player--mini .pt-icone { width: 2.1rem; height: 2.1rem; }
-.pt-player--mini .pt-player__info strong { font-size: .9rem; }
+/* Player flutuante: o mesmo cartão em Pontos e Palestras; arraste para qualquer lugar ou para a borda */
+.pt-player { touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; }
+.pt-player--solto { bottom: auto; transform: none; }
+.pt-player input[type="range"] { touch-action: pan-x; }
 .pt-doca { position: fixed; z-index: 55; width: 3rem; display: flex; flex-direction: column; gap: .15rem; padding: .3rem 0; background: var(--osso, #222); color: var(--tinta, #fff); border: 1px solid var(--linha); box-shadow: 0 8px 24px -8px rgba(0,0,0,.6); touch-action: none; user-select: none; -webkit-user-select: none; }
 .pt-doca[hidden] { display: none; }
 .pt-doca button { width: 100%; height: 2.9rem; display: grid; place-items: center; border: 0; background: transparent; color: inherit; cursor: pointer; padding: 0; -webkit-tap-highlight-color: transparent; }

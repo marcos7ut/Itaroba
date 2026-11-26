@@ -434,7 +434,8 @@
     }
     vistaPontos.hidden = true;
     linksPontos.forEach((a) => a.removeAttribute("aria-current"));
-    if (pontos) pontos.esconder();
+    // O player de pontos flutua só em Pontos e Palestras (lista e leitura); Salvas, Estudos etc. ficam sem ele
+    if (pontos) { if (["", "palestra", "tema"].includes(secao)) pontos.palestras(); else pontos.esconder(); }
 
     if (secao === "palestra" && valor) {
       if (!el.vistaLista.hidden) estado.rolagemLista = scrollY;
