@@ -528,7 +528,7 @@
     el.player.style.top = estado.miniPos.y + "px";
     document.body.classList.remove("com-player");
   }
-  const alturaDoca = () => Math.min(innerHeight - 16, 9.4 * 16);
+  const alturaDoca = () => Math.min(innerHeight - 16, 10.6 * 16);
   arrastar(el.player, (x, y, i) => {
     if (!i.moveu) return;
     const W = innerWidth, visivel = Math.min(x + i.w, W) - Math.max(x, 0), dedo = x + i.dx;
@@ -556,7 +556,7 @@
   arrastar(doca, (x, y, i) => {
     doca.classList.remove("pt-doca--arrastando");
     doca.style.left = doca.style.right = doca.style.top = "";
-    if (!i.moveu) { if (acoesDoca[i.acao]) acoesDoca[i.acao](); return; }
+    if (!i.moveu) { if (acoesDoca[i.acao]) acoesDoca[i.acao](); renderPlayer(); return; }
     const centro = x + i.w / 2, W = innerWidth;
     if (centro > W * 0.3 && centro < W * 0.7) desdocar(centro - Math.min(720, W - 24) / 2, y);
     else { estado.docaY = lim(y, 8, innerHeight - i.h - 8); renderPlayer(); }
