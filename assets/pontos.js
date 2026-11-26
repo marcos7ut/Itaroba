@@ -11,7 +11,7 @@
     offline: $("#pt-offline"), conteudo: $("#pt-conteudo"),
     player: $("#pt-player"), pp: $("#pt-pp"), nome: $("#pt-p-nome"), linha: $("#pt-p-linha"),
     atual: $("#pt-p-atual"), total: $("#pt-p-total"), vezes: $("#pt-p-vezes"),
-    repetir: $("#pt-repetir"), marcaRep: $("#pt-rep-marca"), btnLetra: $("#pt-btn-letra"), ant: $("#pt-ant"), prox: $("#pt-prox"), fecharPlayer: $("#pt-fechar"), barra: $("#pt-barra"),
+    repetir: $("#pt-repetir"), marcaRep: $("#pt-rep-marca"), btnLetra: $("#pt-btn-letra"), ant: $("#pt-ant"), prox: $("#pt-prox"), barra: $("#pt-barra"),
     fundo: $("#pt-fundo"), folha: $("#pt-folha"), fLinha: $("#pt-f-linha"), fTitulo: $("#pt-f-titulo"),
     fLetra: $("#pt-f-letra"), fFechar: $("#pt-f-fechar"), aviso: $("#aviso"),
   };
@@ -23,7 +23,7 @@
     filtro: "", termo: "",
     atual: null, carregado: null, fila: [],
     repetir: "nao", vezes: 1, // repetir: "nao" | "uma" (repete 1 vez) | "sempre" (até desligar)
-    naPagina: false, arrastando: false, urlBlob: null, doca: null, docaY: 0, miniPos: null,
+    naPagina: false, ctx: null, arrastando: false, urlBlob: null, doca: null, docaY: 0, miniPos: null,
   };
   // Linhas abertas (os pontos só aparecem ao tocar no nome do orixá)
   const CHAVE_ABERTAS = "pt-linhas-abertas";
@@ -271,20 +271,19 @@
 
   function renderPlayer() {
     const p = ponto(estado.atual);
-    // Na aba Pontos: player completo. Nas outras abas: mini-player enquanto houver música carregada
-    const mostrar = !!p && (estado.naPagina || estado.carregado !== null);
-    const mini = mostrar && !estado.naPagina;
+    // O player só existe em Pontos e Palestras. Em Pontos aparece sempre; em Palestras só com música carregada
+    const mostrar = !!p && (estado.ctx === "pontos" || (estado.ctx === "palestras" && estado.carregado !== null));
     el.player.hidden = !mostrar || !!estado.doca;
     doca.hidden = !(mostrar && estado.doca);
     doca.className = `pt-doca pt-doca--${estado.doca || "esq"}`;
     doca.style.top = estado.docaY + "px";
-    document.body.classList.toggle("com-player", mostrar && estado.naPagina && !estado.doca);
+    document.body.classList.toggle("com-player", mostrar && !estado.doca && !estado.miniPos);
     const rodando = estado.carregado !== null && !audio.paused;
     docaPlay.setAttribute("aria-pressed", rodando);
     docaPause.setAttribute("aria-pressed", !rodando);
     if (!p) return;
-    el.player.className = `pt-player pt-cor-${p.linha}` + (estado.naPagina ? "" : " pt-player--mini");
-    if (estado.naPagina || !estado.miniPos) { el.player.style.left = el.player.style.top = ""; }
+    el.player.className = `pt-player pt-cor-${p.linha}` + (estado.miniPos ? " pt-player--solto" : "");
+    if (!estado.miniPos) { el.player.style.left = el.player.style.top = ""; }
     else { el.player.style.left = estado.miniPos.x + "px"; el.player.style.top = estado.miniPos.y + "px"; }
     el.nome.textContent = p.titulo;
     el.linha.textContent = linhaDe(p.linha).nome;
@@ -475,19 +474,19 @@
   el.busca.addEventListener("input", () => { clearTimeout(espera); espera = setTimeout(() => { estado.termo = el.busca.value; render(); }, 120); });
   el.pp.addEventListener("click", () => estado.atual && tocar(estado.atual));
   el.ant.addEventListener("click", () => pular(-1));
-  // X do mini-player: para a música e tira o player da tela
+  // Quadrado da aba na borda: para a música e tira o player da tela
   function fecharPlayer() {
     audio.pause();
     audio.removeAttribute("src");
     audio.load();
     estado.carregado = null;
     estado.doca = null;
+    estado.miniPos = null; // volta ao ponto de partida (embaixo, no centro)
     estado.vezes = 1;
     if (estado.urlBlob) { URL.revokeObjectURL(estado.urlBlob); estado.urlBlob = null; }
     if ("mediaSession" in navigator) { navigator.mediaSession.metadata = null; }
     renderPlayer();
   }
-  el.fecharPlayer.addEventListener("click", fecharPlayer);
 
   // ---------- Mini-player flutuante (como o do YouTube) ----------
   // Arraste pela tela. Jogado no canto, a música PARA e vira uma aba na borda
@@ -524,41 +523,27 @@
   function posMini(x, y, w, h) {
     const W = innerWidth, H = innerHeight;
     estado.miniPos = { x: lim(x, -w * 0.75, W - w * 0.25), y: lim(y, 8, H - h - 8) };
+    el.player.classList.add("pt-player--solto");
     el.player.style.left = estado.miniPos.x + "px";
     el.player.style.top = estado.miniPos.y + "px";
+    document.body.classList.remove("com-player");
   }
   const alturaDoca = () => Math.min(innerHeight - 16, 9.4 * 16);
   arrastar(el.player, (x, y, i) => {
     if (!i.moveu) return;
-    const W = innerWidth;
-    if (estado.naPagina) {
-      // Na aba Pontos o player fica embaixo: arrastar para o lado guarda na borda
-      el.player.style.transform = "";
-      const dx = x + i.dx - i.x0;
-      if (Math.abs(dx) > W * 0.3) {
-        estado.doca = dx < 0 ? "esq" : "dir";
-        estado.docaY = lim(y - 40, 8, innerHeight - alturaDoca() - 8);
-        audio.pause();
-        renderPlayer();
-      }
-      return;
-    }
-    const visivel = Math.min(x + i.w, W) - Math.max(x, 0);
-    const dedo = x + i.dx;
-    if (visivel < i.w * 0.55 || dedo < 36 || dedo > W - 36) {
+    const W = innerWidth, visivel = Math.min(x + i.w, W) - Math.max(x, 0), dedo = x + i.dx;
+    if (visivel < i.w * 0.55 || dedo < 28 || dedo > W - 28) {
       // Jogado no canto: para o áudio e guarda na borda
       estado.doca = x + i.w / 2 < W / 2 ? "esq" : "dir";
       estado.docaY = lim(y, 8, innerHeight - alturaDoca() - 8);
+      estado.miniPos = null;
       audio.pause();
       renderPlayer();
     }
-  }, (x, y, i) => {
-    if (estado.naPagina) el.player.style.transform = `translateX(calc(-50% + ${x + i.dx - i.x0}px))`;
-    else posMini(x, y, i.w, i.h);
-  });
+  }, (x, y, i) => { posMini(x, y, i.w, i.h); });
   function desdocar(x, y) {
     estado.doca = null;
-    const w = Math.min(15 * 16, innerWidth - 24), h = 56;
+    const w = Math.min(720, innerWidth - 24), h = 112;
     estado.miniPos = { x: lim(x, 8, innerWidth - w - 8), y: lim(y, 8, innerHeight - h - 8) };
     renderPlayer();
     if (estado.carregado !== null) audio.play().catch(falhou);
@@ -573,12 +558,18 @@
     doca.style.left = doca.style.right = doca.style.top = "";
     if (!i.moveu) { if (acoesDoca[i.acao]) acoesDoca[i.acao](); return; }
     const centro = x + i.w / 2, W = innerWidth;
-    if (centro > W * 0.3 && centro < W * 0.7) desdocar(centro - Math.min(15 * 16, W - 24) / 2, y);
+    if (centro > W * 0.3 && centro < W * 0.7) desdocar(centro - Math.min(720, W - 24) / 2, y);
     else { estado.docaY = lim(y, 8, innerHeight - i.h - 8); renderPlayer(); }
   }, (x, y) => {
     doca.classList.add("pt-doca--arrastando");
     doca.style.left = x + "px"; doca.style.right = "auto"; doca.style.top = y + "px";
   }, true);
+  addEventListener("resize", () => {
+    if (!estado.miniPos) return;
+    const w = Math.min(720, innerWidth - 24);
+    estado.miniPos = { x: lim(estado.miniPos.x, -w * 0.75, innerWidth - w * 0.25), y: lim(estado.miniPos.y, 8, innerHeight - 120) };
+    renderPlayer();
+  });
   // Teclado: Enter/espaço nos botões da aba
   doca.addEventListener("click", (e) => {
     const bt = e.target.closest("button");
@@ -608,7 +599,7 @@
   // ---------- Ligação com o app ----------
   window.PontosApp = {
     mostrar(aba) {
-      estado.naPagina = true;
+      estado.naPagina = true; estado.ctx = "pontos";
       if (aba && aba !== estado.aba) {
         estado.aba = aba; estado.filtro = ""; estado.termo = ""; el.busca.value = "";
       }
@@ -620,8 +611,14 @@
         })
         .catch((e) => { el.conteudo.innerHTML = `<div class="vazio"><h2>Não foi possível carregar os pontos</h2><p>${escapar(e.message)}.</p></div>`; });
     },
+    // Palestras (lista e leitura): o player flutua por cima, se houver música
+    palestras() {
+      estado.naPagina = false; estado.ctx = "palestras";
+      renderPlayer();
+    },
+    // Salvas, Estudos e o resto: sem player
     esconder() {
-      estado.naPagina = false;
+      estado.naPagina = false; estado.ctx = null;
       renderPlayer();
     },
   };
