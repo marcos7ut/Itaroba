@@ -1,6 +1,6 @@
 // Service worker: deixa o app abrir mais rápido e funcionar sem internet
 // depois da primeira visita. Mude a VERSAO sempre que atualizar o app.
-const VERSAO = "acervo-v58";
+const VERSAO = "acervo-v59";
 const ESSENCIAIS = [
   "./", "index.html", "config.js", "manifest.webmanifest",
   "assets/styles.css", "assets/acesso.css", "assets/acesso.js", "assets/leitor-pdf.css", "assets/leitor-pdf.js", "assets/estudos.css", "assets/estudos.js", "assets/vendor/supabase-2.117.3.js", "assets/app.js", "assets/pontos.js", "assets/icone.svg",
@@ -10,7 +10,7 @@ const ESSENCIAIS = [
 
 self.addEventListener("install", (e) => {
   // Guarda cada arquivo separadamente: se um faltar no site, os outros continuam valendo
-  e.waitUntil(caches.open(VERSAO).then((c) => Promise.allSettled(ESSENCIAIS.map((u) => c.add(u)))).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(VERSAO).then((c) => Promise.allSettled(ESSENCIAIS.map((u) => c.add(new Request(u, { cache: "reload" }))))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener("activate", (e) => {

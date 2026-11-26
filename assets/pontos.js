@@ -23,7 +23,7 @@
     filtro: "", termo: "",
     atual: null, carregado: null, fila: [],
     repetir: "nao", vezes: 1, // repetir: "nao" | "uma" (repete 1 vez) | "sempre" (até desligar)
-    naPagina: false, arrastando: false, urlBlob: null, escondeMini: false,
+    naPagina: false, arrastando: false, urlBlob: null, doca: null, docaY: 0, miniPos: null,
   };
   // Linhas abertas (os pontos só aparecem ao tocar no nome do orixá)
   const CHAVE_ABERTAS = "pt-linhas-abertas";
@@ -273,11 +273,16 @@
     const p = ponto(estado.atual);
     // Na aba Pontos: player completo. Nas outras abas: mini-player enquanto houver música carregada
     const mostrar = !!p && (estado.naPagina || estado.carregado !== null);
-    el.player.hidden = !mostrar;
+    const mini = mostrar && !estado.naPagina;
+    el.player.hidden = !mostrar || (mini && !!estado.doca);
+    doca.hidden = !(mini && estado.doca);
+    doca.className = `pt-doca pt-doca--${estado.doca || "esq"}`;
+    doca.style.top = estado.docaY + "px";
     document.body.classList.toggle("com-player", mostrar && estado.naPagina);
-    document.body.classList.toggle("com-mini", mostrar && !estado.naPagina);
     if (!p) return;
-    el.player.className = `pt-player pt-cor-${p.linha}` + (estado.naPagina ? "" : " pt-player--mini") + (estado.escondeMini ? " pt-player--rolando" : "");
+    el.player.className = `pt-player pt-cor-${p.linha}` + (estado.naPagina ? "" : " pt-player--mini");
+    if (estado.naPagina || !estado.miniPos) { el.player.style.left = el.player.style.top = ""; }
+    else { el.player.style.left = estado.miniPos.x + "px"; el.player.style.top = estado.miniPos.y + "px"; }
     el.nome.textContent = p.titulo;
     el.linha.textContent = linhaDe(p.linha).nome;
     const tocando = estado.carregado === p.id && !audio.paused;
@@ -356,7 +361,7 @@
     } catch (e) { /* recurso indisponível */ }
   }
 
-  audio.addEventListener("play", atualizar);
+  audio.addEventListener("play", () => { if (estado.doca) estado.doca = null; atualizar(); });
   audio.addEventListener("pause", atualizar);
   audio.addEventListener("loadedmetadata", renderPlayer);
   audio.addEventListener("timeupdate", () => {
@@ -473,21 +478,78 @@
     audio.removeAttribute("src");
     audio.load();
     estado.carregado = null;
+    estado.doca = null;
     estado.vezes = 1;
     if (estado.urlBlob) { URL.revokeObjectURL(estado.urlBlob); estado.urlBlob = null; }
     if ("mediaSession" in navigator) { navigator.mediaSession.metadata = null; }
     renderPlayer();
   });
-  // Mini-player some ao rolar o texto para baixo e volta ao rolar para cima
-  let ultimoY = scrollY;
-  addEventListener("scroll", () => {
-    const y = scrollY, desce = y > ultimoY + 6 && y > 80, sobe = y < ultimoY - 6;
-    if (desce || sobe) {
-      const esconde = desce;
-      ultimoY = y;
-      if (esconde !== estado.escondeMini) { estado.escondeMini = esconde; if (!estado.naPagina) renderPlayer(); }
+  // ---------- Mini-player flutuante (como o do YouTube) ----------
+  // Arraste pela tela. Jogado no canto, a música PARA e vira uma aba na borda
+  // (play em cima, pause embaixo). Arrastar a aba para o meio volta a tocar.
+  const doca = $("#pt-doca");
+  const lim = (v, a, b) => Math.min(Math.max(v, a), b);
+  function arrastar(alvo, aoSoltar, aoMover) {
+    let ini = null;
+    alvo.addEventListener("pointerdown", (e) => {
+      if (e.button > 0 || e.target.closest("button")) return;
+      const r = alvo.getBoundingClientRect();
+      ini = { id: e.pointerId, dx: e.clientX - r.left, dy: e.clientY - r.top, x0: e.clientX, y0: e.clientY, moveu: false, w: r.width, h: r.height };
+      try { alvo.setPointerCapture(e.pointerId); } catch (_) { /* ignora */ }
+      e.preventDefault();
+    });
+    alvo.addEventListener("dragstart", (e) => e.preventDefault());
+    alvo.addEventListener("pointermove", (e) => {
+      if (!ini || e.pointerId !== ini.id) return;
+      if (!ini.moveu && Math.hypot(e.clientX - ini.x0, e.clientY - ini.y0) < 6) return;
+      ini.moveu = true;
+      aoMover(e.clientX - ini.dx, e.clientY - ini.dy, ini);
+    });
+    const fim = (e) => {
+      if (!ini || e.pointerId !== ini.id) return;
+      const i = ini; ini = null;
+      aoSoltar(e.clientX - i.dx, e.clientY - i.dy, i);
+    };
+    alvo.addEventListener("pointerup", fim);
+    alvo.addEventListener("pointercancel", fim);
+  }
+  function posMini(x, y, w, h) {
+    const W = innerWidth, H = innerHeight;
+    estado.miniPos = { x: lim(x, -w * 0.75, W - w * 0.25), y: lim(y, 8, H - h - 8) };
+    el.player.style.left = estado.miniPos.x + "px";
+    el.player.style.top = estado.miniPos.y + "px";
+  }
+  arrastar(el.player, (x, y, i) => {
+    if (!i.moveu || estado.naPagina) return;
+    const W = innerWidth;
+    const visivel = Math.min(x + i.w, W) - Math.max(x, 0);
+    const dedo = x + i.dx;
+    if (visivel < i.w * 0.55 || dedo < 36 || dedo > W - 36) {
+      // Jogado no canto: para o áudio e guarda na borda
+      estado.doca = x + i.w / 2 < W / 2 ? "esq" : "dir";
+      estado.docaY = lim(y, 8, innerHeight - 80);
+      audio.pause();
+      renderPlayer();
     }
-  }, { passive: true });
+  }, (x, y, i) => { if (!estado.naPagina) posMini(x, y, i.w, i.h); });
+  function desdocar(x, y) {
+    estado.doca = null;
+    const w = Math.min(15 * 16, innerWidth - 24), h = 56;
+    estado.miniPos = { x: lim(x, 8, innerWidth - w - 8), y: lim(y, 8, innerHeight - h - 8) };
+    renderPlayer();
+    if (estado.carregado !== null) audio.play().catch(falhou);
+  }
+  arrastar(doca, (x, y, i) => {
+    doca.classList.remove("pt-doca--arrastando");
+    doca.style.left = doca.style.right = doca.style.top = "";
+    if (!i.moveu) { desdocar(estado.doca === "esq" ? 8 : innerWidth - 248, estado.docaY); return; }
+    const centro = x + i.w / 2, W = innerWidth;
+    if (centro > W * 0.3 && centro < W * 0.7) desdocar(centro - Math.min(15 * 16, W - 24) / 2, y);
+    else { estado.docaY = lim(y, 8, innerHeight - i.h - 8); renderPlayer(); }
+  }, (x, y) => {
+    doca.classList.add("pt-doca--arrastando");
+    doca.style.left = x + "px"; doca.style.right = "auto"; doca.style.top = y + "px";
+  });
   el.prox.addEventListener("click", () => pular(1));
   el.repetir.addEventListener("click", () => {
     // Cada toque muda: desligado → repetir 1 vez → repetir sem parar → desligado
