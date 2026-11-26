@@ -11,7 +11,7 @@
     offline: $("#pt-offline"), conteudo: $("#pt-conteudo"),
     player: $("#pt-player"), pp: $("#pt-pp"), nome: $("#pt-p-nome"), linha: $("#pt-p-linha"),
     atual: $("#pt-p-atual"), total: $("#pt-p-total"), vezes: $("#pt-p-vezes"),
-    repetir: $("#pt-repetir"), marcaRep: $("#pt-rep-marca"), btnLetra: $("#pt-btn-letra"), ant: $("#pt-ant"), prox: $("#pt-prox"), barra: $("#pt-barra"),
+    repetir: $("#pt-repetir"), marcaRep: $("#pt-rep-marca"), btnLetra: $("#pt-btn-letra"), ant: $("#pt-ant"), prox: $("#pt-prox"), fecharPlayer: $("#pt-fechar"), barra: $("#pt-barra"),
     fundo: $("#pt-fundo"), folha: $("#pt-folha"), fLinha: $("#pt-f-linha"), fTitulo: $("#pt-f-titulo"),
     fLetra: $("#pt-f-letra"), fFechar: $("#pt-f-fechar"), aviso: $("#aviso"),
   };
@@ -23,7 +23,7 @@
     filtro: "", termo: "",
     atual: null, carregado: null, fila: [],
     repetir: "nao", vezes: 1, // repetir: "nao" | "uma" (repete 1 vez) | "sempre" (até desligar)
-    naPagina: false, arrastando: false, urlBlob: null,
+    naPagina: false, arrastando: false, urlBlob: null, escondeMini: false,
   };
   // Linhas abertas (os pontos só aparecem ao tocar no nome do orixá)
   const CHAVE_ABERTAS = "pt-linhas-abertas";
@@ -271,11 +271,13 @@
 
   function renderPlayer() {
     const p = ponto(estado.atual);
+    // Na aba Pontos: player completo. Nas outras abas: mini-player enquanto houver música carregada
     const mostrar = !!p && (estado.naPagina || estado.carregado !== null);
     el.player.hidden = !mostrar;
-    document.body.classList.toggle("com-player", mostrar);
+    document.body.classList.toggle("com-player", mostrar && estado.naPagina);
+    document.body.classList.toggle("com-mini", mostrar && !estado.naPagina);
     if (!p) return;
-    el.player.className = `pt-player pt-cor-${p.linha}`;
+    el.player.className = `pt-player pt-cor-${p.linha}` + (estado.naPagina ? "" : " pt-player--mini") + (estado.escondeMini ? " pt-player--rolando" : "");
     el.nome.textContent = p.titulo;
     el.linha.textContent = linhaDe(p.linha).nome;
     const tocando = estado.carregado === p.id && !audio.paused;
@@ -465,6 +467,27 @@
   el.busca.addEventListener("input", () => { clearTimeout(espera); espera = setTimeout(() => { estado.termo = el.busca.value; render(); }, 120); });
   el.pp.addEventListener("click", () => estado.atual && tocar(estado.atual));
   el.ant.addEventListener("click", () => pular(-1));
+  // X do mini-player: para a música e tira o player da tela
+  el.fecharPlayer.addEventListener("click", () => {
+    audio.pause();
+    audio.removeAttribute("src");
+    audio.load();
+    estado.carregado = null;
+    estado.vezes = 1;
+    if (estado.urlBlob) { URL.revokeObjectURL(estado.urlBlob); estado.urlBlob = null; }
+    if ("mediaSession" in navigator) { navigator.mediaSession.metadata = null; }
+    renderPlayer();
+  });
+  // Mini-player some ao rolar o texto para baixo e volta ao rolar para cima
+  let ultimoY = scrollY;
+  addEventListener("scroll", () => {
+    const y = scrollY, desce = y > ultimoY + 6 && y > 80, sobe = y < ultimoY - 6;
+    if (desce || sobe) {
+      const esconde = desce;
+      ultimoY = y;
+      if (esconde !== estado.escondeMini) { estado.escondeMini = esconde; if (!estado.naPagina) renderPlayer(); }
+    }
+  }, { passive: true });
   el.prox.addEventListener("click", () => pular(1));
   el.repetir.addEventListener("click", () => {
     // Cada toque muda: desligado → repetir 1 vez → repetir sem parar → desligado

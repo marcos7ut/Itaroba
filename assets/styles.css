@@ -614,6 +614,17 @@ a.etiqueta:hover { background: var(--menta); color: var(--floresta-texto); }
 .pt-player__linha--barra { gap: .25rem; }
 #pt-barra { flex: 1; min-width: 0; margin: 0; height: 1.4rem; accent-color: var(--c); cursor: pointer; }
 
+/* Mini-player (fora da aba Pontos): barra compacta, sem barra de posição */
+.pt-so-mini { display: none; }
+.pt-player { transition: transform .25s ease, opacity .25s ease; }
+.pt-player--mini .pt-player__linha--barra, .pt-player--mini #pt-repetir, .pt-player--mini #pt-btn-letra, .pt-player--mini #pt-p-vezes { display: none; }
+.pt-player--mini .pt-so-mini { display: grid; }
+.pt-player--mini .pt-player__capsula { padding: .4rem .6rem .4rem .45rem; border-radius: 999px; }
+.pt-player--mini .pt-pp { width: 2.5rem; height: 2.5rem; }
+.pt-player--mini.pt-player--rolando { transform: translate(-50%, calc(100% + 1.5rem)); opacity: 0; pointer-events: none; }
+body.com-mini { padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px)); }
+body.com-mini .aviso { bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px)); }
+@media (prefers-reduced-motion: reduce) { .pt-player { transition: none; } }
 body.com-player { padding-bottom: calc(9.5rem + env(safe-area-inset-bottom, 0px)); }
 body.com-player .aviso { bottom: calc(9.25rem + env(safe-area-inset-bottom, 0px)); }
 .aviso { display: flex; align-items: center; gap: .75rem; max-width: calc(100% - 2rem); width: max-content; }
