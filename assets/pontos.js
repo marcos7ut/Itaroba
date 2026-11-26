@@ -274,11 +274,14 @@
     // Na aba Pontos: player completo. Nas outras abas: mini-player enquanto houver música carregada
     const mostrar = !!p && (estado.naPagina || estado.carregado !== null);
     const mini = mostrar && !estado.naPagina;
-    el.player.hidden = !mostrar || (mini && !!estado.doca);
-    doca.hidden = !(mini && estado.doca);
+    el.player.hidden = !mostrar || !!estado.doca;
+    doca.hidden = !(mostrar && estado.doca);
     doca.className = `pt-doca pt-doca--${estado.doca || "esq"}`;
     doca.style.top = estado.docaY + "px";
-    document.body.classList.toggle("com-player", mostrar && estado.naPagina);
+    document.body.classList.toggle("com-player", mostrar && estado.naPagina && !estado.doca);
+    const rodando = estado.carregado !== null && !audio.paused;
+    docaPlay.setAttribute("aria-pressed", rodando);
+    docaPause.setAttribute("aria-pressed", !rodando);
     if (!p) return;
     el.player.className = `pt-player pt-cor-${p.linha}` + (estado.naPagina ? "" : " pt-player--mini");
     if (estado.naPagina || !estado.miniPos) { el.player.style.left = el.player.style.top = ""; }
@@ -361,7 +364,7 @@
     } catch (e) { /* recurso indisponível */ }
   }
 
-  audio.addEventListener("play", () => { if (estado.doca) estado.doca = null; atualizar(); });
+  audio.addEventListener("play", atualizar);
   audio.addEventListener("pause", atualizar);
   audio.addEventListener("loadedmetadata", renderPlayer);
   audio.addEventListener("timeupdate", () => {
@@ -473,7 +476,7 @@
   el.pp.addEventListener("click", () => estado.atual && tocar(estado.atual));
   el.ant.addEventListener("click", () => pular(-1));
   // X do mini-player: para a música e tira o player da tela
-  el.fecharPlayer.addEventListener("click", () => {
+  function fecharPlayer() {
     audio.pause();
     audio.removeAttribute("src");
     audio.load();
@@ -483,18 +486,23 @@
     if (estado.urlBlob) { URL.revokeObjectURL(estado.urlBlob); estado.urlBlob = null; }
     if ("mediaSession" in navigator) { navigator.mediaSession.metadata = null; }
     renderPlayer();
-  });
+  }
+  el.fecharPlayer.addEventListener("click", fecharPlayer);
+
   // ---------- Mini-player flutuante (como o do YouTube) ----------
   // Arraste pela tela. Jogado no canto, a música PARA e vira uma aba na borda
   // (play em cima, pause embaixo). Arrastar a aba para o meio volta a tocar.
   const doca = $("#pt-doca");
+  const docaPlay = doca.querySelector("[data-acao=play]"), docaPause = doca.querySelector("[data-acao=pause]");
   const lim = (v, a, b) => Math.min(Math.max(v, a), b);
-  function arrastar(alvo, aoSoltar, aoMover) {
+  function arrastar(alvo, aoSoltar, aoMover, comBotoes) {
     let ini = null;
     alvo.addEventListener("pointerdown", (e) => {
-      if (e.button > 0 || e.target.closest("button")) return;
+      if (e.button > 0 || e.target.closest("input")) return;
+      const bt = e.target.closest("button");
+      if (bt && !comBotoes) return;
       const r = alvo.getBoundingClientRect();
-      ini = { id: e.pointerId, dx: e.clientX - r.left, dy: e.clientY - r.top, x0: e.clientX, y0: e.clientY, moveu: false, w: r.width, h: r.height };
+      ini = { id: e.pointerId, dx: e.clientX - r.left, dy: e.clientY - r.top, x0: e.clientX, y0: e.clientY, moveu: false, w: r.width, h: r.height, acao: bt ? bt.dataset.acao : null };
       try { alvo.setPointerCapture(e.pointerId); } catch (_) { /* ignora */ }
       e.preventDefault();
     });
@@ -519,19 +527,35 @@
     el.player.style.left = estado.miniPos.x + "px";
     el.player.style.top = estado.miniPos.y + "px";
   }
+  const alturaDoca = () => Math.min(innerHeight - 16, 9.4 * 16);
   arrastar(el.player, (x, y, i) => {
-    if (!i.moveu || estado.naPagina) return;
+    if (!i.moveu) return;
     const W = innerWidth;
+    if (estado.naPagina) {
+      // Na aba Pontos o player fica embaixo: arrastar para o lado guarda na borda
+      el.player.style.transform = "";
+      const dx = x + i.dx - i.x0;
+      if (Math.abs(dx) > W * 0.3) {
+        estado.doca = dx < 0 ? "esq" : "dir";
+        estado.docaY = lim(y - 40, 8, innerHeight - alturaDoca() - 8);
+        audio.pause();
+        renderPlayer();
+      }
+      return;
+    }
     const visivel = Math.min(x + i.w, W) - Math.max(x, 0);
     const dedo = x + i.dx;
     if (visivel < i.w * 0.55 || dedo < 36 || dedo > W - 36) {
       // Jogado no canto: para o áudio e guarda na borda
       estado.doca = x + i.w / 2 < W / 2 ? "esq" : "dir";
-      estado.docaY = lim(y, 8, innerHeight - 80);
+      estado.docaY = lim(y, 8, innerHeight - alturaDoca() - 8);
       audio.pause();
       renderPlayer();
     }
-  }, (x, y, i) => { if (!estado.naPagina) posMini(x, y, i.w, i.h); });
+  }, (x, y, i) => {
+    if (estado.naPagina) el.player.style.transform = `translateX(calc(-50% + ${x + i.dx - i.x0}px))`;
+    else posMini(x, y, i.w, i.h);
+  });
   function desdocar(x, y) {
     estado.doca = null;
     const w = Math.min(15 * 16, innerWidth - 24), h = 56;
@@ -539,16 +563,26 @@
     renderPlayer();
     if (estado.carregado !== null) audio.play().catch(falhou);
   }
+  const acoesDoca = {
+    play: () => { audio.play().catch(falhou); },
+    pause: () => { audio.pause(); },
+    fechar: () => { fecharPlayer(); },
+  };
   arrastar(doca, (x, y, i) => {
     doca.classList.remove("pt-doca--arrastando");
     doca.style.left = doca.style.right = doca.style.top = "";
-    if (!i.moveu) { desdocar(estado.doca === "esq" ? 8 : innerWidth - 248, estado.docaY); return; }
+    if (!i.moveu) { if (acoesDoca[i.acao]) acoesDoca[i.acao](); return; }
     const centro = x + i.w / 2, W = innerWidth;
     if (centro > W * 0.3 && centro < W * 0.7) desdocar(centro - Math.min(15 * 16, W - 24) / 2, y);
     else { estado.docaY = lim(y, 8, innerHeight - i.h - 8); renderPlayer(); }
   }, (x, y) => {
     doca.classList.add("pt-doca--arrastando");
     doca.style.left = x + "px"; doca.style.right = "auto"; doca.style.top = y + "px";
+  }, true);
+  // Teclado: Enter/espaço nos botões da aba
+  doca.addEventListener("click", (e) => {
+    const bt = e.target.closest("button");
+    if (bt && e.detail === 0 && acoesDoca[bt.dataset.acao]) acoesDoca[bt.dataset.acao]();
   });
   el.prox.addEventListener("click", () => pular(1));
   el.repetir.addEventListener("click", () => {
