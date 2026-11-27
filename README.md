@@ -13,14 +13,15 @@ App (PWA) com as palestras e os pontos cantados do Templo Itarobá, **exclusivo 
 - **Segurança do acesso**: pedido só com código de convite de uso único (gerado no Painel, vale 7 dias); um cadastro por WhatsApp; cada membro usa 1 aparelho (o administrador libera +1, máximo 2, e pode desconectar); 3 meses sem entrar exige nova aprovação. A trava de aparelho é no servidor.
 - Pode haver mais de um administrador (Painel → Aprovados → Tornar administrador).
 - **Estudos**: cada palestra tem um questionário (aba "Questionário"); a cada 5 palestras estudadas, um simulado de 10 perguntas (7 para passar) libera as próximas. "Meus estudos" mostra o progresso; o Painel mostra o de todos ("Estudos dos membros"). O gabarito fica só no banco. "Pontos principais" só para administradores.
+- **Roda do Xirê** (`#/roda`): os 16 orixás nos quatro quadrantes, com ficha de cada um, matriz de linhas, glossário e as **apostilas da casa** (Iemanjá, Iansã, Oxosse e Preto Velho), com figuras e diagramas. Busca estruturada: "do fogo" destaca só os 4 orixás do quadrante. O código é `assets/roda*.js` e `assets/roda.css`; o conteúdo fica no acervo privado (`data/roda/`).
 - **PDFs só para leitura**, num leitor dentro do app (`assets/leitor-pdf.js`, com PDF.js 3.11.174, Apache-2.0). Baixar só para administradores e para quem foi liberado no Painel ("Pode baixar PDFs").
 
 ## Onde fica cada coisa
 
 | Repositório | O que tem |
 |---|---|
-| `Itaroba` (este, público) | O app: `index.html`, `config.js`, `assets/`, `sw.js`, `privacidade.html` |
-| `Itaroba-acervo` (privado) | O conteúdo (`data/`, `pdfs/`, `audio/`), o banco (`supabase/*.sql`), o passo a passo (`supabase/COMO-CONFIGURAR.md`) e os robôs que enviam o acervo ao Supabase e o mantêm acordado |
+| `Itaroba` (este, público) | O app: `index.html`, `config.js`, `assets/` (inclui `roda*.js` e `roda.css`), `sw.js`, `privacidade.html` |
+| `Itaroba-acervo` (privado) | O conteúdo (`data/`, incluindo `data/roda/`, `pdfs/`, `audio/`), o banco (`supabase/*.sql`), o passo a passo (`supabase/COMO-CONFIGURAR.md`) e os robôs que enviam o acervo ao Supabase e o mantêm acordado |
 
 Para adicionar palestras ou pontos: coloque no **Itaroba-acervo**. O robô envia sozinho para a pasta privada.
 

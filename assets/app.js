@@ -418,6 +418,25 @@
     const linksPontos = document.querySelectorAll('[data-nav="pontos"]');
     const vistaPontos = $("#vista-pontos");
     const pontos = window.PontosApp;
+    // Roda do Xirê: "#/roda", "#/roda/oxossi", "#/roda/matriz", "#/roda/apostilas/iemanja" (módulo assets/roda.js)
+    const vistaRoda = $("#vista-roda"), linksRoda = document.querySelectorAll('[data-nav="roda"]');
+
+    if (secao === "roda") {
+      const veioDeFora = vistaRoda.hidden;
+      if (!el.vistaLista.hidden) estado.rolagemLista = scrollY;
+      el.vistaLista.hidden = true; el.vistaPalestra.hidden = true; vistaPontos.hidden = true; vistaRoda.hidden = false;
+      linkSalvas.removeAttribute("aria-current"); linkInicio.removeAttribute("aria-current");
+      linksPontos.forEach((a) => a.removeAttribute("aria-current"));
+      linksRoda.forEach((a) => a.setAttribute("aria-current", "page"));
+      palestraAtual = null;
+      document.title = `Roda do Xirê | ${CFG.nomeCasa || "Templo"}`;
+      if (pontos) pontos.esconder();
+      if (window.RodaApp) window.RodaApp.mostrar(valor);
+      if (veioDeFora) scrollTo(0, 0);
+      return;
+    }
+    vistaRoda.hidden = true;
+    linksRoda.forEach((a) => a.removeAttribute("aria-current"));
 
     if (ehPontos) {
       const segunda = OUTRAS.includes(secao) || OUTRAS.includes(valor);
