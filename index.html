@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="assets/acesso.css">
   <link rel="stylesheet" href="assets/leitor-pdf.css">
   <link rel="stylesheet" href="assets/estudos.css">
+  <link rel="stylesheet" href="assets/roda.css">
   <style id="abertura-css">
     #abertura{position:fixed;inset:0;width:100vw;height:100vh;height:100lvh;contain:strict;z-index:9999;overflow:hidden;background:radial-gradient(130% 90% at 50% 40%,#2A1A10 0%,#140D08 55%,#080504 100%);color:#F2E9DA;font-family:"Inter Tight",system-ui,sans-serif;transition:opacity .8s cubic-bezier(.4,0,.2,1),visibility .8s;cursor:pointer;-webkit-tap-highlight-color:transparent}
     #abertura.ab--fim{opacity:0;visibility:hidden}
@@ -366,6 +367,7 @@
       <nav class="nav__links" aria-label="Seções">
         <a href="#/" class="nav__link" data-nav="inicio">Palestras</a>
         <a href="#/pontos" class="nav__link" data-nav="pontos">Pontos</a>
+        <a href="#/roda" class="nav__link" data-nav="roda">Roda</a>
         <a href="#/favoritas" class="nav__link" data-nav="favoritas">Salvas</a>
         <a href="#/estudos" class="nav__link" data-nav="estudos" hidden>Estudos</a>
       </nav>
@@ -558,6 +560,73 @@
         <div id="pt-conteudo"></div>
       </div>
     </section>
+
+  <!-- ====================== RODA DO XIRÊ ====================== -->
+  <section id="vista-roda" class="vista roda" hidden>
+<div class="corpo">
+<header class="mast">
+<div><p class="rotulo"><span>Os 16 orixás e os quatro quadrantes</span> · Nº 03</p><h1 class="secao-titulo">Roda do <em>Xirê</em><span class="ponto-final">.</span></h1></div>
+<div class="tools" role="toolbar" aria-label="Ajustes de leitura">
+<button id="rd-zm" class="tb" type="button" aria-label="Diminuir o texto">A−</button>
+<button id="rd-zp" class="tb" type="button" aria-label="Aumentar o texto">A+</button>
+<button id="rd-hb" class="tb" type="button" aria-label="Como usar e como ler a roda">?</button>
+</div>
+</header>
+<div id="rd-sw">
+<label class="sr" for="rd-q">Buscar na roda</label>
+<input id="rd-q" type="text" autocomplete="off" placeholder="Buscar orixá, Senhor, quadrante…" role="combobox" aria-expanded="false" aria-controls="rd-res" aria-autocomplete="list">
+<button id="rd-qx" type="button" aria-label="Limpar busca">✕</button>
+<label class="opt" for="rd-qt"><input type="checkbox" id="rd-qt"><span>Procurar também no texto das apostilas</span></label>
+<ul id="rd-res" role="listbox" aria-label="Resultados" hidden></ul>
+</div>
+<p id="rd-st" aria-live="polite"></p>
+<div id="rd-tabs" role="tablist" aria-label="Seções">
+<button role="tab" id="rd-t-roda" data-t="roda" aria-controls="rd-p-roda"><span class="tn">01</span>Roda</button>
+<button role="tab" id="rd-t-matriz" data-t="matriz" aria-controls="rd-p-matriz"><span class="tn">02</span>Matriz</button>
+<button role="tab" id="rd-t-apostilas" data-t="apostilas" aria-controls="rd-p-apostilas"><span class="tn">03</span>Apostilas</button>
+<button role="tab" id="rd-t-glossario" data-t="glossario" aria-controls="rd-p-glossario"><span class="tn">04</span>Glossário</button>
+</div>
+<section id="rd-p-roda" role="tabpanel" aria-labelledby="rd-t-roda">
+<div class="ms">
+<div id="rd-wcol">
+<svg id="rd-wheel" viewBox="0 0 400 400" role="group" aria-label="Roda do Xirê: 16 orixás em quatro quadrantes"><title>Roda do Xirê</title></svg>
+<p class="leg">Toque numa fatia, use ← → ou deslize o card. Começa no Sul e gira no sentido horário. ★ é a Luz do quadrante; o contorno tracejado é a dualidade.</p>
+<div id="rd-lgq"></div>
+</div>
+<section id="rd-card" aria-label="Detalhes do orixá" aria-live="polite"></section>
+</div>
+</section>
+<section id="rd-p-matriz" role="tabpanel" aria-labelledby="rd-t-matriz" hidden>
+<div id="rd-vw" class="xnav" role="group" aria-label="Tipo de matriz" style="margin:0 0 .8rem"><button type="button" class="chip" data-vw="linhas" aria-pressed="true">Linhas</button><button type="button" class="chip" data-vw="dados" aria-pressed="false">Dados</button></div>
+<p class="mu" id="rd-mi" style="margin:0"></p>
+<div id="rd-fc" class="xnav"></div>
+<div class="tw"><table><thead id="rd-th"></thead><tbody id="rd-tb"></tbody></table></div>
+</section>
+<section id="rd-p-apostilas" role="tabpanel" aria-labelledby="rd-t-apostilas" hidden>
+<div id="rd-ap-corpo"></div>
+</section>
+<section id="rd-p-glossario" role="tabpanel" aria-labelledby="rd-t-glossario" hidden>
+<label class="sr" for="rd-gq">Filtrar termos</label><input id="rd-gq" type="text" autocomplete="off" placeholder="Filtrar termos do glossário…">
+<div id="rd-gl"></div>
+</section>
+</div>
+<dialog id="rd-help" aria-labelledby="rd-hh"><div class="dgl">
+<div class="dh"><h2 id="rd-hh" style="margin:0">Como usar</h2><button id="rd-hx" class="tb" type="button" aria-label="Fechar">✕</button></div>
+<ul><li>Toque numa fatia da roda: os detalhes aparecem na ficha. No celular, deslize a ficha para o lado para trocar de orixá.</li>
+<li>Busque por orixá, Senhor, caráter ou quadrante (ex.: “do Fogo” destaca os 4 do quadrante). No computador, a tecla / abre a busca.</li>
+<li>Na aba Matriz, veja as 8 linhas de cada orixá ou os atributos, e filtre por qualquer valor. Na aba Apostilas, leia as apostilas da casa; as qualidades de cada orixá também aparecem na ficha.</li>
+<li>Use A− e A+ para o tamanho do texto e o botão de contraste para trocar entre claro e escuro.</li>
+<li>Cada orixá tem link próprio (#/xire/nome): copie o endereço para compartilhar.</li></ul>
+<h2>Como ler a roda</h2>
+<ul><li>Começa no <b>Sul</b> e gira no sentido horário: 16 orixás, 4 por quadrante.</li>
+<li>Cada cor é um quadrante. Eixo vertical: polaridade (Fogo e Água). Eixo horizontal: dualidade (Terra e Ar).</li>
+<li>A ★ marca a Luz do quadrante, a vela acesa no Xirê.</li>
+<li>Em “Fogo do Ar”, o primeiro termo é o quadrante.</li>
+<li>O contorno tracejado mostra a dualidade de um orixá: o orixá com quem ele dualiza, como Ogum e Iemanjá.</li></ul>
+<button id="rd-hc" class="btn" type="button" style="margin-top:.8rem">Fechar</button>
+</div></dialog>
+<div id="rd-tip" role="tooltip" hidden></div>
+  </section>
   </main>
 
   <footer class="rodape">
@@ -570,6 +639,7 @@
       <nav class="rodape__links" aria-label="Rodapé">
         <a href="#/">Palestras</a>
         <a href="#/pontos">Pontos</a>
+        <a href="#/roda">Roda</a>
         <a href="#/favoritas">Salvas</a>
         <a href="https://instagram.com/temploitaroba" target="_blank" rel="noopener">Instagram</a>
         <a href="privacidade.html">Privacidade</a>
@@ -637,6 +707,9 @@
   <script src="assets/leitor-pdf.js"></script>
   <script src="assets/estudos.js"></script>
   <script src="assets/pontos.js"></script>
+  <script src="assets/roda-busca.js"></script>
+  <script src="assets/roda-dados.js"></script>
+  <script src="assets/roda.js"></script>
   <script src="assets/app.js"></script>
 </body>
 </html>
