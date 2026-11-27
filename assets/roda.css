@@ -11,15 +11,15 @@
   --e3:#6B6657;--e3-on:#FFFFFF;--e3-bg:#E3DFD3;--e3-bd:#A9A394;--e3-tx:#3E3A30;
   zoom:var(--z,1);color:var(--fg);font:1rem/1.6 var(--san);text-align:left;-webkit-text-size-adjust:100%}
 :root[data-theme="dark"] #vista-roda{
-  --e0:#E8795C;--e0-on:#1E0D07;--e0-bg:#3A1C13;--e0-bd:#A04D38;--e0-tx:#F4BBA8;
-  --e1:#9DBE6B;--e1-on:#121C07;--e1-bg:#242F18;--e1-bd:#6E8F47;--e1-tx:#D0E4AC;
-  --e2:#6FAEE6;--e2-on:#07192B;--e2-bg:#172A3E;--e2-bd:#3F72A3;--e2-tx:#B8D7F3;
-  --e3:#A8A290;--e3-on:#1A1812;--e3-bg:#2B2820;--e3-bd:#6E6959;--e3-tx:#DAD5C5}
+  --e0:#E8795C;--e0-on:#1E0D07;--e0-bg:#47261C;--e0-bd:#A04D38;--e0-tx:#F4BBA8;
+  --e1:#9DBE6B;--e1-on:#121C07;--e1-bg:#2C3A1E;--e1-bd:#6E8F47;--e1-tx:#D0E4AC;
+  --e2:#6FAEE6;--e2-on:#07192B;--e2-bg:#1E3552;--e2-bd:#3F72A3;--e2-tx:#B8D7F3;
+  --e3:#A8A290;--e3-on:#1A1812;--e3-bg:#363229;--e3-bd:#6E6959;--e3-tx:#DAD5C5}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #vista-roda{
-  --e0:#E8795C;--e0-on:#1E0D07;--e0-bg:#3A1C13;--e0-bd:#A04D38;--e0-tx:#F4BBA8;
-  --e1:#9DBE6B;--e1-on:#121C07;--e1-bg:#242F18;--e1-bd:#6E8F47;--e1-tx:#D0E4AC;
-  --e2:#6FAEE6;--e2-on:#07192B;--e2-bg:#172A3E;--e2-bd:#3F72A3;--e2-tx:#B8D7F3;
-  --e3:#A8A290;--e3-on:#1A1812;--e3-bg:#2B2820;--e3-bd:#6E6959;--e3-tx:#DAD5C5}}
+  --e0:#E8795C;--e0-on:#1E0D07;--e0-bg:#47261C;--e0-bd:#A04D38;--e0-tx:#F4BBA8;
+  --e1:#9DBE6B;--e1-on:#121C07;--e1-bg:#2C3A1E;--e1-bd:#6E8F47;--e1-tx:#D0E4AC;
+  --e2:#6FAEE6;--e2-on:#07192B;--e2-bg:#1E3552;--e2-bd:#3F72A3;--e2-tx:#B8D7F3;
+  --e3:#A8A290;--e3-on:#1A1812;--e3-bg:#363229;--e3-bd:#6E6959;--e3-tx:#DAD5C5}}
 #vista-roda *{box-sizing:border-box}
 #vista-roda [hidden]{display:none!important}
 #vista-roda main{max-width:72rem;margin:0 auto;padding:1rem 1rem 3rem}
@@ -58,7 +58,7 @@
 #vista-roda .wg{cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}
 #vista-roda .vis{transition:transform .18s,opacity .15s}
 #vista-roda .w{fill:var(--cb);stroke:var(--bg);stroke-width:3}
-#vista-roda .wn{font:600 17px var(--ser);fill:var(--ct)}
+#vista-roda .wn{font:650 18px var(--ser);fill:var(--ct)}
 #vista-roda .wk{font:700 13px var(--san);fill:var(--ct)}
 #vista-roda .ht{fill:transparent;stroke:none;pointer-events:all}
 #vista-roda .wg.on .w{fill:var(--c);stroke:var(--fg);stroke-width:3}
@@ -244,3 +244,6 @@
 #vista-roda .dg .onda{vector-effect:non-scaling-stroke}
 #vista-roda .dg-des .dg-ond svg{max-height:6.5rem}
 #vista-roda .mod{margin:1.8rem 0 .3rem;padding-top:.6rem;border-top:3px solid var(--c);font:600 1.2rem/1.3 var(--ser);color:var(--ct)}
+/* O app dá traço (stroke) a todo svg, por causa dos ícones; texto e preenchimentos da roda não podem herdar isso */
+#vista-roda svg text{stroke:none}
+#vista-roda .dg .lua{stroke:none}

@@ -843,21 +843,21 @@ body.com-player .aviso { bottom: calc(9.25rem + env(safe-area-inset-bottom, 0px)
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --papel: #15130F; --papel-quente: #1B1813; --papel-escuro: #26211A; --osso: #201C16;
-    --tinta: #F1E9D6; --tinta-suave: #DDD3BD; --tinta-2: #B3A893; --tinta-3: #9A917F;
-    --acento: #D98A5A; --acento-suave: #E6A27A; --mostarda: #E2B455;
-    --linha: rgba(241, 233, 214, .14); --linha-suave: rgba(241, 233, 214, .07); --linha-forte: rgba(241, 233, 214, .22);
-    --sombra: 0 30px 60px -30px rgba(0, 0, 0, .7); --menta: rgba(217, 138, 90, .12);
-    --pinho-a: #2A251E; --pinho-b: #0D0B08;
+    --papel: #6A452C; --papel-quente: #5E3D27; --papel-escuro: #52341F; --osso: #7A5339;
+    --tinta: #F7EFDD; --tinta-suave: #EBE0CA; --tinta-2: #E0D3BA; --tinta-3: #CDBEA2;
+    --acento: #F5B286; --acento-suave: #F7C29C; --mostarda: #EBBE62;
+    --linha: rgba(247, 239, 221, .2); --linha-suave: rgba(247, 239, 221, .1); --linha-forte: rgba(247, 239, 221, .34);
+    --sombra: 0 30px 60px -30px rgba(20, 10, 4, .55); --menta: rgba(245, 178, 134, .14);
+    --pinho-a: #4A2F1C; --pinho-b: #35200F;
   }
 }
 :root[data-theme="dark"] {
-  --papel: #15130F; --papel-quente: #1B1813; --papel-escuro: #26211A; --osso: #201C16;
-  --tinta: #F1E9D6; --tinta-suave: #DDD3BD; --tinta-2: #B3A893; --tinta-3: #9A917F;
-  --acento: #D98A5A; --acento-suave: #E6A27A; --mostarda: #E2B455;
-  --linha: rgba(241, 233, 214, .14); --linha-suave: rgba(241, 233, 214, .07); --linha-forte: rgba(241, 233, 214, .22);
-  --sombra: 0 30px 60px -30px rgba(0, 0, 0, .7); --menta: rgba(217, 138, 90, .12);
-  --pinho-a: #2A251E; --pinho-b: #0D0B08;
+  --papel: #6A452C; --papel-quente: #5E3D27; --papel-escuro: #52341F; --osso: #7A5339;
+  --tinta: #F7EFDD; --tinta-suave: #EBE0CA; --tinta-2: #E0D3BA; --tinta-3: #CDBEA2;
+  --acento: #F5B286; --acento-suave: #F7C29C; --mostarda: #EBBE62;
+  --linha: rgba(247, 239, 221, .2); --linha-suave: rgba(247, 239, 221, .1); --linha-forte: rgba(247, 239, 221, .34);
+  --sombra: 0 30px 60px -30px rgba(20, 10, 4, .55); --menta: rgba(245, 178, 134, .14);
+  --pinho-a: #4A2F1C; --pinho-b: #35200F;
 }
 
 /* ---------- Base: página inteira em papel ---------- */
