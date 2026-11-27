@@ -233,6 +233,7 @@
       + '<div class="hero-ap' + (a.capa ? ' com-capa' : '') + '"><div><span class="tag">' + etiqueta(a) + '</span><h2>' + esc(a.titulo) + '</h2><p class="lead">' + esc(a.resumo) + '</p>'
       + (a.fonte ? '<p class="mu" style="margin:.2rem 0">Fonte: ' + esc(a.fonte) + (a.autor ? ' · ' + esc(a.autor) : '') + '</p>' : (a.autor ? '<p class="mu" style="margin:.2rem 0">' + esc(a.autor) + '</p>' : ''))
       + (a.atualizacao ? '<p class="xnota">' + esc(a.atualizacao) + '</p>' : '')
+      + (a.aviso ? '<p class="xnota">' + esc(a.aviso) + '</p>' : '')
       + (a.digitalizacao ? '<p class="xnota">Transcrição resumida a partir da cópia digitalizada. Confira com o PDF original.</p>' : '')
       + (a.revisao ? '<p class="xnota">Conteúdo em revisão: confira as tabelas com o PDF original.</p>' : '')
       + (a.pdf ? '<p><button type="button" class="btn" data-pdf="' + esc(a.pdf) + '" data-titulo="' + esc(a.titulo) + '">Abrir o PDF original</button></p>' : '') + '</div>'
@@ -243,6 +244,7 @@
       h += '<h3 style="font:600 1.3rem var(--ser);margin:1.4rem 0 .4rem">As 16 qualidades</h3>';
       a.qualidades.forEach(function (x) {
         var e = x.orixa >> 2;
+        if (a.modulos && x.orixa % 4 === 0 && a.modulos[e]) h += '<h3 class="mod" ' + est(e) + '>' + esc(a.modulos[e].titulo) + '</h3>' + paras(a.modulos[e].texto);
         h += '<details class="aq" ' + est(e) + '><summary><i class="dot"></i><span class="on">' + esc(O[x.orixa][0]) + '</span><span class="qn">' + esc(x.nome) + '</span></summary><div class="ap-c">'
           + qualHtml(x, true) + '<button type="button" class="lnk" data-go="' + x.orixa + '">Abrir ' + esc(O[x.orixa][0]) + ' na roda</button></div></details>';
       });
@@ -252,7 +254,7 @@
         return '<article><h4>' + esc(p.nome) + '</h4>' + (p.texto ? '<p style="margin:0">' + esc(p.texto) + '</p>' : '') + '<dl><dt>Campo de atuação</dt><dd>' + esc(p.campo) + '</dd><dt>Cores</dt><dd>' + esc(p.cores) + '</dd><dt>Oferendas</dt><dd>' + esc(p.oferenda) + '</dd></dl></article>';
       }).join('') + '</div>';
     }
-    if (a.fim && a.fim.length) h += '<details><summary>Atribuições e características</summary>' + paras(a.fim) + '</details>';
+    if (a.fim && a.fim.length) h += '<details><summary>' + esc(a.fimTitulo || 'Atribuições e características') + '</summary>' + paras(a.fim) + '</details>';
     $('ap-corpo').innerHTML = h + '</div>'; imgs($('ap-corpo'));
   }
 
