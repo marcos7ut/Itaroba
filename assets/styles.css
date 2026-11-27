@@ -843,7 +843,7 @@ body.com-player .aviso { bottom: calc(9.25rem + env(safe-area-inset-bottom, 0px)
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --papel: #15130F; --papel-quente: #1B1813; --papel-escuro: #26211A; --osso: #201C16;
+    --papel: #1E1A14; --papel-quente: #25211A; --papel-escuro: #2E2921; --osso: #292419;
     --tinta: #F1E9D6; --tinta-suave: #DDD3BD; --tinta-2: #B3A893; --tinta-3: #9A917F;
     --acento: #D98A5A; --acento-suave: #E6A27A; --mostarda: #E2B455;
     --linha: rgba(241, 233, 214, .14); --linha-suave: rgba(241, 233, 214, .07); --linha-forte: rgba(241, 233, 214, .22);
@@ -852,7 +852,7 @@ body.com-player .aviso { bottom: calc(9.25rem + env(safe-area-inset-bottom, 0px)
   }
 }
 :root[data-theme="dark"] {
-  --papel: #15130F; --papel-quente: #1B1813; --papel-escuro: #26211A; --osso: #201C16;
+  --papel: #1E1A14; --papel-quente: #25211A; --papel-escuro: #2E2921; --osso: #292419;
   --tinta: #F1E9D6; --tinta-suave: #DDD3BD; --tinta-2: #B3A893; --tinta-3: #9A917F;
   --acento: #D98A5A; --acento-suave: #E6A27A; --mostarda: #E2B455;
   --linha: rgba(241, 233, 214, .14); --linha-suave: rgba(241, 233, 214, .07); --linha-forte: rgba(241, 233, 214, .22);
